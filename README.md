@@ -4,6 +4,9 @@ New Github Repo for my asset management algorithm
 **Hierarchal Adaptive Risk-Based Optimization Routine**
 H.A.R.B.O.R. is an asset management framework with research augmentation designed to give retail traders instutional level risk management and portfolio management under algorithm dominated market regimes
 
+**Goal:** Institutional-grade process for small, maneuverable portfolios ($1k–$10k)
+The system is designed for **retail capital** (my own and my grandmother’s account), but borrows risk- and process-discipline from institutional portfolios.
+
 This project explores:
 - Artificial Behavorial Finance (How do trading Algorithms work as a macro force and how does AI impact behavorial finance)
 - Risk-first portfolio optimization
