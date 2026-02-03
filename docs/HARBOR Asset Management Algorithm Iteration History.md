@@ -292,28 +292,22 @@ Key lessons:
 Current limitations:
 
 \- The factor model is still fundamentally backward-looking. I use historical financial metrics to predict future returns, which only works when past patterns persist.
-
 \- Regime detection helps but isn't predictive. The algorithm recognizes regime changes after they've occurred, not before.
-
 \- I haven't solved the overfitting problem, just become more aware of it. Dynamic factor weighting might be extracting signal or might be curve-fitting to recent noise.
-
 \- The system requires constant supervision. I check daily logs, verify execution, and manually intervene when behavior seems wrong. Full autonomy remains distant.
 
 What I'd do differently:
-
 \- Start with simpler models and add complexity only when I could prove (not assume) it helped out-of-sample performance
-
 \- Build the backtesting and evaluation infrastructure before the strategy logic
-
 \- Focus more on risk management and less on return optimization
-
 \- Treat transaction costs as first-order constraints rather than minor adjustments
-
 \- Document decisions and results more systematically from the beginning
 
 Where I'm headed:
 
 V3 focuses on making the system robust and interpretable rather than maximally performant. I'm more interested in understanding why the algorithm makes each decision than in squeezing out another 50 basis points. The goal is a system I can trust with real capital, which requires transparency, validation, and graceful failure modes.
+
+I also have found interest in the impact trading and asset management algorithms and AI/ML have on retail trade.
 
 Longer term, I'm questioning some fundamental assumptions. Maybe factor-based equity selection isn't the right approach. Maybe the alpha I'm chasing doesn't exist at my scale. Maybe systematic strategies require institutional resources I don't have. These are open questions.
 
