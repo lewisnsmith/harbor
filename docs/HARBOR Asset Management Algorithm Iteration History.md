@@ -6,6 +6,8 @@
 
 **The progression reflects genuine learning rather than a predetermined roadmap. Each iteration addressed specific failures observed in the previous version. Early versions focused on model sophistication; later versions prioritized reliability and practical execution.**
 
+**Main Goal: Produce a semi-autonomous Asset and Risk Management Algorithm for Retail Level/Individual Investors**
+
 **Iteration 0.5 \- Monte Carlo Simulation Engine**
 
 **\***During Wharton Global High School Investment Competition\*  
