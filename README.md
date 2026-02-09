@@ -1,23 +1,31 @@
-# harbor-asset-management-algo
-New Github Repo for my asset management algorithm
-#H.A.R.B.O.R.
-**Hierarchal Adaptive Risk-Based Optimization Routine**
-H.A.R.B.O.R. is an asset management framework with research augmentation designed to give retail traders instutional level risk management and portfolio management under algorithm dominated market regimes
+# Harbor Asset Management Algorithm (H.A.R.B.O.R.)
 
-**Goal:** Institutional-grade autonomous system with interactive tracking and modeling dashboard for small, maneuverable portfolios ($1k–$10k)
-The system is designed for retail capital (my own and my grandmother’s account), but borrows risk- and process-discipline from institutional portfolios.
-Use as a test for later Artifical Behavorial Finance Research Idea
+**H**ierarchical **A**daptive **R**isk‑**B**ased **O**ptimization **R**outine is a research-focused asset management framework aimed at giving retail traders institutional‑style risk discipline and portfolio construction tools.
 
-This project explores:
-- Artificial Behavorial Finance (How do trading Algorithms work as a macro force and how does AI impact behavorial finance)
-- Risk-first portfolio optimization
-- Efficient Market Hypothesis testing
-- Retail investor survivability under algorithmic markets
+This is a research and educational project/experiment, not financial advice.
 
-This rpository contains:
-- Research notebooks
-- Modular risk and optimization code
-- Synthetic market simulations
-- Experimental results and documentation
+## Goals
+- Risk‑first portfolio optimization
+- Systematic behavior testing under algorithmic market regimes
+- Research into behavioral finance and algorithmic market structure
+- Lightweight, retail‑scale portfolio automation
 
-> This is a research and educational project/experiment, not financial advice.
+## Repository Structure
+- `harbor/` Core package namespaces (risk, portfolio, signals, data, research, utils)
+- `notebooks/` Research and experimentation notebooks
+- `docs/` Project documentation and iteration history
+- `experiments/` Experimental scripts and prototypes (to be populated)
+- `research/` Research notes and references (to be populated)
+
+## Docs
+- `docs/iteration-history.md` Development history and evolution
+
+## Notebooks
+Start in `notebooks/` for the latest research iterations and experiments. Outputs are ignored by default to keep the repo clean.
+
+## Development Notes
+- Create a virtual environment before running notebooks or scripts.
+- Add dependencies to a requirements file or environment file as the project matures.
+
+## Disclaimer
+This project is for research and educational purposes only and does not constitute financial advice.
