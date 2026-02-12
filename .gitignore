@@ -31,3 +31,4 @@ venv/
 
 # Local outputs
 notebooks/outputs/
+notebooks/alpaca_performance.png
