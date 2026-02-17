@@ -23,9 +23,22 @@ This is a research and educational project/experiment, not financial advice.
 ## Notebooks
 Start in `notebooks/` for the latest research iterations and experiments. Outputs are ignored by default to keep the repo clean.
 
-## Development Notes
-- Create a virtual environment before running notebooks or scripts.
-- Add dependencies to a requirements file or environment file as the project matures.
+## Quickstart (Local)
+Prereqs: Python 3.9+ (3.11 recommended)
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -U pip
+python -m pip install -r requirements-dev.txt
+python -m pip install -e .
+```
+
+Then open notebooks (example):
+
+```bash
+jupyter lab
+```
 
 ## Disclaimer
 This project is for research and educational purposes only and does not constitute financial advice.

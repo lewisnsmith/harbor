@@ -17,5 +17,13 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install tooling
+        run: |
+          python -m pip install -U pip
+          python -m pip install ruff
+
+      - name: Lint (ruff)
+        run: ruff check harbor
+
       - name: Compile package
         run: python -m compileall harbor

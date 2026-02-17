@@ -1,0 +1,12 @@
+-r requirements.txt
+
+# Tooling
+ruff
+black
+pytest
+
+# Notebook UX
+jupyterlab
+ipykernel
+nbformat
+

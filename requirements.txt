@@ -1,0 +1,14 @@
+# Notebook/runtime dependencies used across research experiments.
+#
+# This repo is intentionally research-first (many modules live in notebooks),
+# so keep this list pragmatic and lightweight.
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+seaborn
+yfinance
+cvxpy
+alpaca-trade-api
+
