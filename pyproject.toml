@@ -4,15 +4,32 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "harbor-asset-management"
-version = "0.0.0"
-description = "Research-focused asset management framework (HARBOR)."
+version = "0.1.0-dev"
+description = "Research-focused risk and portfolio framework (HARBOR) with ABF research layer."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
-authors = [{ name = "Harbor Asset Management contributors" }]
+authors = [{ name = "Lewis Smith" }]
 
+# Packages included in the distribution.
+# harbor.signals and harbor.research are deprecated — wrappers remain for continuity.
 [tool.setuptools.packages.find]
 include = ["harbor*"]
+
+# Explicit package list (for clarity — setuptools find also works above):
+# harbor
+# harbor.data
+# harbor.risk
+# harbor.portfolio
+# harbor.backtest
+# harbor.ml
+# harbor.ml.volatility
+# harbor.ml.behavior_agents
+# harbor.abf
+# harbor.abf.q1
+# harbor.abf.q2
+# harbor.features
+# harbor.utils
 
 [tool.black]
 line-length = 100
