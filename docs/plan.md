@@ -1,7 +1,7 @@
 # HARBOR & ABF — Plan and Roadmap
 
 Project Owner: Lewis Smith  
-Last Updated: 2026-02-18  
+Last Updated: 2026-02-20  
 
 ---
 
@@ -52,6 +52,13 @@ Deliverables:
 
 Exit criteria:
 - One end-to-end script: “load SP500 → build HRP portfolio → backtest → report risk metrics”.
+
+Phase H1 checklist (execution status):
+- [x] `harbor.data`: point-in-time membership loader with documented fallback, price loader, risk-free loader, local cache scaffolding.
+- [x] `harbor.risk`: sample/shrinkage covariance estimators, HRP implementation, Monte Carlo VaR/CVaR utilities.
+- [x] `harbor.portfolio`: mean-variance, risk parity, and HRP allocation interfaces.
+- [x] `harbor.backtest`: cross-sectional backtest engine with transaction costs and core metrics.
+- [x] Exit-criteria script added: `experiments/h1_end_to_end_hrp_backtest.py`.
 
 ---
 
@@ -125,6 +132,13 @@ Deliverables:
 Exit criteria:
 - No more major changes to definitions of Q1/Q2 without version bump.
 - Data loading and basic descriptive stats notebooks.
+
+Phase A1 checklist (execution status):
+- [x] PRD v1 maintained in `docs/abf-prd.md`.
+- [x] Config scaffolding added: `configs/abf/q1_shock_definitions.json`, `configs/abf/q2_regime_definitions.json`.
+- [x] Universe + panel loaders wired in `harbor.data`.
+- [ ] Replace seed universe file with WRDS/CRSP full historical S&P 500 membership.
+- [ ] Finalize descriptive-stats notebooks tied to the new loaders/configs.
 
 ---
 
@@ -219,7 +233,7 @@ To keep the project authentic and professional:
 
 ## 6. Current Phase (to update as you go)
 
-- HARBOR: Phase H1 (Core Quant Stack).  
-- ABF: Phase A1/A2 (Spec + early Q1 experiments).
+- HARBOR: Phase H1 (Core Quant Stack) — core implementation complete; validation and hardening in progress.  
+- ABF: Phase A1/A2 (Spec + early Q1 experiments) — baseline configs + shock utilities scaffolded.
 
 Update this section as you progress.

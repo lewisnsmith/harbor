@@ -224,6 +224,16 @@ Table 2: Data sources and coverage
 
 3. Backtest module can toggle "regime-aware" vs "baseline" modes and compare performance/risk metrics
 
+**Phase 1 Implementation Status (as of February 20, 2026)**
+
+- [x] Baseline Q1 shock configuration captured in `configs/abf/q1_shock_definitions.json`
+- [x] Baseline Q2 regime configuration captured in `configs/abf/q2_regime_definitions.json`
+- [x] Q1 shock utility scaffolded in `harbor/risk/regime_detection.py` (`detect_vol_shocks`, `vol_control_pressure_proxy`)
+- [x] Backtest risk metric baseline scaffolded in `harbor/backtest/metrics.py`
+- [x] End-to-end H1 pipeline script added in `experiments/h1_end_to_end_hrp_backtest.py`
+- [ ] Replace seed membership data with full WRDS/CRSP constituent history for survivorship-bias-free ABF inference
+- [ ] Complete Q1 local projection regressions and finalized figure set for milestone output
+
 **Milestones and Timeline**
 
 | Milestone | Date | Deliverable |
