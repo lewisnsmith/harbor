@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "question": "ABF Q1: Shock -> Persistence -> Reversal",
+  "primary_shock_definition": {
+    "method": "realized_vol_change_percentile",
+    "threshold_percentile": 0.95,
+    "lookback_days": 21
+  },
+  "alternative_shock_definitions": [
+    {
+      "method": "vix_jump",
+      "threshold_points": 5.0
+    },
+    {
+      "method": "realized_vol_level_percentile",
+      "threshold_percentile": 0.95,
+      "lookback_days": 63
+    },
+    {
+      "method": "range_based_volatility_jump",
+      "threshold_percentile": 0.95,
+      "lookback_days": 21
+    }
+  ],
+  "persistence_metric": {
+    "horizon_days": 5,
+    "metric": "forward_return_autocorrelation"
+  },
+  "reversal_metric": {
+    "horizon_days": 21,
+    "metric": "cumulative_abnormal_return"
+  },
+  "controls": [
+    "baseline_volatility",
+    "liquidity_proxy",
+    "market_beta",
+    "sector_exposure",
+    "day_of_week"
+  ],
+  "sample_splits": [
+    "pre_2020",
+    "post_2020",
+    "high_liquidity",
+    "low_liquidity"
+  ]
+}
