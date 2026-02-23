@@ -59,6 +59,7 @@ Phase H1 checklist (execution status):
 - [x] `harbor.portfolio`: mean-variance, risk parity, and HRP allocation interfaces.
 - [x] `harbor.backtest`: cross-sectional backtest engine with transaction costs and core metrics.
 - [x] Exit-criteria script added: `experiments/h1_end_to_end_hrp_backtest.py`.
+- [x] Phase H1 unit-test suite added for core data/risk/portfolio/backtest pathways.
 
 ---
 
