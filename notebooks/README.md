@@ -2,6 +2,8 @@
 
 Research and experimentation notebooks. Organized by pipeline stage.
 
+See `notes.md` for a folder-level learning guide and notebook promotion checklist.
+
 ## Conventions
 - Keep exploratory work in notebooks.
 - Avoid committing large outputs; use `notebooks/outputs/` for local artifacts (gitignored).

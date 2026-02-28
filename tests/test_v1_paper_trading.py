@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import math
 from types import SimpleNamespace
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import numpy as np
 import pandas as pd
@@ -14,7 +14,6 @@ from harbor.v1_paper_trading import (
     compute_risk_metrics,
     validate_universe,
 )
-
 
 # ===================================================================
 # validate_universe

@@ -4,6 +4,7 @@
 ruff
 black
 pytest
+pytest-cov
 
 # Notebook UX
 jupyterlab

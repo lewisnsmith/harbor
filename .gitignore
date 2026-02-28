@@ -29,6 +29,24 @@ venv/
 .vscode/
 .idea/
 
-# Local outputs
+# Local outputs (pipeline scratch — not committed results)
+outputs/
 notebooks/outputs/
 notebooks/alpaca_performance.png
+
+# Committed results are tracked; ignore temp files within
+results/**/*.tmp
+
+# Data caches
+data/cache/*
+!data/cache/.gitkeep
+!data/cache/prices/
+!data/cache/rates/
+data/cache/prices/*
+!data/cache/prices/.gitkeep
+data/cache/rates/*
+!data/cache/rates/.gitkeep
+
+# ML model checkpoints
+data/models/*
+!data/models/.gitkeep
