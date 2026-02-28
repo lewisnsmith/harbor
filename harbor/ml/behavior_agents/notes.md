@@ -1,24 +1,17 @@
 # `harbor.ml.behavior_agents` Notes
 
-## Explanation
-This module is intended for RL-based portfolio agents, including behavior-aware reward shaping.
+## Overview
 
-Current status:
-- Namespace scaffold only.
+This module provides RL-based portfolio agents with behavior-aware reward shaping.
 
-Intended RL setup:
-- State: prices/returns/features/risk context.
-- Action: portfolio weights or delta-weights.
-- Reward: risk-adjusted objective with optional behavioral penalties.
+## RL Setup
 
-Reward shaping ideas:
-- Base return term: `r_p,t`.
-- Risk penalty: `-lambda_var * Var` or drawdown penalty.
-- Turnover penalty: `-lambda_turn * ||w_t - w_{t-1}||_1`.
-- Behavioral terms (later phases): loss aversion, overconfidence, return chasing.
+The state consists of prices, returns, features, and risk context. Actions are portfolio weights or delta-weights. The reward is a risk-adjusted objective with optional behavioral penalties.
 
-Why this matters for ABF:
-- Allows controlled synthetic agents to test crowding/synchronization effects.
+## Reward Shaping
 
-## Your Notes
-- 
+The base return term is `r_p,t`. Risk penalty takes the form `-lambda_var * Var` or a drawdown penalty. Turnover penalty is `-lambda_turn * ||w_t - w_{t-1}||_1`. Behavioral terms in later phases include loss aversion, overconfidence, and return chasing.
+
+## ABF Relevance
+
+This module allows controlled synthetic agents to test crowding and synchronization effects as part of the Q2 research question.

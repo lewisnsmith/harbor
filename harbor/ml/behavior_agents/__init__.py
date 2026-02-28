@@ -1,11 +1,55 @@
 """
 harbor.ml.behavior_agents — Deep RL behavioral portfolio agents.
 
-Phase H3 deliverables:
-- Gym-style portfolio environment (SP500 subset).
-- Actor-critic DRL agent with risk-adjusted reward.
+Status: Experimental scaffolding. Implemented ahead of the H4 roadmap as
+exploratory work. Unit tests pass but agents have not been validated against
+classical baselines or integrated into the production backtest pipeline.
 
-Phase H4 deliverables:
-- Behavioral reward shaping (loss aversion, overconfidence, return-chasing).
-- Multi-agent configurations for ABF Q2 experiments.
+Provides a Gymnasium portfolio environment, PPO-based agent training via
+RLlib, behavioral reward shaping (loss aversion, overconfidence, return
+chasing, disposition effect), and multi-agent simulation for ABF experiments.
 """
+
+from harbor.ml.behavior_agents.agent import (
+    AgentConfig,
+    agent_as_weight_func,
+    build_rllib_config,
+    train_agent,
+)
+from harbor.ml.behavior_agents.environment import (
+    EnvConfig,
+    PortfolioEnv,
+)
+from harbor.ml.behavior_agents.multi_agent import (
+    AgentSpec,
+    MultiAgentResult,
+    compute_weight_similarity,
+    run_multi_agent_simulation,
+)
+from harbor.ml.behavior_agents.rewards import (
+    CompositeRewardShaper,
+    DispositionEffectShaper,
+    LossAversionShaper,
+    OverconfidenceShaper,
+    ReturnChasingShaper,
+    default_behavioral_shaper,
+)
+
+__all__ = [
+    "AgentConfig",
+    "AgentSpec",
+    "CompositeRewardShaper",
+    "DispositionEffectShaper",
+    "EnvConfig",
+    "LossAversionShaper",
+    "MultiAgentResult",
+    "OverconfidenceShaper",
+    "PortfolioEnv",
+    "ReturnChasingShaper",
+    "agent_as_weight_func",
+    "build_rllib_config",
+    "compute_weight_similarity",
+    "default_behavioral_shaper",
+    "run_multi_agent_simulation",
+    "train_agent",
+]

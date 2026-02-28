@@ -1,27 +1,20 @@
 # `harbor.ml.volatility` Notes
 
-## Explanation
-This module is intended for neural-network volatility forecasting used by downstream allocation/risk modules.
+## Overview
 
-Current status:
-- Namespace scaffold only.
+This module provides neural-network volatility forecasting used by downstream allocation and risk modules.
 
-Intended pipeline:
-1. Build training set from historical returns/features.
+## Pipeline
+
+1. Build training set from historical returns and features.
 2. Train sequence model (LSTM/GRU).
 3. Produce forward volatility estimate `sigma_hat_{t+1}`.
-4. Feed into position sizing / covariance regime logic.
+4. Feed into position sizing or covariance regime logic.
 
-Potential model formulations:
-- Regression to realized volatility target:
-  - `y_t = RV_{t+1}`
-  - loss examples: MSE, Huber, QLIKE-style objectives.
+## Model Formulation
 
-Potential integration points:
-- Vol targeting:
-  - scale exposure by `target_vol / sigma_hat`.
-- Regime-aware covariance:
-  - choose estimator/shrinkage intensity by predicted volatility state.
+The regression target is realized volatility: `y_t = RV_{t+1}`. Loss function options include MSE, Huber, and QLIKE-style objectives.
 
-## Your Notes
-- 
+## Integration Points
+
+**Vol targeting** scales exposure by `target_vol / sigma_hat`. **Regime-aware covariance** chooses the estimator or shrinkage intensity based on the predicted volatility state.
