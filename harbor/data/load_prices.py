@@ -878,5 +878,53 @@ def _validate_date_range(start: DateLike, end: DateLike) -> tuple[pd.Timestamp, 
     return start_ts, end_ts
 
 
+def load_crsp_prices(
+    tickers: Sequence[str],
+    start: DateLike,
+    end: DateLike,
+    *,
+    wrds_username: Optional[str] = None,
+) -> pd.DataFrame:
+    """Load survivorship-bias-free daily prices from CRSP via WRDS.
+
+    This function defines the interface for institutional-quality data access.
+    The yfinance-based loaders are adequate for pipeline development but
+    introduce survivorship bias. CRSP/WRDS provides point-in-time S&P 500
+    constituents and delisting-adjusted returns required for publication-quality
+    inference.
+
+    Parameters
+    ----------
+    tickers : Sequence[str]
+        Ticker symbols (mapped to CRSP PERMNOs internally).
+    start : DateLike
+        Inclusive start date.
+    end : DateLike
+        Inclusive end date.
+    wrds_username : str, optional
+        WRDS account username. If ``None``, reads from ``WRDS_USERNAME``
+        environment variable.
+
+    Returns
+    -------
+    pd.DataFrame
+        Wide DataFrame — ``pd.DatetimeIndex`` rows x ticker columns.
+
+    Raises
+    ------
+    NotImplementedError
+        Always — requires WRDS institutional access.
+
+    See Also
+    --------
+    docs/abf-prd.md : Section on data sources and CRSP requirements.
+    """
+    raise NotImplementedError(
+        "CRSP/WRDS data access requires institutional credentials. "
+        "See docs/abf-prd.md for data source requirements. "
+        "Use load_sp500_prices() with yfinance as a development proxy."
+    )
+
+
 def _repo_root() -> Path:
     return Path(__file__).resolve().parents[2]

@@ -34,6 +34,7 @@ from harbor.data.load_prices import (
     PriceLoader,
     configure,
     get_default_loader,
+    load_crsp_prices,
     load_risk_free_rate,
     load_sp500_prices,
     load_sp500_tickers,
@@ -49,4 +50,5 @@ __all__ = [
     "load_sp500_tickers",
     "load_sp500_prices",
     "load_risk_free_rate",
+    "load_crsp_prices",
 ]
