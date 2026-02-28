@@ -1,13 +1,40 @@
-"""
-harbor.abf.q1 — ABF Question 1: Shock → Persistence → Reversal.
+"""harbor.abf.q1 — ABF Question 1: Shock -> Persistence -> Reversal.
 
-Question: Do ML-driven trend-following and volatility-targeting strategies
-create measurable medium-term autocorrelation regimes?
-
-Phase A2 deliverables:
-- Shock identification (top-5% realized vol changes / VIX jumps).
-- Event-window construction and persistence/reversal metric computation.
-- Local projection / event-study regressions with vol-control proxies.
-- Figures and tables for notebooks/abf_q1_shock_definition.ipynb
-  and notebooks/abf_q1_persistence_reversal.ipynb.
+Provides local projection analysis, robustness sweeps, and figure generation
+for testing whether ML-driven strategies create measurable medium-term
+autocorrelation regimes following volatility shocks.
 """
+
+from harbor.abf.q1.analysis import (
+    build_control_matrix,
+    compute_forward_returns,
+    compute_return_autocorrelation,
+    fit_local_projection,
+    fit_local_projections,
+)
+from harbor.abf.q1.robustness import (
+    apply_shock_definition,
+    robustness_sweep,
+    split_sample,
+)
+from harbor.abf.q1.visualization import (
+    plot_car_paths,
+    plot_coefficient_path,
+    plot_robustness_heatmap,
+    plot_shock_timeline,
+)
+
+__all__ = [
+    "apply_shock_definition",
+    "build_control_matrix",
+    "compute_forward_returns",
+    "compute_return_autocorrelation",
+    "fit_local_projection",
+    "fit_local_projections",
+    "plot_car_paths",
+    "plot_coefficient_path",
+    "plot_robustness_heatmap",
+    "plot_shock_timeline",
+    "robustness_sweep",
+    "split_sample",
+]
