@@ -1,0 +1,131 @@
+{
+  "1": {
+    "params": {
+      "const": -355042664.1901314,
+      "baseline_volatility": -0.14955666253890826,
+      "liquidity_proxy": 0.29601637759798494,
+      "market_beta": 430777288.13377285,
+      "dow_0": -75734623.94300875,
+      "dow_1": -75734623.94324633,
+      "dow_2": -75734623.9436605,
+      "dow_3": -75734623.94345838,
+      "dow_4": -75734623.9440093,
+      "shock": 0.006161838622851139,
+      "shock_x_vol_proxy": -0.005060136137463598
+    },
+    "bse": {
+      "const": NaN,
+      "baseline_volatility": NaN,
+      "liquidity_proxy": NaN,
+      "market_beta": NaN,
+      "dow_0": 1.1986862091479414e+16,
+      "dow_1": NaN,
+      "dow_2": 7450305653920744.0,
+      "dow_3": 8923022435222468.0,
+      "dow_4": NaN,
+      "shock": 361.5028130267198,
+      "shock_x_vol_proxy": NaN
+    },
+    "pvalues": {
+      "const": NaN,
+      "baseline_volatility": NaN,
+      "liquidity_proxy": NaN,
+      "market_beta": NaN,
+      "dow_0": 0.9999999949588569,
+      "dow_1": NaN,
+      "dow_2": 0.9999999918892607,
+      "dow_3": 0.9999999932279127,
+      "dow_4": NaN,
+      "shock": 0.9999864000065118,
+      "shock_x_vol_proxy": NaN
+    },
+    "rsquared": 0.004381910274201428,
+    "nobs": 3897
+  },
+  "5": {
+    "params": {
+      "const": -136756873867.82097,
+      "baseline_volatility": -0.4114514439930086,
+      "liquidity_proxy": 1.1493421039828835,
+      "market_beta": 163733070750.2782,
+      "dow_0": -26976196882.458065,
+      "dow_1": -26976196882.45818,
+      "dow_2": -26976196882.45791,
+      "dow_3": -26976196882.458393,
+      "dow_4": -26976196882.458397,
+      "shock": 0.021446630822964004,
+      "shock_x_vol_proxy": -0.02049751696467215
+    },
+    "bse": {
+      "const": NaN,
+      "baseline_volatility": NaN,
+      "liquidity_proxy": NaN,
+      "market_beta": NaN,
+      "dow_0": NaN,
+      "dow_1": NaN,
+      "dow_2": NaN,
+      "dow_3": NaN,
+      "dow_4": NaN,
+      "shock": NaN,
+      "shock_x_vol_proxy": NaN
+    },
+    "pvalues": {
+      "const": NaN,
+      "baseline_volatility": NaN,
+      "liquidity_proxy": NaN,
+      "market_beta": NaN,
+      "dow_0": NaN,
+      "dow_1": NaN,
+      "dow_2": NaN,
+      "dow_3": NaN,
+      "dow_4": NaN,
+      "shock": NaN,
+      "shock_x_vol_proxy": NaN
+    },
+    "rsquared": 0.016425649687494936,
+    "nobs": 3893
+  },
+  "21": {
+    "params": {
+      "const": -277105805872.64575,
+      "baseline_volatility": 1.5920390682059822,
+      "liquidity_proxy": -0.03085164621749706,
+      "market_beta": 336753735823.1959,
+      "dow_0": -59647929950.54665,
+      "dow_1": -59647929950.54764,
+      "dow_2": -59647929950.54767,
+      "dow_3": -59647929950.54768,
+      "dow_4": -59647929950.547424,
+      "shock": 0.031723076367601445,
+      "shock_x_vol_proxy": -0.030227714865854047
+    },
+    "bse": {
+      "const": NaN,
+      "baseline_volatility": NaN,
+      "liquidity_proxy": NaN,
+      "market_beta": NaN,
+      "dow_0": NaN,
+      "dow_1": NaN,
+      "dow_2": NaN,
+      "dow_3": NaN,
+      "dow_4": NaN,
+      "shock": NaN,
+      "shock_x_vol_proxy": NaN
+    },
+    "pvalues": {
+      "const": NaN,
+      "baseline_volatility": NaN,
+      "liquidity_proxy": NaN,
+      "market_beta": NaN,
+      "dow_0": NaN,
+      "dow_1": NaN,
+      "dow_2": NaN,
+      "dow_3": NaN,
+      "dow_4": NaN,
+      "shock": NaN,
+      "shock_x_vol_proxy": NaN
+    },
+    "rsquared": 0.04026469300725699,
+    "nobs": 3877
+  }
+}
