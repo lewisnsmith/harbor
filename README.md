@@ -1,8 +1,16 @@
 # HARBOR — Hierarchical Adaptive Risk-Based Optimization Routine
 
+[![CI](https://github.com/lewis-smith/harbor/actions/workflows/ci.yml/badge.svg)](https://github.com/lewis-smith/harbor/actions/workflows/ci.yml)
+
 > A personal, research-driven asset management framework built from scratch — from high-school investment competitions to a semi-autonomous portfolio system targeting retail investors.
 
 **Author:** Lewis Smith
+
+---
+
+## Research Contribution
+
+HARBOR serves as the empirical platform for an original research agenda in **Artificial Behavioral Finance (ABF)**: investigating whether ML-driven trading strategies manufacture market dynamics — autocorrelation regimes, crowding effects, and correlation spikes — that traditional behavioral finance cannot explain. The framework combines institutional-grade risk modeling (HRP, Monte Carlo VaR/CVaR, regime detection) with reproducible experiment pipelines designed for working-paper-quality output. See the [full research specification](docs/abf-prd.md) and [preliminary results](results/abf_q1/) for details.
 
 ---
 
@@ -58,11 +66,11 @@ notebooks/         Research and experimentation notebooks
 experiments/       End-to-end scripts and prototypes
 configs/           Config-driven experiment definitions (ABF shock/regime specs)
 dashboard/         Portfolio monitoring dashboard
+results/           Committed research outputs (figures, tables)
 docs/              Project documentation
   journal.md         Development history and lessons learned
   abf-prd.md         ABF research product requirements document
   plan.md            Roadmap and phase tracking
-  iteration-history.md   Raw iteration-by-iteration technical log
 data/              Universe membership and cached data
 tests/             Unit and integration test suite
 research/          Research notes and references
@@ -74,8 +82,9 @@ research/          Research notes and references
 
 | Track | Phase | Status |
 |-------|-------|--------|
-| **HARBOR** | H1 — Core Quant Stack | Complete — data, risk, portfolio, backtest all implemented |
-| **ABF** | A1/A2 — Spec + early Q1 | Baseline configs and shock utilities scaffolded |
+| **HARBOR** | H1 — Core Quant Stack | Complete — data, risk, portfolio, backtest implemented and tested |
+| **ABF** | A1/A2 — Q1 Pipeline | Analysis pipeline complete, preliminary results committed |
+| **ML** | Experimental | Scaffolding implemented (vol forecasting, RL agents); validation pending |
 
 See [`docs/plan.md`](docs/plan.md) for the full roadmap and milestone table.
 
@@ -105,11 +114,27 @@ python3 experiments/h1_end_to_end_hrp_backtest.py --start 2020-01-01 --max-asset
 pytest -q
 ```
 
-**Launch notebooks:**
+### Reproducibility
+
+A `Makefile` is provided for one-command reproducibility:
 
 ```bash
-jupyter lab
+make install    # Create venv and install dependencies
+make test       # Run pytest
+make lint       # Run ruff
+make q1         # Run ABF Q1 pipeline end-to-end
+make h1         # Run H1 HRP backtest pipeline
+make all        # install + lint + test + run pipelines
 ```
+
+---
+
+## Data Sources & Limitations
+
+- **Development proxy:** V1 uses [yfinance](https://pypi.org/project/yfinance/) (Yahoo Finance) for price data. This is adequate for pipeline development and method validation but not for publication-quality inference.
+- **Survivorship bias:** The default universe loader scrapes current S&P 500 constituents from Wikipedia when historical membership data is unavailable. This introduces survivorship bias; a warning is emitted at runtime.
+- **Production target:** The PRD specifies CRSP/WRDS for survivorship-bias-free historical constituents. The `load_crsp_prices()` stub in `harbor.data` defines the interface; integration requires institutional access.
+- **Risk-free rate:** Proxied via 13-week T-bill yield (`^IRX`), converted and forward-filled to daily frequency.
 
 ---
 
@@ -120,8 +145,6 @@ jupyter lab
 | [`journal.md`](docs/journal.md) | How the project evolved — personal narrative and lessons learned |
 | [`abf-prd.md`](docs/abf-prd.md) | ABF research specification, hypotheses, test plans, and UCLA outreach |
 | [`plan.md`](docs/plan.md) | Technical roadmap with phase checklists and milestone tracking |
-| [`iteration-history.md`](docs/iteration-history.md) | Raw technical log of each iteration's capabilities and faults |
-| [`notes.md`](notes.md) | Phase 1 component learning notes |
 | [`CHANGELOG.md`](CHANGELOG.md) | Versioned release history |
 
 ---
