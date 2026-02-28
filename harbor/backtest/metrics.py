@@ -11,7 +11,6 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -133,3 +132,73 @@ def win_rate(returns: pd.Series, min_obs: int = 2) -> float:
     """Fraction of periods with positive returns."""
     arr = _validate_returns(returns, min_obs=min_obs)
     return float((arr > 0).mean())
+
+
+# ---------------------------------------------------------------------------
+# Event-study metrics
+# ---------------------------------------------------------------------------
+
+def cumulative_abnormal_return(
+    returns: pd.Series,
+    event_dates: pd.DatetimeIndex,
+    horizon: int = 21,
+) -> pd.DataFrame:
+    """Compute cumulative abnormal returns around event dates.
+
+    For each event date, accumulates forward returns over ``horizon``
+    trading days and subtracts the full-sample mean daily return
+    (market adjustment) accumulated over the same window.
+
+    Parameters
+    ----------
+    returns : pd.Series
+        Daily return series with DatetimeIndex.
+    event_dates : pd.DatetimeIndex
+        Dates on which events (e.g. vol shocks) occurred.
+    horizon : int
+        Number of trading days forward to accumulate returns.
+
+    Returns
+    -------
+    pd.DataFrame
+        One row per usable event date with columns:
+        - ``event_date``: the event date
+        - ``car``: cumulative abnormal return over the horizon
+        - ``cumulative_return``: raw cumulative return
+        - ``expected_return``: cumulative expected (mean) return
+    """
+    if len(returns) == 0 or len(event_dates) == 0:
+        return pd.DataFrame(
+            columns=["event_date", "car", "cumulative_return", "expected_return"]
+        )
+
+    returns = returns.sort_index()
+    daily_mean = returns.mean()
+
+    records = []
+    dates_array = returns.index
+
+    for event_date in event_dates:
+        # Find position of event date (or next available)
+        mask = dates_array >= event_date
+        if not mask.any():
+            continue
+        start_loc = int(np.argmax(mask))
+
+        end_loc = start_loc + horizon
+        if end_loc > len(returns):
+            continue
+
+        window = returns.iloc[start_loc:end_loc]
+        cum_ret = float((1 + window).prod() - 1)
+        expected_ret = float((1 + daily_mean) ** horizon - 1)
+        car = cum_ret - expected_ret
+
+        records.append({
+            "event_date": event_date,
+            "car": car,
+            "cumulative_return": cum_ret,
+            "expected_return": expected_ret,
+        })
+
+    return pd.DataFrame(records)
