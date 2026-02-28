@@ -85,6 +85,8 @@ Exit criteria:
 
 **Goal:** ML adds genuine capability, not just buzzwords.
 
+**Status: Experimental scaffolding implemented ahead of schedule.** The modules below were built as exploratory work during H1/A2 development. They have unit tests but have **not** been validated against classical baselines or integrated into the production backtest pipeline. Formal validation (NN vol vs GARCH/EWMA, DRL vs buy-and-hold) is the gate for promoting these to production status.
+
 Deliverables:
 - `harbor.ml.volatility`
   - LSTM/GRU-based volatility forecasters with comparison to classical baselines.
@@ -102,6 +104,8 @@ Exit criteria:
 ### 2.4 Phase H4 — Behavioral Agents & ABF Hooks (9–12 months)
 
 **Goal:** HARBOR becomes a realistic platform for ABF.
+
+**Status: Experimental scaffolding implemented ahead of schedule.** Behavioral reward shaping (loss aversion, overconfidence, return-chasing, disposition effect) and multi-agent simulation infrastructure are implemented with unit tests. Integration with ABF Q2 experiments is pending baseline validation from H3.
 
 Deliverables:
 - `harbor.ml.behavior_agents`
@@ -232,9 +236,9 @@ To keep the project authentic and professional:
 
 ---
 
-## 6. Current Phase (to update as you go)
+## 6. Current Phase (February 2026)
 
-- HARBOR: Phase H1 (Core Quant Stack) — core implementation complete; validation and hardening in progress.  
-- ABF: Phase A1/A2 (Spec + early Q1 experiments) — baseline configs + shock utilities scaffolded.
-
-Update this section as you progress.
+- **HARBOR H1** (Core Quant Stack): Complete — data loaders, risk models, portfolio optimization, backtest engine all implemented and tested.
+- **ABF A1/A2** (Q1 Pipeline): Analysis pipeline complete — local projections, CAR computation, robustness sweep, figure generation. Preliminary results committed to `results/abf_q1/`.
+- **ML Extensions** (H3/H4): Experimental scaffolding — LSTM/GRU vol forecasters and deep RL behavioral agents implemented with unit tests. Not yet validated against classical baselines. Formal validation is the next milestone.
+- **ABF A3** (Q2 — Crowding/Correlation): Stub only — `harbor.abf.q2` config scaffolding in place, implementation pending H3 validation.

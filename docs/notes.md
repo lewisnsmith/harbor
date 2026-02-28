@@ -1,28 +1,13 @@
 # `docs/` Notes
 
-## Explanation
-`docs/` is the canonical planning and specification layer for the repository.
+## Overview
 
-This folder should answer:
-- What are we building?
-- Why are we building it?
-- What phase are we in?
-- What counts as done?
+`docs/` is the canonical planning and specification layer for the repository. It answers what we are building, why we are building it, what phase we are in, and what counts as done.
 
-How it functions with code:
-1. `plan.md` defines roadmap + phase checklists.
-2. `abf-prd.md` defines ABF hypotheses, metrics, and milestone criteria.
-3. Code/config changes should map back to these documents.
+## Document Roles
 
-Document roles:
-- `plan.md`: implementation and sequencing contract.
-- `abf-prd.md`: research scope and statistical acceptance contract.
-- `iteration-history.md`: historical context and design rationale.
-- other PRD artifacts: reference material.
+**plan.md** defines the roadmap and phase checklists — the implementation and sequencing contract. **abf-prd.md** defines ABF hypotheses, metrics, and milestone criteria — the research scope and statistical acceptance contract. **iteration-history.md** provides historical context and design rationale.
 
-Maintenance logic:
-- If a definition changes, update doc + relevant config together.
-- If a phase item is implemented, check it off with explicit date/context.
+## Maintenance Logic
 
-## Your Notes
-- 
+If a definition changes, update the doc and the relevant config together. If a phase item is implemented, check it off with an explicit date and context.

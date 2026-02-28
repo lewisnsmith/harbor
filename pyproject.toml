@@ -4,32 +4,31 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "harbor-asset-management"
-version = "0.1.0-dev"
+version = "0.2.0-dev"
 description = "Research-focused risk and portfolio framework (HARBOR) with ABF research layer."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
 authors = [{ name = "Lewis Smith" }]
+dependencies = [
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "scipy>=1.10",
+    "matplotlib>=3.6",
+    "yfinance>=0.2",
+    "statsmodels>=0.14",
+]
 
-# Packages included in the distribution.
-# harbor.signals and harbor.research are deprecated — wrappers remain for continuity.
 [tool.setuptools.packages.find]
 include = ["harbor*"]
+exclude = ["harbor.signals", "harbor.research"]
 
-# Explicit package list (for clarity — setuptools find also works above):
-# harbor
-# harbor.data
-# harbor.risk
-# harbor.portfolio
-# harbor.backtest
-# harbor.ml
-# harbor.ml.volatility
-# harbor.ml.behavior_agents
-# harbor.abf
-# harbor.abf.q1
-# harbor.abf.q2
-# harbor.features
-# harbor.utils
+[project.optional-dependencies]
+ml = [
+    "torch>=2.0",
+    "gymnasium>=0.29",
+    "ray[rllib]>=2.9",
+]
 
 [tool.black]
 line-length = 100
@@ -38,9 +37,11 @@ target-version = ["py39"]
 [tool.ruff]
 line-length = 100
 target-version = "py39"
+extend-exclude = ["harbor/v1_paper_trading.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
+ignore = ["UP006", "UP007", "UP035", "UP045"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["harbor"]
