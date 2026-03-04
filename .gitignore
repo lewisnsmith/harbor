@@ -50,3 +50,4 @@ data/cache/rates/*
 # ML model checkpoints
 data/models/*
 !data/models/.gitkeep
+venv
