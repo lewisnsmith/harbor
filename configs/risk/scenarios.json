@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "description": "H2 stress scenario definitions",
+  "default_risk_config": {
+    "covariance_method": "ledoit_wolf",
+    "simulation_method": "normal",
+    "n_sims": 10000,
+    "horizon": 21,
+    "alpha": 0.95
+  },
+  "scenarios": [
+    {
+      "name": "vol_spike_2x",
+      "type": "vol_spike",
+      "description": "Volatility doubles across all assets",
+      "params": {"multiplier": 2.0}
+    },
+    {
+      "name": "vol_spike_3x",
+      "type": "vol_spike",
+      "description": "Volatility triples across all assets",
+      "params": {"multiplier": 3.0}
+    },
+    {
+      "name": "correlation_spike_90",
+      "type": "correlation_spike",
+      "description": "All correlations jump to 0.90",
+      "params": {"target_corr": 0.90}
+    },
+    {
+      "name": "correlation_spike_95",
+      "type": "correlation_spike",
+      "description": "All correlations jump to 0.95",
+      "params": {"target_corr": 0.95}
+    },
+    {
+      "name": "tech_crash_15pct",
+      "type": "sector_crash",
+      "description": "Technology sector drops 15%",
+      "params": {"crash_sector": "Technology", "crash_magnitude": -0.15}
+    },
+    {
+      "name": "energy_crash_20pct",
+      "type": "sector_crash",
+      "description": "Energy sector drops 20%",
+      "params": {"crash_sector": "Energy", "crash_magnitude": -0.20}
+    }
+  ]
+}

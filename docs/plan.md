@@ -236,9 +236,10 @@ To keep the project authentic and professional:
 
 ---
 
-## 6. Current Phase (February 2026)
+## 6. Current Phase (March 2026)
 
 - **HARBOR H1** (Core Quant Stack): Complete — data loaders, risk models, portfolio optimization, backtest engine all implemented and tested.
-- **ABF A1/A2** (Q1 Pipeline): Analysis pipeline complete — local projections, CAR computation, robustness sweep, figure generation. Preliminary results committed to `results/abf_q1/`.
+- **HARBOR H2** (Advanced Risk & Simulation): Complete — regime-aware covariance, Student-t/factor Monte Carlo, config-driven stress scenarios, risk decomposition, pluggable risk engine interface. 48 H2 tests passing. Demo script at `experiments/h2_risk_engine_demo.py`.
+- **ABF A1/A2** (Q1 Pipeline): Analysis pipeline complete — local projections, CAR computation, robustness sweep, figure generation. Preliminary results committed to `results/abf_q1/`. Experiments README updated with reproducible commands.
 - **ML Extensions** (H3/H4): Experimental scaffolding — LSTM/GRU vol forecasters and deep RL behavioral agents implemented with unit tests. Not yet validated against classical baselines. Formal validation is the next milestone.
 - **ABF A3** (Q2 — Crowding/Correlation): Stub only — `harbor.abf.q2` config scaffolding in place, implementation pending H3 validation.

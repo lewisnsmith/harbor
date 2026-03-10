@@ -1,4 +1,4 @@
-.PHONY: install test lint q1 h1 all clean
+.PHONY: install test lint q1 h1 h2 all clean
 
 PYTHON ?= python3
 VENV   ?= .venv
@@ -27,7 +27,13 @@ h1:
 		--start 2020-01-01 \
 		--max-assets 50
 
-all: install lint test q1 h1
+h2:
+	$(PYTHON) experiments/h2_risk_engine_demo.py \
+		--start 2015-01-01 \
+		--max-assets 20 \
+		--output-dir results/h2_risk
+
+all: install lint test q1 h1 h2
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
