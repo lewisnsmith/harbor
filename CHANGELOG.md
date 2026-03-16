@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0-dev] — 2026-03-15
+
+### Changed
+- Reframed project identity: unified asset management + empirical research system studying AI agent impact on markets
+- Broadened research scope from ML-driven strategies to all AI models and autonomous agents (LLM bots, robo-advisors, autonomous portfolio managers)
+- Reframed ABF Q1-Q3 research questions for agent-general scope
+- Added explicit retail investor focus as measurable project goal
+- Updated `docs/plan.md` with full Phase 2 detail: H3-H5 + A3-A4 with two-track parallel execution structure
+- Updated `docs/abf-prd.md` with broadened agent scope and agent simulation section
+
+### Added
+- `docs/PROJECT_EVOLUTION.md`: chronological narrative of project development (for external communication and college applications)
+- `docs/superpowers/specs/2026-03-15-phase2-agentic-trading-design.md`: Phase 2 design spec covering ML validation, behavioral agents, agent simulation framework, and convergence experiments
+- `harbor.agents` module stub (Phase H5 — Agent Simulation Framework)
+- `harbor.retail` module stub (Phase H6 — Retail Impact Analysis)
+- New roadmap phases: H5 (agent simulation), H6 (retail impact), A4 (agent-general extensions), A5 (retail impact quantification), A6 (writing/publication)
+- Phase 2 sprint plans for H3 (3 sprints), H4 (2 sprints), H5 (3 sprints), A3 (4 sprints), A4 (3 sprints)
+
 ## [0.2.0-dev] — 2026-02-27
 
 ### Added

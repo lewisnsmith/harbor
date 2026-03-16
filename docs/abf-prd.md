@@ -1,24 +1,26 @@
 **Artificial Behavior in Financial Markets: Research PRD**
 
-**Project:** HARBOR Asset Management  
-**Research Track:** Artificial Behavioral Finance (ABF)  
-**Version:** 1.0  
-**Date:** February 13, 2026  
+**Project:** HARBOR Asset Management
+**Research Track:** Artificial Behavioral Finance (ABF)
+**Version:** 2.0
+**Date:** March 15, 2026 (originally February 13, 2026)
 **Owner:** Lewis Smith
 
 **Executive Summary**
 
-This PRD defines the research agenda for investigating how systematic ML-driven trading strategies create endogenous market dynamics through behavioral feedback loops. The core thesis: when institutional participants deploy similar trend-following and volatility-targeting models at scale, they manufacture autocorrelation regimes, synchronized positioning, and amplified drawdowns that traditional behavioral finance cannot explain because the "agents" are algorithms, not humans.
+This PRD defines the research agenda for investigating how AI models and autonomous agents create endogenous market dynamics through behavioral feedback loops. The core thesis: when market participants deploy AI-driven trading systems — from traditional volatility-targeting algorithms to LLM-based autonomous portfolio managers — at scale, they manufacture autocorrelation regimes, synchronized positioning, and amplified drawdowns that traditional behavioral finance cannot explain because the "agents" are algorithms, not humans.
 
-This research integrates directly with the HARBOR asset management system, providing empirical foundations for risk models, portfolio construction rules, and regime-detection logic.
+This research integrates directly with the HARBOR asset management system through a feedback loop: empirical findings inform risk models and portfolio construction rules, which are validated through backtesting, and the results feed back into research refinement. The system also includes an agent simulation framework for causal testing and a retail impact analysis component.
 
 **Research Objectives**
 
-1. Determine whether systematic ML-driven trend-following and volatility-targeting behavior creates measurable return autocorrelation regimes and predictable reversal patterns
+1. Determine whether AI-driven trading agents — including systematic strategies, ML models, and autonomous agents — create measurable return autocorrelation regimes and predictable reversal patterns
 
-2. Quantify whether model similarity (shared signal families across institutional participants) is associated with synchronized positioning and correlation spikes during stress periods
+2. Quantify whether behavioral convergence among autonomous agents (shared signals, similar architectures, herding dynamics) is associated with synchronized positioning, correlation spikes, and drawdown amplification during stress periods
 
-3. Provide empirical evidence that informs HARBOR's risk framework, position sizing, and regime-aware portfolio construction
+3. Test causal mechanisms through agent simulation: do synthetic agent populations, operating without access to real market data, independently reproduce the statistical signatures found empirically?
+
+4. Measure the impact of AI-driven market dynamics on retail investor portfolios and validate that HARBOR's regime-aware mitigations provide measurable protection
 
 **Narrative: From Builder to Structural Researcher**
 
@@ -34,9 +36,9 @@ This is not a pivot—it is maturation from implementation to mechanistic unders
 
 **ABF Question 1 (Core Thesis \- Mandatory)**
 
-**Question:** Do ML-driven trend-following and volatility-targeting strategies create measurable medium-term autocorrelation regimes?
+**Question:** Do AI-driven trading agents create measurable momentum and reversal patterns in asset prices?
 
-**Mechanism Hypothesis:** After high-volatility shocks, volatility-targeting and risk-control strategies induce mechanical deleveraging (selling pressure) that:
+**Mechanism Hypothesis:** After high-volatility shocks, AI-driven agents (volatility-targeting algorithms, trend-followers, LLM-based bots) responding to the same market signals induce mechanical deleveraging (selling pressure) that:
 
 1. Increases short-term momentum persistence (5-day horizon)
 
@@ -85,11 +87,11 @@ where h{1,5,21} days, and Xt includes baseline volatility, liquidity, and macro 
 
 **ABF Question 2 (Strongly Recommended)**
 
-**Question:** Do ML agents trained on similar feature sets produce synchronized positioning that amplifies drawdowns?
+**Question:** Does behavioral convergence among autonomous agents amplify drawdowns and destabilize correlations?
 
-**Hypothesis:** Periods of cross-asset correlation spikes and amplified drawdowns are partially explained by signal/position similarity among systematic agents (momentum, liquidity, sentiment features), creating synchronized entry and exit behavior.
+**Hypothesis:** Periods of cross-asset correlation spikes and amplified drawdowns are partially explained by behavioral convergence among autonomous agents — whether through shared training data, similar architectures, herding dynamics, or convergent LLM reasoning — creating synchronized entry and exit behavior.
 
-**Core Idea:** If many models use the same signals (momentum, liquidity proxies, sentiment features), they may enter and exit positions together, causing:
+**Core Idea:** If many AI agents converge on similar strategies (momentum, liquidity proxies, sentiment features — or through emergent LLM-based reasoning), they may enter and exit positions together, causing:
 
 1. Cross-asset correlation spikes
 
@@ -133,9 +135,9 @@ This directly informs:
 
 **ABF Question 3 (Optional \- Time Permitting)**
 
-**Question:** Does widespread model-based trading reduce long-term alpha persistence?
+**Question:** Does the proliferation of AI-driven strategies erode the effectiveness of established trading signals?
 
-**Hypothesis:** As strategies become widely deployed, factor alpha half-life decreases and factor decay accelerates.
+**Hypothesis:** As more autonomous agents exploit the same factors — whether through traditional systematic strategies or LLM-based agents entering markets at scale — crowding compresses returns and accelerates factor decay.
 
 **Test (Optional):**
 
@@ -183,6 +185,36 @@ Table 2: Data sources and coverage
 **For Q1 (baseline):** Index level (SPX/SPY) for shock detection, then cross-sectional constituent-level analysis for heterogeneity checks (sector, size, liquidity terciles).
 
 **For Q2:** Full constituent panel with time-varying membership, since signal similarity and crowding require cross-sectional dispersion measures.
+
+**Agent Simulation Framework (Causal Testing)**
+
+The empirical tests above (Q1-Q3) establish correlational evidence. To test causal mechanisms, HARBOR includes an agent simulation framework (`harbor.agents`) that enables counterfactual experiments impossible with real market data.
+
+**Framework:**
+- Price-impact market environment (linear temporary + square-root permanent impact)
+- Heterogeneous agent populations: rule-based (momentum, vol-targeting, mean-reversion), ML-based (DRL behavioral agents), and LLM-based (planned)
+- Config-driven population management with parameter distributions
+
+**Causal Experiments:**
+1. **Ablation:** Remove specific agent types and observe whether market patterns (crowding, correlation spikes) disappear
+2. **Dose-response:** Vary agent concentration to test whether crowding increases monotonically
+3. **Heterogeneity testing:** Compare high-diversity vs low-diversity populations
+4. **Pattern validation:** Compare simulation-generated metrics against real-data metrics from Q1/Q2
+
+**Success Criteria:**
+- At least one synthetic metric distribution statistically consistent with real data (KS test p>0.05)
+- Ablation experiments demonstrate at least one agent type whose removal significantly changes observed patterns
+- Results constitute causal evidence linking agent behavior to empirically observed market dynamics
+
+**Retail Impact Integration**
+
+ABF research findings connect to retail investor outcomes through `harbor.retail`:
+- Retail portfolio drawdown exposure during AI-driven regimes (measured from Q1/Q2 findings)
+- Cost-of-crowding estimates for typical retail allocations
+- Comparison of regime-aware vs naive retail strategies using HARBOR's mitigations
+- Publication-quality figures: "retail drawdown amplification during crowding regimes"
+
+This makes the retail investor focus tangible and measurable, moving beyond implicit concern to explicit quantification.
 
 **Non-Goals (Explicit Scope Boundaries)**
 
@@ -302,27 +334,42 @@ Table 4: UCLA target faculty for collaboration
 
 **Integration with HARBOR System**
 
+**The Feedback Loop**
+
+ABF research and HARBOR's asset management stack form a feedback loop:
+1. ABF discovers patterns (Q1: momentum/reversal, Q2: crowding/correlation, Q3: signal erosion)
+2. HARBOR operationalizes findings into risk rules and portfolio construction
+3. Backtesting validates that mitigations protect portfolios (especially retail)
+4. Results inform further research refinement
+
 **Module Mapping**
 
 | ABF Research Component | HARBOR Module |
 | :---- | :---- |
-| Shock detection \+ vol-control proxy | risk/regime\_detection.py |
+| Shock detection + vol-control proxy | risk/regime\_detection.py |
 | Persistence/reversal metrics | backtest/metrics.py |
-| Signal similarity proxies | features/crowding.py |
-| Correlation spike detection | risk/correlation.py |
+| Crowding proxies + signal similarity | abf/q2/proxies.py |
+| Correlation spike detection | abf/q2/detection.py |
 | Regime-aware position sizing | portfolio/construction.py |
+| Agent simulation | agents/ |
+| Agent-to-empirical validation | abf/agent\_validation/ |
+| Retail impact analysis | retail/ |
 
 Table 5: ABF research to HARBOR codebase mapping
 
 **Backtest Integration**
 
-The backtest engine should support two modes:
+The backtest engine supports two modes:
 
 1. **Baseline mode:** Standard risk model with fixed correlation/volatility assumptions
 
 2. **Regime-aware mode:** Dynamically adjust position sizing and diversification assumptions based on shock/crowding proxies
 
 Performance comparison (Sharpe ratio, max drawdown, turnover) validates whether ABF insights translate to implementable improvements.
+
+**Agent Simulation Integration**
+
+The agent simulation framework (H5) generates synthetic market data in the same format as real data, enabling the entire ABF analysis pipeline to run on simulated data without modification. This provides the causal testing layer that empirical analysis alone cannot offer.
 
 **References**
 
