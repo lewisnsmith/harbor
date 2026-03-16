@@ -1,14 +1,23 @@
 """
-harbor.ml.volatility — Neural network volatility forecasters.
+harbor.ml.volatility — Volatility forecasters (neural network + classical baselines).
 
-Status: Experimental scaffolding. Implemented ahead of the H3 roadmap as
-exploratory work. Unit tests pass but models have not been validated against
-classical baselines (GARCH, EWMA) on out-of-sample data.
-
-Provides LSTM/GRU-based volatility forecasting with walk-forward training
+Provides LSTM/GRU-based volatility forecasting with walk-forward training,
+classical baselines (GARCH(1,1), EWMA, rolling historical) for benchmarking,
 and integration into vol-targeting and risk-parity strategies.
+
+Status: NN models are experimental scaffolding pending H3 validation.
+Classical baselines (GARCH, EWMA) are implemented and ready for comparison.
 """
 
+from harbor.ml.volatility.baselines import (
+    BaselineResult,
+    evaluate_forecast,
+    ewma_volatility,
+    fit_garch11,
+    garch11_forecast,
+    rolling_volatility,
+    run_baseline_comparison,
+)
 from harbor.ml.volatility.dataset import (
     VolatilityDataset,
     VolDatasetConfig,
@@ -35,6 +44,7 @@ from harbor.ml.volatility.training import (
 )
 
 __all__ = [
+    "BaselineResult",
     "GRUVolModel",
     "LSTMVolModel",
     "TrainConfig",
@@ -45,8 +55,14 @@ __all__ = [
     "build_target",
     "create_model",
     "create_walk_forward_splits",
+    "evaluate_forecast",
     "evaluate_model",
+    "ewma_volatility",
+    "fit_garch11",
+    "garch11_forecast",
     "predict_series",
+    "rolling_volatility",
+    "run_baseline_comparison",
     "sigma_hat_to_regime_proxy",
     "train_model",
     "vol_scaled_weight_func",

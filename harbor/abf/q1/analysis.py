@@ -113,8 +113,8 @@ def build_control_matrix(
         beta = xy_cov / mkt_var.replace(0, np.nan)
         controls["market_beta"] = beta
 
-    # Day-of-week dummies
-    dow = pd.get_dummies(returns.index.dayofweek, prefix="dow", dtype=float)
+    # Day-of-week dummies (drop first to avoid multicollinearity with constant)
+    dow = pd.get_dummies(returns.index.dayofweek, prefix="dow", dtype=float, drop_first=True)
     dow.index = returns.index
     for col in dow.columns:
         controls[col] = dow[col]
