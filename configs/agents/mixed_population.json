@@ -1,0 +1,33 @@
+{
+    "description": "Mixed population: 10 momentum + 10 mean-reversion + 10 vol-target",
+    "market": {
+        "n_steps": 500,
+        "n_assets": 10,
+        "base_volatility": 0.01,
+        "base_drift": 0.0002,
+        "temporary_impact": 0.1,
+        "permanent_impact": 0.01,
+        "correlation": 0.3,
+        "seed": 42
+    },
+    "agents": [
+        {
+            "type": "momentum",
+            "name": "mom",
+            "count": 10,
+            "params": {"lookback": 21}
+        },
+        {
+            "type": "mean_reversion",
+            "name": "mr",
+            "count": 10,
+            "params": {"lookback": 21}
+        },
+        {
+            "type": "vol_target",
+            "name": "vt",
+            "count": 10,
+            "params": {"target_vol": 0.10, "vol_window": 21}
+        }
+    ]
+}

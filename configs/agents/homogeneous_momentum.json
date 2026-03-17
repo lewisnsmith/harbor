@@ -1,0 +1,21 @@
+{
+    "description": "30 identical momentum agents — tests crowding and herding dynamics",
+    "market": {
+        "n_steps": 500,
+        "n_assets": 10,
+        "base_volatility": 0.01,
+        "base_drift": 0.0002,
+        "temporary_impact": 0.1,
+        "permanent_impact": 0.01,
+        "correlation": 0.3,
+        "seed": 42
+    },
+    "agents": [
+        {
+            "type": "momentum",
+            "name": "mom",
+            "count": 30,
+            "params": {"lookback": 21}
+        }
+    ]
+}

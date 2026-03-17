@@ -1,4 +1,4 @@
-.PHONY: install test lint q1 h1 h2 all clean
+.PHONY: install test lint q1 h1 h2 h3 all clean
 
 PYTHON ?= python3
 VENV   ?= .venv
@@ -34,7 +34,12 @@ h2:
 		--max-assets 20 \
 		--output-dir results/h2_risk
 
-all: install lint test q1 h1 h2
+h3:
+	$(VPYTHON) experiments/h3_agent_simulation_demo.py \
+		--n-steps 500 \
+		--output-dir results/agent_simulation
+
+all: install lint test q1 h1 h2 h3
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true

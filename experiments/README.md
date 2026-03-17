@@ -10,7 +10,7 @@ python experiments/h1_end_to_end_hrp_backtest.py --start 2020-01-01 --max-assets
 # or: make h1
 ```
 
-### Phase A2 — ABF Q1 Shock -> Persistence -> Reversal
+### Phase A2 — ABF Q1 Shock -> Persistence -> Reversal *(Legacy Baseline)*
 ```bash
 python experiments/abf_q1_main.py \
     --start 2010-01-01 \
@@ -22,6 +22,8 @@ python experiments/abf_q1_main.py \
 Options:
 - `--skip-robustness` — skip the robustness sweep for faster iteration
 - Outputs: `results/abf_q1/` (coefficients JSON, CAR CSVs, robustness sweep CSV, figures)
+
+> **Note:** Q1 results were weak (~1.3 bps effect), which motivated the pivot to autonomous agent simulation. Retained as a baseline reference.
 
 ### Phase H2 — Advanced Risk & Stress Testing
 ```bash
@@ -36,6 +38,17 @@ Options:
 - `--scenarios-config configs/risk/scenarios.json` — path to scenario definitions
 - Outputs: `results/h2_risk/` (risk decomposition CSV, stress report JSON, scenario comparison)
 
+### Phase H3 — Agent Simulation Core
+```bash
+python experiments/h3_agent_simulation_demo.py \
+    --n-steps 500 \
+    --output-dir results/agent_simulation
+# or: make h3
+```
+- Runs 30 momentum agents in a synthetic market with price impact
+- Compares agent-influenced dynamics to a baseline (no agents)
+- Outputs: `results/agent_simulation/demo_figure.png` (4-panel comparison figure)
+
 ## Reproducibility
 
 All pipelines can be run end-to-end in < 5 commands:
@@ -44,4 +57,5 @@ make install
 make test
 make q1
 make h2
+make h3
 ```

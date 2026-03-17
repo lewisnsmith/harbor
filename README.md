@@ -10,7 +10,7 @@
 
 ## Research Contribution
 
-HARBOR serves as the empirical platform for an original research agenda in **Artificial Behavioral Finance (ABF)**: investigating whether ML-driven trading strategies manufacture market dynamics — autocorrelation regimes, crowding effects, and correlation spikes — that traditional behavioral finance cannot explain. The framework combines institutional-grade risk modeling (HRP, Monte Carlo VaR/CVaR, regime detection) with reproducible experiment pipelines designed for working-paper-quality output. See the [full research specification](docs/abf-prd.md) and [preliminary results](results/abf_q1/) for details.
+HARBOR serves as the empirical platform for an original research agenda in **Artificial Behavioral Finance (ABF)**: investigating whether autonomous trading agents — LLM-powered, RL-based, and tool-using — reshape market dynamics in ways traditional behavioral finance cannot explain. Unlike conventional algorithmic trading, these agents reason, adapt, and interact strategically, creating emergent coordination, manufactured regimes, and adversarial dynamics. The framework combines institutional-grade risk modeling (HRP, Monte Carlo VaR/CVaR, regime detection) with a multi-agent market simulation for causal testing. See the [full research specification](docs/abf-prd.md) and [simulation results](results/agent_simulation/) for details.
 
 ---
 
@@ -34,21 +34,22 @@ HARBOR is a modular Python framework for **risk-first portfolio construction and
 - **Risk** — Covariance estimation (sample + shrinkage), Hierarchical Risk Parity, Monte Carlo VaR/CVaR, regime detection
 - **Portfolio** — Mean-variance, risk parity, and HRP allocation with configurable constraints
 - **Backtest** — Cross-sectional backtesting engine with transaction costs and standard performance/risk metrics
-- **ML Extensions** — Neural volatility forecasting (LSTM/GRU) and deep RL behavioral agents (in development)
+- **ML Extensions** — Neural volatility forecasting (LSTM/GRU) and deep RL behavioral agents
+- **Agent Simulation** — Multi-agent market environment where autonomous agents interact, generating synthetic price impact and crowding dynamics for causal testing
 
 ---
 
 ## Research Track: Artificial Behavioral Finance (ABF)
 
-Beyond portfolio management, HARBOR serves as the empirical platform for an original research agenda: **do ML-driven trading strategies manufacture market dynamics that traditional behavioral finance can't explain?**
+Beyond portfolio management, HARBOR serves as the empirical platform for an original research agenda: **do autonomous trading agents reshape market dynamics in ways traditional behavioral finance can't explain?**
 
 Core research questions (full specification in [`docs/abf-prd.md`](docs/abf-prd.md)):
 
-1. **Manufactured autocorrelation** — Do volatility-targeting and trend-following models create momentum regimes that subsequently reverse?
-2. **Synchronized crowding** — Does signal similarity across systematic agents amplify drawdowns and correlation spikes?
-3. **Alpha decay** — Does widespread model deployment accelerate factor decay? *(stretch goal)*
+1. **Emergent Coordination** — Do independent autonomous agents converge on similar strategies, creating crowding and herding without explicit communication?
+2. **Regime Manufacturing** — Do agent populations CREATE market regimes (volatility clusters, momentum/reversal cycles) rather than merely responding to them?
+3. **Adversarial Adaptation** — Do agents learn to exploit each other's strategies, generating predator-prey dynamics and arms-race escalation?
 
-The ABF track is designed to produce working-paper-quality output with reproducible code pipelines, targeting faculty review and potential collaboration at UCLA Anderson and IPAM.
+The ABF track uses a simulation-first methodology: synthetic multi-agent markets with controlled populations enable causal identification of agent-driven effects, producing working-paper-quality output targeting faculty review and potential collaboration.
 
 ---
 
@@ -61,7 +62,8 @@ harbor/            Core Python package
   portfolio/         Optimization and allocation interfaces
   backtest/          Engine, metrics, experiment runners
   ml/                Volatility forecasters, behavioral RL agents
-  abf/               ABF research experiment utilities
+  agents/            Multi-agent simulation: environment, agents, metrics
+  abf/               ABF research experiment utilities (legacy Q1 pipeline)
 notebooks/         Research and experimentation notebooks
 experiments/       End-to-end scripts and prototypes
 configs/           Config-driven experiment definitions (ABF shock/regime specs)
@@ -83,7 +85,9 @@ research/          Research notes and references
 | Track | Phase | Status |
 |-------|-------|--------|
 | **HARBOR** | H1 — Core Quant Stack | Complete — data, risk, portfolio, backtest implemented and tested |
-| **ABF** | A1/A2 — Q1 Pipeline | Analysis pipeline complete, preliminary results committed |
+| **HARBOR** | H2 — Advanced Risk & Simulation | Complete — regime detection, scenarios, decomposition |
+| **HARBOR** | H3 — Agent Simulation Core | Complete — market environment, rule-based agents, metrics, demo figure |
+| **ABF** | A1/A2 — Q1 Pipeline | Legacy baseline — preliminary results committed |
 | **ML** | Experimental | Scaffolding implemented (vol forecasting, RL agents); validation pending |
 
 See [`docs/plan.md`](docs/plan.md) for the full roadmap and milestone table.
@@ -124,6 +128,7 @@ make test       # Run pytest
 make lint       # Run ruff
 make q1         # Run ABF Q1 pipeline end-to-end
 make h1         # Run H1 HRP backtest pipeline
+make h3         # Run H3 agent simulation demo → results/agent_simulation/
 make all        # install + lint + test + run pipelines
 ```
 
