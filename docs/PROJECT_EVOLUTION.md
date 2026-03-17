@@ -110,44 +110,69 @@ The most important lesson from the reframing: **a good project adapts to the wor
 
 ---
 
-## Chapter 4: The Scientist (March 2026 – Present)
+## Chapter 4: The Brief Scientist (March 14–15, 2026)
 
-### The Plan
+### What Happened
 
-Phase 2 uses a two-track parallel structure:
+After the reframing, I designed a two-track parallel research structure: Track 1 (empirical crowding analysis on real data) running alongside Track 2 (ML validation → behavioral agents → agent simulation). The convergence point would compare simulation output against real-market findings.
 
-**Track 1 (Empirical — A3):** Test Q2 (crowding and correlation instability) using real market data. Build crowding proxies, detect correlation spikes, run predictive regressions and Granger causality tests. This track depends only on the completed H2 risk engine.
+I also implemented classical volatility forecasting baselines (GARCH(1,1), EWMA) to benchmark the experimental ML models, fixed a multicollinearity bug in the Q1 analysis (day-of-week dummies + constant = perfect collinearity, causing NaN p-values), and brought the test suite to 205 passing tests.
 
-**Track 2 (Simulation — H3 → H4 → H5):** Validate the ML models (H3), validate behavioral agents produce distinguishable behavior (H4), then build a full agent simulation framework (H5) where heterogeneous agent populations interact in a market environment.
+### What Was Learned
 
-**Convergence (A4):** The payoff. Run the same analysis on simulated data that was run on real data. Do agent populations, with no access to real market data, independently produce the same statistical signatures found empirically? If yes, that's causal evidence. If no, that's also a publishable result.
+Two things became clear almost immediately:
 
-The two-track structure was chosen because:
-- A3 doesn't depend on ML validation — it can start immediately
-- The convergence point (A4) is the strongest possible result: "simulated agents reproduce real market patterns"
-- Parallel work reduces wall-clock time without sacrificing rigor
+1. **The old Q1 results were a dead end.** Even after fixing the multicollinearity bug, the effects were economically tiny (~1.3bps). Traditional vol-targeting algorithms produce small effects because they're simple — they follow rules mechanically. The interesting question was never about simple algorithms.
 
-### What's Being Built
+2. **Autonomous agents are qualitatively different.** LLM-based trading agents don't just follow rules — they reason, adapt, and interact strategically. An LLM agent can read market commentary, infer other agents' positions, and adjust. An RL agent can learn to exploit patterns created by other agents. These are not just "smarter algorithms" — they're a different category of market participant.
 
-- **Agent simulation framework** with a price-impact market model, abstract agent interface, rule-based and ML-based agent types, and population management
-- **Causal experiments** that are impossible with real markets: ablation (remove agent types and observe effect), dose-response (vary agent concentration), heterogeneity testing (diverse vs homogeneous populations)
-- **Pattern matching** between simulated and real data using the same metrics and statistical tests
+This realization made the two-track structure feel misaligned. Track 1 (empirical crowding on real data) was still framed around traditional algorithm effects. The simulation framework was buried as a late-stage addition (old H5). But the simulation is the point — it's the only way to study autonomous agent dynamics with causal rigor.
 
-### Agentic Trading Testing Plan
+---
 
-The H5 agent simulation framework enables systematic testing of how different AI agent configurations affect market dynamics:
+## Chapter 5: The Pivot to Autonomous Agents (March 16, 2026 – Present)
 
-1. **Homogeneous populations:** What happens when many agents use the same strategy? Does crowding emerge mechanically?
-2. **Mixed populations:** How do different agent types interact? Do momentum agents create opportunities for mean-reversion agents, or does everyone lose?
-3. **Stress scenarios:** When external shocks hit, do agent interactions amplify or dampen the response?
-4. **Convergence dynamics:** If agents learn and adapt, do they converge on similar strategies over time?
-5. **LLM agent integration (future):** When LLM-based agents enter the simulation, do they behave like traditional systematic agents or create novel dynamics?
+### Why It Happened
+
+The progression was fast but logical:
+
+1. **Built the system** (H1/H2) → learned how institutional algorithms work
+2. **Tested the obvious question** (old Q1) → found the effects are too small to matter
+3. **Broadened to all AI agents** (March 14 reframing) → right direction, but still too broad
+4. **Sharpened to autonomous agents** (this pivot) → the real question
+
+Traditional algorithms are deterministic. You can predict what a vol-targeting model will do because it follows a formula. Autonomous agents are different: they reason about market state, infer other agents' behavior, and adapt. When 50 LLM agents are trading the same market, do they converge on the same strategy without being told to? Do they create market regimes that wouldn't exist without them? Do they learn to exploit each other?
+
+These questions can't be answered by looking at historical market data from the pre-agent era. They require a simulation framework where you can control agent behavior and test counterfactuals.
+
+### What Changed
+
+- **Old Q1 deprecated.** The vol-shock persistence/reversal research becomes a footnote — the investigation that revealed where to look. Code stays in `harbor/abf/q1/` as historical work.
+- **Simulation moved to center stage.** The agent simulation framework went from late-stage addition (old H5) to immediate priority (new H3). It's the primary research instrument, not a supporting tool.
+- **LLM agents moved from stub to focus.** In the old plan, LLM agents were "Phase 3 scope" with a `NotImplementedError`. Now they're the centerpiece of H4.
+- **HARBOR became a participant.** HARBOR-as-agent wraps the existing portfolio logic and competes against autonomous agents. This answers the natural question: "does the system you built actually work when autonomous agents are in the market?"
+- **New three-question research arc:**
+  - Q1: **Emergent Coordination** — do independent agents converge?
+  - Q2: **Regime Manufacturing** — do agent populations create regimes?
+  - Q3: **Adversarial Adaptation** — do agents learn to exploit each other?
+
+### The Design Decision
+
+I chose an evolutionary pivot — layer the new direction on top of validated infrastructure rather than starting over. H1 and H2 remain untouched. The 205 passing tests still pass. The old Q1 code stays in the repo. This is the same principle as before: don't break what works.
+
+But the research direction is fundamentally different. The old plan studied whether algorithms create patterns in markets. The new plan studies whether autonomous agents — systems that reason, adapt, and interact — create emergent dynamics that algorithms never could.
 
 ### What I Expect to Learn
 
-The honest answer: I don't know yet. The empirical evidence from A2 suggests that vol-targeting behavior manufactures autocorrelation, but whether the simulation will reproduce this is an open question. A null result — simulated agents don't produce real-world patterns — would mean the real-world patterns are driven by something deeper than agent behavior alone. That would redirect the research toward fundamental market structure, which is equally interesting.
+Three possible outcomes, all interesting:
 
-This uncertainty is the point. The project isn't built to confirm a hypothesis — it's built to test one.
+1. **Convergence without coordination.** Independent autonomous agents naturally converge on similar strategies because they see the same data and reason similarly. This would mean autonomous agent proliferation inherently creates systemic risk — not from explicit coordination, but from shared cognition.
+
+2. **Manufactured regimes.** Agent populations create momentum, mean-reversion, and volatility clustering that wouldn't exist without them. Markets with autonomous agents have fundamentally different statistical properties than markets with only traditional algorithms.
+
+3. **Adversarial equilibrium or instability.** When agents adapt to each other, the market either stabilizes (agents find complementary niches) or destabilizes (arms race). The retail investor impact depends on which.
+
+The honest answer: I don't know which of these will emerge. The simulation framework is designed to find out.
 
 ---
 
@@ -161,8 +186,9 @@ This uncertainty is the point. The project isn't built to confirm a hypothesis �
 | Feb 24, 2026 | — | Phase 2 sprint plan created |
 | Feb 27, 2026 | v0.2.0-dev | Q1 pipeline, advanced risk engine, ML scaffolding, 187 tests |
 | Mar 12, 2026 | — | Massive API integration design (data infrastructure upgrade) |
-| Mar 14, 2026 | — | Project reframing: broadened to all AI agents, added retail focus |
-| Mar 15, 2026 | — | Phase 2 design: two-track parallel (empirical + simulation) |
+| Mar 14, 2026 | — | First reframing: broadened to all AI agents, added retail focus |
+| Mar 15, 2026 | v0.3.0-dev | Classical baselines (GARCH/EWMA), multicollinearity fix, 205 tests |
+| Mar 16, 2026 | — | **Pivot to autonomous agents: new Q1/Q2/Q3, simulation-first research** |
 
 ## Architecture at a Glance
 
@@ -172,15 +198,16 @@ harbor/
   risk/              Covariance, HRP, Monte Carlo, regime detection, scenarios, decomposition
   portfolio/         Optimization, constraints, allocation
   backtest/          Engine, metrics, experiment runners
-  ml/                Volatility forecasters (experimental), behavioral RL agents (experimental)
-  abf/               ABF research: Q1 (complete), Q2 (in progress), agent validation (planned)
-  agents/            Agent simulation framework (planned)
+  ml/                Volatility forecasters + baselines, behavioral RL agents
+  abf/               ABF research: old Q1 (deprecated), new Q1/Q2/Q3 (planned)
+  agents/            Agent simulation framework: environment, autonomous agents, experiments
   retail/            Retail impact metrics and analysis (planned)
 ```
 
 ## Metrics
 
-- **Tests:** 187 passing (as of v0.2.0-dev), targeting ~290 by end of Phase 2
+- **Tests:** 205 passing (as of March 2026)
 - **Modules:** 8 top-level packages
-- **Research questions:** 3 (Q1 answered, Q2 in progress, Q3 deferred)
-- **Phases complete:** 4 of 11 (H1, H2, A1, A2)
+- **Research questions:** 3 (emergent coordination, regime manufacturing, adversarial adaptation)
+- **Phases complete:** 4 of 10 (H1, H2, A1, A2)
+- **Scope pivots:** 2 (broadening to all AI agents → sharpening to autonomous agents)

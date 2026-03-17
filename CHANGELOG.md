@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0-dev] — 2026-03-16
+
+### Changed
+- **Major scope pivot:** from "AI-driven trading broadly" to "autonomous and agentic trading" specifically
+- Rewrote `docs/abf-prd.md` (v3.0): agent-first thesis, new three-question research arc (emergent coordination → regime manufacturing → adversarial adaptation)
+- Rewrote `docs/plan.md`: H3-H5 now center on agent simulation framework with LLM/RL/HARBOR agent types; A3-A6 reframed around new research questions
+- Deprecated old Q1 (vol-shock persistence/reversal) — results too weak to anchor thesis, investigation motivated the pivot
+- Agent simulation framework promoted from late-stage (old H5) to immediate priority (new H3)
+- LLM agents promoted from stub/future scope to central focus (new H4)
+- Added HARBOR-as-agent concept: system tests itself against autonomous agents
+
+### Added
+- `docs/superpowers/specs/2026-03-16-autonomous-agent-pivot-design.md`: design spec for the autonomous agent pivot
+- `docs/PROJECT_EVOLUTION.md` Chapter 5: "The Pivot to Autonomous Agents" — documents rationale and new direction
+- Deprecation notice on `docs/abf-q1-research-summary.md`
+- New research question arc: Q1 (emergent coordination), Q2 (regime manufacturing), Q3 (adversarial adaptation)
+
 ## [0.3.0-dev] — 2026-03-15
 
 ### Changed

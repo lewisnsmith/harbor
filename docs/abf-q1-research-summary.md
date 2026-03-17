@@ -2,6 +2,8 @@
 
 **Lewis Smith | HARBOR Project | March 2026**
 
+> **Note (March 16, 2026):** This research has been deprecated as the project's primary investigation. The weak results (~1.3bps, post-2020 only) motivated a pivot to studying **autonomous and agentic trading** — systems that reason, adapt, and interact strategically — which are qualitatively different from the traditional vol-targeting algorithms studied here. This document is preserved as historical work. See `docs/PROJECT_EVOLUTION.md` Chapter 5 for the pivot rationale.
+
 ---
 
 ## Abstract
