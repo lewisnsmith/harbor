@@ -138,7 +138,7 @@ make all        # install + lint + test + run pipelines
 
 - **Development proxy:** V1 uses [yfinance](https://pypi.org/project/yfinance/) (Yahoo Finance) for price data. This is adequate for pipeline development and method validation but not for publication-quality inference.
 - **Survivorship bias:** The default universe loader scrapes current S&P 500 constituents from Wikipedia when historical membership data is unavailable. This introduces survivorship bias; a warning is emitted at runtime.
-- **Production target:** The PRD specifies CRSP/WRDS for survivorship-bias-free historical constituents. The `load_crsp_prices()` stub in `harbor.data` defines the interface; integration requires institutional access.
+- **Production target:** I hope to get CRSP/WRDS for survivorship-bias-free historical constituents. The `load_crsp_prices()` stub in `harbor.data` defines the interface; integration requires institutional access.
 - **Risk-free rate:** Proxied via 13-week T-bill yield (`^IRX`), converted and forward-filled to daily frequency.
 
 ---
