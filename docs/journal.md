@@ -1,6 +1,6 @@
 # HARBOR — Project Journal
 
-> How HARBOR (Hierarchical Adaptive Risk-Based Optimization Routine) grew from a high-school competition project into a semi-autonomous portfolio management system — and the lessons learned along the way.
+> How HARBOR (Hierarchical Agentic Risk Based Optimization Routine) grew from a high-school competition project into a semi-autonomous portfolio management system — and the lessons learned along the way.
 
 **Main Goal:** Produce a semi-autonomous Asset and Risk Management Algorithm for Retail-Level / Individual Investors.
 

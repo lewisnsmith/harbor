@@ -1,4 +1,4 @@
-# HARBOR — Hierarchical Adaptive Risk-Based Optimization Routine
+# HARBOR — Hierarchical Agentic Risk Based Optimization Routine
 
 [![CI](https://github.com/lewis-smith/harbor/actions/workflows/ci.yml/badge.svg)](https://github.com/lewis-smith/harbor/actions/workflows/ci.yml)
 
