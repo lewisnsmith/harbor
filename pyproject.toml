@@ -17,6 +17,7 @@ dependencies = [
     "matplotlib>=3.6",
     "yfinance>=0.2",
     "statsmodels>=0.14",
+    "pyyaml>=6.0",
 ]
 
 [tool.setuptools.packages.find]
@@ -29,6 +30,9 @@ ml = [
     "gymnasium>=0.29",
     "ray[rllib]>=2.9",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.black]
 line-length = 100
