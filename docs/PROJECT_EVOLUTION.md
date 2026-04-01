@@ -88,7 +88,7 @@ Three developments converged:
 
 2. **The causal gap:** The Q1 empirical results showed patterns consistent with manufactured autocorrelation, but couldn't isolate agent behavior as the cause. A simulation framework became necessary, not optional.
 
-3. **The retail investor angle:** As AI agents proliferate, the people most affected are retail investors who lack the tools to detect or respond to AI-driven market dynamics. This gave the project a purpose beyond academic curiosity.
+3. **A retail dimension:** As AI agents proliferate, retail investors are the most exposed — they lack the tools to detect or respond to AI-driven dynamics. This added a real-world motivation, but it was secondary. The simulation-first methodology was already necessary to answer the research questions regardless of application.
 
 ### What Changed
 
@@ -176,6 +176,69 @@ The honest answer: I don't know which of these will emerge. The simulation frame
 
 ---
 
+---
+
+## Chapter 6: The Build (April 2026)
+
+### Why the Restructure
+
+After the pivot to autonomous agents in Chapter 5, the old phase plan (H3 → H4 → H5 → A3 → A4...) stopped making sense. The problem: it was incremental in the wrong way. It deferred the experiment infrastructure to late stages (old H5) and built toward it through a sequence of isolated pieces. But running real agent experiments requires the full experiment loop to exist first — you need YAML configs, a runner, recording, metrics, and a results store before you can do anything reproducible. Building one component at a time would mean weeks of scaffolding before any experiment could run.
+
+The decision: replace the phase roadmap entirely with a five-layer architecture, build the experiment infrastructure (Layer 4) in one pass, and make it functional before running any experiments. This is the "homelab" — a personal research cluster for empirical multi-agent finance.
+
+A second motivation: the existing `harbor/agents/` code was not yet wired to a reproducible experiment loop. The market environment, rule agents, and metrics all existed, but they were called from ad-hoc scripts. The restructure gave them a proper home inside a normalized, config-driven experiment system.
+
+### What Was Built
+
+**`harbor/agents/` — completed:**
+- `MarketEnvironment` with price-impact model (linear temporary + square-root permanent), multi-asset state, order matching
+- `BaseAgent` abstract interface: `observe() → decide() → act()`
+- `MomentumAgent`, `MeanReversionAgent`, `VolTargetAgent` — rule-based baselines
+- `PopulationMetrics` — crowding index, flow imbalance, regime labels
+- `Simulation` — multi-agent simulation runner
+
+**`harbor/homelab/` — built from scratch:**
+
+*Venue layer:* `VenueSnapshot` (normalized state schema), `EquityVenue` (adapter wrapping `MarketEnvironment`). The venue produces a clean, consistent observation for any consumer — agent or runner — regardless of what's underneath.
+
+*Agent layer:* Four composable protocols (`Observable`, `Configurable`, `ToolUser`, `BudgetAware`). `LegacyAgentAdapter` bridges the existing `BaseAgent` subclasses to the new `Observable` protocol without touching their implementation. `AgentRegistry` constructs agents from YAML config entries.
+
+*Experiment config:* `ExperimentConfig` dataclass with full serialization. `from_yaml()` loads a YAML file; `to_dict()` serializes it for recording and replay.
+
+*Runner:* `ExperimentRunner` — the core loop. It derives child seeds deterministically via `np.random.SeedSequence`, builds venue and agents, runs the simulation, computes metrics, and finalizes recording. Returns an `ExperimentResult` with prices, returns, per-agent weights, orders, and metrics.
+
+*Batch and ablation:* `BatchRunner` runs a list of configs sequentially. `AblationRunner` generates the full Cartesian product of a parameter grid (specified via dot-path notation) and runs each variant.
+
+*Recording:* `Recorder` protocol with `NoopRecorder` (default, silent) and `JsonlRecorder` (writes one record per step). The backend is pluggable — this design anticipates Flight integration for trace replay and observability.
+
+*Evaluation:* `MetricsRegistry` with named metric functions and `compute_all()`. `ExperimentSummary` aggregates result sets.
+
+*Results store:* `ResultsStore` — persists results with metadata.
+
+*CLI:* `python -m harbor.homelab experiment.yaml` runs any experiment from a YAML config.
+
+### Key Design Decisions
+
+**Homelab orchestrates, doesn't absorb.** `harbor/agents/`, `harbor/risk/`, and `harbor/portfolio/` keep their module paths. The homelab wraps them via adapters and protocols rather than pulling their code in. This means the existing 205 tests kept passing during the build — no rewrite-driven breakage.
+
+**Protocol composition over inheritance.** Agents compose only the protocols they implement. An agent that doesn't use tools doesn't implement `ToolUser`. This makes the agent API extensible without forcing every agent type to satisfy a large abstract base class. LLM agents (future) will add `ToolUser` and `BudgetAware` without changing anything else.
+
+**`LegacyAgentAdapter` as the bridge.** Rather than rewriting the existing rule agents to satisfy new protocols, a thin adapter converts `VenueSnapshot → MarketState` and delegates to the inner `BaseAgent`. This is the software engineering equivalent of "don't break what works."
+
+**Pluggable recording backend.** `JsonlRecorder` writes per-step traces. The `Recorder` protocol is intentionally minimal so that a Flight-backed recorder can slot in without changing the runner. Trace observability is a first-class concern — not a later add-on.
+
+**`SeedSequence` for determinism.** A single master seed in the YAML config spawns child seeds for the venue and each agent via `np.random.SeedSequence`. Every experiment is reproducible from one integer.
+
+### What Was Learned
+
+Building the experiment infrastructure before running experiments is the right order. Every research decision — what to measure, how to compare, how to reproduce — is cleaner when the scaffolding already exists. The temptation is to start running simulations immediately and wire up infrastructure later. That path leads to ad-hoc scripts that can't be reproduced or compared.
+
+The `LegacyAgentAdapter` pattern was worth the extra indirection. It let the new system inherit all the work done on `harbor/agents/` without a rewrite, and it's reusable: any future "bring your own agent" implementation follows the same pattern.
+
+Protocol-based composition is significantly cleaner than a deep inheritance hierarchy for agents. The existing `BaseAgent` class had a fixed interface. The new protocol approach lets different agent types (heuristic, LLM, RL) share only the interfaces they actually need.
+
+---
+
 ## Technical Timeline
 
 | Date | Version | Milestone |
@@ -189,25 +252,36 @@ The honest answer: I don't know which of these will emerge. The simulation frame
 | Mar 14, 2026 | — | First reframing: broadened to all AI agents, added retail focus |
 | Mar 15, 2026 | v0.3.0-dev | Classical baselines (GARCH/EWMA), multicollinearity fix, 205 tests |
 | Mar 16, 2026 | — | **Pivot to autonomous agents: new Q1/Q2/Q3, simulation-first research** |
+| Apr 1, 2026 | — | **5-layer restructure: `harbor/agents/` complete, `harbor/homelab/` built** |
+| Apr 1, 2026 | — | 278 tests, CLI working: `python -m harbor.homelab experiment.yaml` |
 
 ## Architecture at a Glance
 
 ```
 harbor/
-  data/              Universe, price loaders, caching, Massive API client
+  data/              Universe, price loaders, caching
   risk/              Covariance, HRP, Monte Carlo, regime detection, scenarios, decomposition
   portfolio/         Optimization, constraints, allocation
   backtest/          Engine, metrics, experiment runners
   ml/                Volatility forecasters + baselines, behavioral RL agents
-  abf/               ABF research: old Q1 (deprecated), new Q1/Q2/Q3 (planned)
-  agents/            Agent simulation framework: environment, autonomous agents, experiments
-  retail/            Retail impact metrics and analysis (planned)
+  agents/            Agent simulation: environment, rule agents, metrics (Layer 2 core)
+  homelab/           Experiment infrastructure (Layer 4)
+    venue/             Normalized venue abstraction (EquityVenue)
+    agent/             Protocol-based agent API + LegacyAgentAdapter
+    recording/         Pluggable trace recording (noop, JSONL)
+    evaluation/        Metrics registry and experiment summaries
+    results/           Results store
+    config.py          YAML experiment config loader
+    batch.py / ablation.py  Batch and ablation runners
+    runner.py          ExperimentRunner
+    __main__.py        CLI entry point
+  abf/               ABF research utilities (Q1 deprecated)
 ```
 
 ## Metrics
 
-- **Tests:** 205 passing (as of March 2026)
-- **Modules:** 8 top-level packages
+- **Tests:** 278 passing (as of April 2026)
+- **Modules:** 9 top-level packages
 - **Research questions:** 3 (emergent coordination, regime manufacturing, adversarial adaptation)
-- **Phases complete:** 4 of 10 (H1, H2, A1, A2)
+- **Architecture restructures:** 1 (phase roadmap → 5-layer platform, April 2026)
 - **Scope pivots:** 2 (broadening to all AI agents → sharpening to autonomous agents)

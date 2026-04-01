@@ -1,13 +1,13 @@
-# HARBOR & ABF — Plan and Roadmap
+# HARBOR & ABF — Architecture and Status
 
 Project Owner: Lewis Smith
-Last Updated: 2026-03-16
+Last Updated: 2026-04-01
 
 ---
 
 ## 0. Vision
 
-HARBOR is an asset management algorithm that evolved into an empirical research platform for studying how autonomous trading agents reshape financial markets. The core thesis: autonomous agents (LLM-powered, RL-based, tool-using) are qualitatively different from traditional systematic algorithms — they reason, adapt, and interact strategically — and when deployed at scale, they create emergent coordination, manufactured regimes, and adversarial dynamics that traditional finance cannot explain.
+HARBOR is a math-first platform for studying whether autonomous agents create statistically exploitable structure in markets. The core thesis: autonomous agents (LLM-powered, RL-based, tool-using) are qualitatively different from traditional systematic algorithms — they reason, adapt, and interact strategically — and when deployed at scale, they create emergent coordination, manufactured regimes, and adversarial dynamics that traditional finance cannot explain.
 
 **HARBOR's triple role:**
 
@@ -17,424 +17,177 @@ HARBOR is an asset management algorithm that evolved into an empirical research 
 
 ABF (Artificial Behavioral Finance) is the research track that uses HARBOR's infrastructure and the agent simulation framework to test whether autonomous trading agents create novel market dynamics.
 
-Outputs:
-- A modular Python library (HARBOR) with quant, ML, and agent simulation internals.
-- A reproducible ABF research pipeline + working-paper-style draft on autonomous agent market dynamics.
-
 ---
 
-## 1. Architecture Overview
+## 1. Architecture: Five Layers
 
-High-level HARBOR modules:
+HARBOR is organized as five layers. Each layer wraps or builds on the one below it.
 
-- `harbor.data` – SP500 data, universe, features, Massive API client.
-- `harbor.risk` – HRP, covariance estimation, Monte Carlo VaR/CVaR, regime detection, scenarios, decomposition.
-- `harbor.portfolio` – optimization, constraints, allocation logic.
-- `harbor.backtest` – engine, metrics, experiment runners.
-- `harbor.ml.volatility` – NN volatility forecasters (experimental) + classical baselines (GARCH, EWMA).
-- `harbor.ml.behavior_agents` – deep RL behavioral portfolio agents (experimental).
-- `harbor.agents` – Agent simulation framework: market environment, autonomous agents, population experiments.
-- `harbor.abf` – Research experiments and analysis utilities.
-- `harbor.retail` – Retail impact metrics and analysis (planned).
+### Layer 1 — Market / Venue
 
-The system has two arms: the asset management stack (data → risk → portfolio → backtest) and the research stack (agents + abf + retail). They share infrastructure and feed results into each other.
+**Module:** `harbor/homelab/venue/`
 
----
+Normalizes different market types into a unified interface. Currently implemented:
 
-## 2. HARBOR Roadmap (Framework)
+- `VenueSnapshot` — standardized state schema: timestamp, assets, prices, returns, volume, spread, returns_history, market_type, metadata
+- `EquityVenue` — adapter wrapping `harbor.agents.MarketEnvironment` as a venue, synthesizing volume and spread from order flow and volatility
+- `Venue` protocol — `reset(seed) → VenueSnapshot`, `step(orders) → VenueSnapshot`
 
-### 2.1 Phase H1 — Core Quant Stack ✅ COMPLETE
+All venues emit `VenueSnapshot`. The runner consumes only the protocol — venues are pluggable.
 
-**Goal:** Solid, math-heavy portfolio/risk core with clean APIs.
+### Layer 2 — Agent
 
-Deliverables:
-- `harbor.data`
-  - SP500 survivorship-bias-free loaders (CRSP/WRDS if available; fallback acceptable but documented).
-- `harbor.risk`
-  - Covariance estimators (sample, shrinkage).
-  - Hierarchical Risk Parity (HRP) implementation.
-  - Basic Monte Carlo return generator + portfolio VaR/CVaR.
-- `harbor.portfolio`
-  - Mean–variance / risk-parity / HRP allocation interfaces.
-- `harbor.backtest`
-  - Cross-sectional backtest loop with transaction costs and standard performance/risk metrics.
+**Modules:** `harbor/homelab/agent/`, `harbor/agents/`
 
-Exit criteria:
-- One end-to-end script: "load SP500 → build HRP portfolio → backtest → report risk metrics".
+Agents are pluggable policies. The homelab agent layer is protocol-based: agents compose only the interfaces they need.
 
-Phase H1 checklist (execution status):
-- [x] `harbor.data`: point-in-time membership loader with documented fallback, price loader, risk-free loader, local cache scaffolding.
-- [x] `harbor.risk`: sample/shrinkage covariance estimators, HRP implementation, Monte Carlo VaR/CVaR utilities.
-- [x] `harbor.portfolio`: mean-variance, risk parity, and HRP allocation interfaces.
-- [x] `harbor.backtest`: cross-sectional backtest engine with transaction costs and core metrics.
-- [x] Exit-criteria script added: `experiments/h1_end_to_end_hrp_backtest.py`.
-- [x] Phase H1 unit-test suite added for core data/risk/portfolio/backtest pathways.
+**Protocols (`harbor/homelab/agent/protocols.py`):**
+- `Observable` — core interface: `observe()`, `decide()`, `act()` → orders
+- `Configurable` — `get_params()` / `set_params()` for ablation sweeps
+- `ToolUser` — `available_tools()` / `use_tool()` for agents that call external services
+- `BudgetAware` — `budget_remaining` / `deduct_budget()` for API-constrained agents
 
----
+**Adapters:** `LegacyAgentAdapter` bridges existing `BaseAgent` subclasses (Momentum, MeanReversion, VolTarget) to the `Observable` protocol without rewriting them.
 
-### 2.2 Phase H2 — Advanced Risk & Simulation ✅ COMPLETE
+**Registry:** `build_agents(config, n_assets)` constructs agents from YAML config entries.
 
-**Goal:** Deepen risk modeling and scenario analysis.
+**Rule agents (`harbor/agents/rule_agents.py`):**
+- `MomentumAgent` — trend-following with lookback window
+- `MeanReversionAgent` — mean-reversion with lookback window
+- `VolTargetAgent` — volatility-targeting weight scaler
 
-Deliverables:
-- `harbor.risk`
-  - Regime-aware covariance (regime switches and shrinkage based on vol state).
-  - Robust Monte Carlo engines (Student-t marginals, factor-driven simulation).
-- Stress testing:
-  - Shock scenarios (vol spikes, correlation spikes, sector crashes).
-  - Risk decomposition by factor/cluster.
+### Layer 3 — Portfolio / Risk
 
-Exit criteria:
-- Config-driven scenario runs with clear outputs (risk decomposition, stress-test reports).
-- Pluggable risk engine used by ABF experiments.
+**Modules:** `harbor/risk/`, `harbor/portfolio/`
 
-Phase H2 checklist (execution status):
-- [x] Regime-aware covariance estimators.
-- [x] Student-t and factor-driven Monte Carlo engines.
-- [x] Config-driven stress scenario runner.
-- [x] Risk decomposition by factor and cluster.
-- [x] Pluggable risk engine interface.
-- [x] 48 H2 tests passing.
-- [x] Demo script: `experiments/h2_risk_engine_demo.py`.
+The existing math-heavy core. Unchanged by the restructure. Callable by agents as tool-using services.
 
----
+- **Risk:** sample and Ledoit-Wolf shrinkage covariance, HRP, Monte Carlo VaR/CVaR, regime detection (HMM), scenario stress tests, factor/cluster decomposition
+- **Portfolio:** mean-variance, risk parity, HRP allocation with configurable constraints
 
-### 2.3 Phase H3 — Agent Simulation Core
+### Layer 4 — Experiment / Evaluation
 
-**Goal:** Build the market simulation environment and agent interface — the primary research instrument.
+**Module:** `harbor/homelab/`
 
-**Status: Next.** This is the foundation for all agent-first research.
+The reproducible experiment infrastructure — the "homelab heart."
 
-**Depends on:** H2 (complete).
+**Config (`config.py`):**
+- `ExperimentConfig` — dataclass with: name, seed, venue block, agents list, recording block, evaluation block
+- `ExperimentConfig.from_yaml(path)` — loads from YAML; `to_dict()` serializes for recording
 
-**Module:** `harbor/agents/`
+**Runner (`runner.py`):**
+- `ExperimentRunner` — orchestrates: seed derivation → venue → agents → recorder → simulation loop → metrics → finalize
+- `ExperimentResult` — prices, returns, agent_weights, agent_returns, orders, metrics, elapsed_seconds
+- Seed derivation via `np.random.SeedSequence` — deterministic child seeds for venue and agents
 
-```
-harbor/agents/
-    environment.py      # Market sim: price-impact model, order matching, state
-    base_agent.py       # Abstract interface: observe() → decide() → act()
-    rule_agents.py      # Momentum, vol-targeting, mean-reversion (simple baselines)
-    config.py           # Population configs, parameter distributions
-    metrics.py          # Market-level: crowding index, flow imbalance, regime labels
+**Batch / Ablation:**
+- `BatchRunner` — runs multiple `ExperimentConfig`s sequentially, collects results
+- `AblationRunner` — generates all combinations from a base config + parameter grid (dot-path notation: `"venue.params.n_assets": [5, 10, 20]`)
+
+**Recording:**
+- `Recorder` protocol — `start_experiment()`, `record_step()`, `end_experiment()`
+- `NoopRecorder` — silent (default)
+- `JsonlRecorder` — writes one JSONL record per step to `output_dir/<experiment_id>.jsonl`; designed for Flight integration
+
+**Evaluation:**
+- `MetricsRegistry` — named metric functions, `compute_all(names, prices, returns, agent_weights, orders, agent_returns)`
+- `ExperimentSummary` — aggregates result sets into summary DataFrames
+
+**Results store (`results/store.py`):**
+- `ResultsStore` — persists `ExperimentResult` objects with metadata
+
+**CLI (`__main__.py`):**
+```bash
+python -m harbor.homelab experiment.yaml
 ```
 
-Key design decisions:
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| Price formation | Impact model (linear temporary + square-root permanent) | Captures dynamics we care about; standard in agent-based finance lit |
-| Agent interface | observe() → decide() → act() | Clean separation; works for all agent types |
-| Rule-based agents | First implementation | Validates environment before adding complexity |
-| Output format | Same DataFrame structure as real data | Enables reuse of entire ABF analysis pipeline |
+### Layer 5 — Exploitation
 
-Deliverables:
-- `harbor.agents.environment`: Market environment with price-impact model
-- `harbor.agents.base_agent`: Abstract agent interface
-- `harbor.agents.rule_agents`: Momentum, vol-targeting, mean-reversion baselines
-- `harbor.agents.config`: Population configuration system
-- `harbor.agents.metrics`: Crowding index, flow imbalance, regime labels
-
-Exit criteria:
-- Market environment runs end-to-end with rule-based agents
-- Price-impact model produces realistic price dynamics (no drift explosion, reasonable vol)
-- Metrics module computes crowding, flow imbalance, regime labels
-- Output format compatible with ABF analysis pipelines
-- Unit tests for environment, agents, metrics
-
-Sprint plan:
-| Sprint | Duration | Focus |
-|--------|----------|-------|
-| H3-S1 | 2 weeks | Market environment + price-impact model + state management |
-| H3-S2 | 2 weeks | Base agent interface + rule-based agents (momentum, vol-target, mean-rev) |
-| H3-S3 | 2 weeks | Metrics module + config system + end-to-end simulation runs |
+Deferred. Intended for: cross-market arbitrage, prediction-market sum-of-probabilities checks, crowding/fading strategies, inventory-aware market making. The key thesis is that the exploiter is often simpler than the agents it exploits.
 
 ---
 
-### 2.4 Phase H4 — Autonomous Agent Types
+## 2. Completed Work
 
-**Goal:** Implement the autonomous agent types that make this project distinctive — LLM agents, RL agents, and HARBOR-as-agent.
+### H1 — Core Quant Stack ✅
 
-**Depends on:** H3 (simulation core running).
+- `harbor.data` — S&P 500 universe loaders (survivorship-bias-aware fallback), price loader, risk-free rate proxy, local Parquet/pickle cache
+- `harbor.risk` — sample/shrinkage covariance, HRP, Monte Carlo VaR/CVaR
+- `harbor.portfolio` — mean-variance, risk parity, HRP allocation interfaces
+- `harbor.backtest` — cross-sectional engine with transaction costs and core metrics
+- End-to-end script: `experiments/h1_end_to_end_hrp_backtest.py`
 
-```
-harbor/agents/
-    llm_agents.py       # LLM-based agents (Claude/GPT via API, prompted with market data)
-    rl_agents.py        # RL agents (wraps harbor.ml.behavior_agents, trains in environment)
-    harbor_agent.py     # HARBOR-as-agent: uses harbor.risk + harbor.portfolio to trade
-    adaptation.py       # Agent learning/adaptation between rounds
-```
+### H2 — Advanced Risk & Simulation ✅
 
-Agent types:
-| Type | Source | Distinguishing Feature |
-|------|--------|----------------------|
-| LLM-based | `llm_agents.py` | Reasons about market state via API call, adapts via prompting |
-| RL-based | `rl_agents.py` | Learns optimal policy through environment interaction (experimental baseline — not validated against classical benchmarks) |
-| HARBOR | `harbor_agent.py` | Uses HARBOR's own risk/portfolio logic — the system tests itself |
+- Regime-aware covariance estimators
+- Student-t and factor-driven Monte Carlo engines
+- Config-driven stress scenario runner (vol spikes, correlation spikes, sector crashes)
+- Risk decomposition by factor and cluster
+- Pluggable risk engine interface
+- Demo: `experiments/h2_risk_engine_demo.py`
 
-Key design decisions:
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| LLM agents | Real API calls (Claude/GPT) | Mocking loses the point — real reasoning is what makes agents different |
-| RL agents | Wrap existing harbor.ml.behavior_agents | Reuses validated code |
-| HARBOR-as-agent | Wraps harbor.risk + harbor.portfolio | Tests the system against itself |
-| Adaptation | Between-round strategy updates | Agents learn from past performance |
+### Agent Simulation Core (`harbor/agents/`) ✅
 
-Exit criteria:
-- LLM agents receive market state, output trading decisions via API
-- RL agents train within the simulation environment
-- HARBOR agent uses existing portfolio logic to trade
-- Adaptation mechanism allows strategy updates between rounds
-- Unit tests for each agent type (mocked API for CI)
+- `MarketEnvironment` — price-impact model (linear temporary + square-root permanent), order matching, state management
+- `BaseAgent` — abstract interface: `observe() → decide() → act()`
+- `MomentumAgent`, `MeanReversionAgent`, `VolTargetAgent` — rule-based baselines
+- `MarketConfig` — population parameter configuration
+- `PopulationMetrics` — crowding index, flow imbalance, regime labels
+- `Simulation` — multi-agent simulation runner (pre-homelab, now wrapped by EquityVenue)
 
-Sprint plan:
-| Sprint | Duration | Focus |
-|--------|----------|-------|
-| H4-S1 | 2 weeks | LLM agent implementation + prompt engineering + API integration |
-| H4-S2 | 2 weeks | RL agent wrapper + HARBOR-as-agent + adaptation mechanism |
-| H4-S3 | 2 weeks | Integration testing: all agent types in shared simulation |
+### Homelab / Experiment Infrastructure (`harbor/homelab/`) ✅
+
+Full Layer 4 implementation. See Section 1 above.
+
+### ABF A1 + A2 ✅ (Deprecated)
+
+- PRD written, SP500 universe and data pipeline built
+- Q1 pipeline: local projections, Newey-West HAC errors, CAR computation, robustness sweep
+- Results: ~1.3bps effects, economically insignificant, time-dependent (post-2020 only)
+- Deprecated — code preserved in `harbor/abf/q1/` as historical baseline. This investigation revealed where to look: autonomous agents, not simple algorithms.
+
+### ML Extensions (Experimental)
+
+- LSTM/GRU volatility forecasters + GARCH/EWMA classical baselines
+- Deep RL behavioral agents with behavioral reward shaping
+- Labeled experimental — not validated against classical benchmarks
 
 ---
 
-### 2.5 Phase H5 — Population Dynamics & Experiments
+## 3. Current State
 
-**Goal:** Multi-agent population management and predefined experiment configurations for causal testing.
+**Test suite:** 278 tests passing
 
-**Depends on:** H4 (all agent types working).
+**Runnable today:**
+```bash
+# Homelab experiment
+python -m harbor.homelab configs/your_experiment.yaml
 
-```
-harbor/agents/
-    population.py       # Population manager: spawn, configure, mix agent types
-    experiments.py      # Predefined experiment configs
-    analysis.py         # Bridge: convert sim output → ABF-compatible DataFrames
+# H1 end-to-end baseline
+python3 experiments/h1_end_to_end_hrp_backtest.py --start 2020-01-01 --max-assets 50
+
+# H3 agent simulation demo
+make h3
 ```
 
-Experiment configurations:
-1. **Homogeneous LLM:** 50 LLM agents, same base prompt → emergent coordination test
-2. **Mixed autonomous:** 20 LLM + 20 RL + 10 HARBOR → interaction dynamics
-3. **Stress injection:** External vol shock + mixed population → cascading behavior
-4. **Adaptation test:** Agents learn between rounds → convergence or divergence
-5. **HARBOR resilience:** HARBOR agent in autonomous-agent-dominated market
+**Module inventory:**
 
-Exit criteria:
-- Population manager configures and runs multi-agent simulations end-to-end
-- At least 3 experiment configurations produce non-trivial results
-- Analysis module converts simulation output to ABF-compatible DataFrames
-- Results reproducible via config files and `make` targets
-
-Sprint plan:
-| Sprint | Duration | Focus |
-|--------|----------|-------|
-| H5-S1 | 2 weeks | Population manager + experiment config system |
-| H5-S2 | 2 weeks | Run all 5 experiment configs + analysis bridge |
-| H5-S3 | 2 weeks | Results analysis, reproducibility, documentation |
-
----
-
-## 3. ABF Roadmap (Research)
-
-ABF = research layer that uses HARBOR infrastructure and the agent simulation framework.
-
-### 3.1 Phase A1 — Spec & Data ✅ COMPLETE
-
-**Goal:** Lock questions, universe, and primary metrics.
-
-Deliverables:
-- PRD (`docs/abf-prd.md`) v1 done.
-- SP500 universe with historical membership + clean daily panel.
-- Config files for shock definitions and regime definitions.
-
----
-
-### 3.2 Phase A2 — Old Q1: Shock → Persistence → Reversal ✅ COMPLETE (Deprecated)
-
-**Goal:** Test whether vol-targeting algorithms create momentum and reversal patterns.
-
-**Status:** Complete but deprecated. Results were weak and time-dependent (post-2020 only, ~1.3bps, economically insignificant). This investigation motivated the pivot to autonomous-agent-specific research. Code remains in `harbor/abf/q1/` as historical work. See `docs/abf-q1-research-summary.md`.
-
----
-
-### 3.3 Phase A3 — Q1: Emergent Coordination
-
-**Goal:** Test whether independently-built autonomous agents converge on similar strategies without explicit coordination.
-
-**Depends on:** H4 (autonomous agent types working).
-
-**Module:** `harbor/abf/q1_coordination/`
-
-Method:
-- Run H4 agent populations with diverse initial configurations (different LLM prompts, different RL training seeds, different HARBOR configs)
-- Measure convergence metrics:
-
-| Metric | Definition |
-|--------|-----------|
-| Position correlation | Cross-agent correlation of portfolio weights over time |
-| Strategy similarity | Rolling cosine similarity of agent trade signals |
-| Herding intensity | Fraction of agents on the same side of each trade |
-| Convergence speed | Time (in rounds) for similarity metrics to plateau |
-
-- Key test: do agents that start different become more similar over time?
-- Empirical complement: post-2023 real-market signatures (did cross-asset correlations change character after LLM agent adoption?)
-
-Target figures:
-1. Convergence trajectories: similarity metrics over simulation rounds for each experiment config
-2. Herding intensity heatmap: agent-by-agent position correlation matrix at start vs end
-3. Empirical comparison: real-market correlation structure pre-2020 vs post-2023
-4. Robustness: sensitivity to LLM prompt variation, RL seed variation
-
-Exit criteria:
-- Statistical evidence that independent agents converge (or clear null result)
-- At least one convergence metric shows clear temporal trend in simulation
-- Empirical comparison with real-market patterns
-- Draft text for paper section on emergent coordination
-
-Sprint plan:
-| Sprint | Duration | Focus |
-|--------|----------|-------|
-| A3-S1 | 2 weeks | Convergence metric computation + simulation runs |
-| A3-S2 | 2 weeks | Empirical complement (real-market analysis) |
-| A3-S3 | 2 weeks | Figures, robustness, write-up |
-
----
-
-### 3.4 Phase A4 — Q2: Regime Manufacturing
-
-**Goal:** Test whether autonomous agent populations CREATE market regimes that wouldn't exist without them.
-
-**Depends on:** H5 (population experiments) and A3 (convergence findings inform regime analysis).
-
-**Module:** `harbor/abf/q2_regimes/`
-
-Method:
-- Ablation experiments: run simulation with and without agent populations, compare regime structure using H2's regime detection tools
-- Dose-response: vary agent concentration from 10% to 80% of market volume, measure regime intensity
-- Regime detection: apply existing `harbor.risk` regime tools to synthetic data
-- Empirical complement: compare regime frequency and intensity pre-2020 vs post-2023
-
-Target figures:
-1. Ablation comparison: regime structure with vs without agents
-2. Dose-response curves: agent concentration → regime intensity
-3. Regime type identification: which regimes are agent-manufactured?
-4. Empirical comparison: regime frequency pre-2020 vs post-2023
-
-Exit criteria:
-- Ablation shows statistically significant regime differences with/without agents
-- Dose-response shows monotonic relationship between agent concentration and regime intensity
-- At least one manufactured regime type clearly identified
-- Draft text for paper section
-
-Sprint plan:
-| Sprint | Duration | Focus |
-|--------|----------|-------|
-| A4-S1 | 2 weeks | Ablation experiments + regime detection on synthetic data |
-| A4-S2 | 2 weeks | Dose-response curves + empirical complement |
-| A4-S3 | 2 weeks | Figures, statistical tests, write-up |
-
----
-
-### 3.5 Phase A5 — Q3: Adversarial Adaptation
-
-**Goal:** Test whether autonomous agents learn to exploit each other and whether this destabilizes prices.
-
-**Depends on:** A4 (regime findings inform adaptation analysis).
-
-**Module:** `harbor/abf/q3_adversarial/`
-
-Method:
-- Multi-round simulation where agents adapt strategies between rounds
-- Measure: price stability over time, strategy divergence/convergence, Sharpe ratio decay
-- Test whether adaptation leads to arms race (increasing instability), equilibrium (stability), or cycles
-- Retail impact: how does a naive buy-and-hold investor fare as agents adapt?
-- HARBOR impact: does regime-awareness mitigate the damage?
-
-Target figures:
-1. Price stability over adaptation rounds
-2. Strategy divergence/convergence trajectories
-3. Sharpe decay curves for different agent types
-4. Retail portfolio impact during adversarial periods
-5. HARBOR-as-agent performance vs naive strategies
-
-Exit criteria:
-- Clear characterization of adaptation dynamics (arms race, equilibrium, or cycles)
-- Quantified retail portfolio impact during adversarial periods
-- HARBOR-as-agent performance comparison
-- Draft text for paper section
-
-Sprint plan:
-| Sprint | Duration | Focus |
-|--------|----------|-------|
-| A5-S1 | 2 weeks | Multi-round adaptation experiments |
-| A5-S2 | 2 weeks | Retail + HARBOR impact analysis |
-| A5-S3 | 2 weeks | Figures, characterization, write-up |
-
----
-
-### 3.6 Phase A6 — Retail Impact & Write-up
-
-**Goal:** Complete paper draft with HARBOR-as-participant results and retail impact quantification.
-
-**Depends on:** A5.
-
-Deliverables:
-- HARBOR-as-agent performance across all experiment configs
-- Quantified regime-awareness benefit for retail portfolios
-- Paper-quality draft: Q1 (coordination) + Q2 (regimes) + Q3 (adaptation) + retail impact
-- Reproducible pipeline via `make` targets
-- Public or semi-public repo with docs and notebooks aligned to the paper
-
-Exit criteria:
-- Complete paper draft with figures, tables, and statistical tests
-- All experiments reproducible in <5 commands
-- At least one expert review (faculty or practitioner)
-- Concise writeup suitable for applications
+| Module | Purpose | Status |
+|--------|---------|--------|
+| `harbor.data` | Data loaders and caching | Complete |
+| `harbor.risk` | Risk models and scenario analysis | Complete |
+| `harbor.portfolio` | Portfolio construction | Complete |
+| `harbor.backtest` | Backtesting engine | Complete |
+| `harbor.agents` | Agent simulation environment | Complete |
+| `harbor.homelab` | Experiment infrastructure (Layer 4) | Complete |
+| `harbor.ml` | Vol forecasters, RL agents | Experimental |
+| `harbor.abf` | ABF research utilities | Legacy (Q1 deprecated) |
 
 ---
 
 ## 4. Cross-Cutting Practices
 
-- **Versioning & Changelog**
-  - Semantic Versioning: `MAJOR.MINOR.PATCH`.
-  - `CHANGELOG.md` updated for each tagged release.
-
-- **Documentation**
-  - `README.md` for overview and quickstart.
-  - `docs/abf-prd.md` for research spec.
-  - `docs/plan.md` (this file) for roadmap and phases.
-  - `docs/PROJECT_EVOLUTION.md` for the full project story.
-
-- **Git Hygiene**
-  - Feature branches per module/experiment.
-  - Descriptive, technical commit messages and PRs.
-
-- **Reproducibility**
-  - Config-driven experiments.
-  - Minimal "one-command" scripts to reproduce key results.
-
----
-
-## 5. Milestone Table (High-Level)
-
-| Timeframe | HARBOR Focus | ABF Focus | Status |
-|-----------|-------------|-----------|--------|
-| 0–3 months | H1: Core quant stack | A1: Spec + data | ✅ Complete |
-| 3–6 months | H2: Advanced risk | A2: Old Q1 (deprecated) | ✅ Complete |
-| 6–9 months | **H3: Agent simulation core** | Empirical insurance track (lightweight) | **Next** |
-| 9–12 months | **H4: Autonomous agent types** | — | Planned |
-| 12–14 months | — | **A3: Emergent coordination** | Planned |
-| 14–16 months | **H5: Population dynamics** | **A4: Regime manufacturing** | Planned |
-| 16–18 months | — | **A5: Adversarial adaptation** | Planned |
-| 18+ months | — | **A6: Retail impact & paper** | Planned |
-
-**Parallelism:** H5 can begin with rule-based agents (from H3) before H4 is fully complete. The empirical insurance track runs independently. A3 starts after H4 delivers working autonomous agents.
-
----
-
-## 6. Current Phase (March 2026)
-
-- **HARBOR H1** (Core Quant Stack): ✅ Complete — data loaders, risk models, portfolio optimization, backtest engine all implemented and tested.
-- **HARBOR H2** (Advanced Risk & Simulation): ✅ Complete — regime-aware covariance, Student-t/factor Monte Carlo, config-driven stress scenarios, risk decomposition, pluggable risk engine interface. 48 H2 tests passing.
-- **ABF A2** (Old Q1 Pipeline): ✅ Complete, now deprecated — local projections, CAR computation, robustness sweep. Results were weak/time-dependent, motivating the pivot to autonomous-agent research.
-- **ML Extensions**: Experimental scaffolding — LSTM/GRU vol forecasters and deep RL behavioral agents with unit tests. Classical baselines (GARCH, EWMA) implemented. These serve as infrastructure for RL agent types in H4.
-- **Agent Simulation** (H3): **Next** — `harbor/agents/` stub in place. Building the market environment and agent interface is the immediate priority.
-
-**Key scope change (March 2026):** Project pivoted from "AI-driven trading broadly" to "autonomous and agentic trading" specifically. Old Q1 deprecated. New three-question research arc: emergent coordination → regime manufacturing → adversarial adaptation. The simulation framework moved from late-stage (old H5) to immediate priority (new H3) as the primary research instrument. See `docs/PROJECT_EVOLUTION.md` for the full narrative and `docs/superpowers/specs/2026-03-16-autonomous-agent-pivot-design.md` for the design spec.
-
-**Test suite:** 205 tests passing.
+- **Reproducibility:** Config-driven experiments, deterministic seeds via `SeedSequence`, JSONL traces
+- **Testing:** Pytest, 278 tests, CI via GitHub Actions
+- **Documentation:** `README.md` (overview/quickstart), `docs/abf-prd.md` (research spec), `docs/plan.md` (this file), `docs/PROJECT_EVOLUTION.md` (project story)
+- **Git hygiene:** Feature branches per module/experiment, descriptive commit messages
