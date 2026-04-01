@@ -51,3 +51,4 @@ data/cache/rates/*
 data/models/*
 !data/models/.gitkeep
 venv
+project_master_roadmap copy.md
