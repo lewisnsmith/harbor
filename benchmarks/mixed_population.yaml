@@ -1,0 +1,37 @@
+experiment:
+  name: mixed_population
+  description: Mixed agent types — momentum, mean-reversion, vol-target interactions
+  seed: 42
+
+venue:
+  type: equity
+  params:
+    n_steps: 500
+    n_assets: 10
+    base_volatility: 0.01
+    temporary_impact: 0.1
+    permanent_impact: 0.01
+
+agents:
+  - type: momentum
+    count: 5
+    params:
+      lookback: 21
+  - type: mean_reversion
+    count: 3
+    params:
+      lookback: 42
+  - type: vol_target
+    count: 2
+
+recording:
+  type: jsonl
+  params:
+    output_dir: results/
+
+evaluation:
+  metrics:
+    - annualized_vol
+    - sharpe_ratio
+    - max_drawdown
+    - sortino_ratio

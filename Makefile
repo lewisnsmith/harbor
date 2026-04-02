@@ -1,4 +1,4 @@
-.PHONY: install test lint q1 h1 h2 h3 all clean
+.PHONY: install test lint q1 h1 h2 h3 homelab all clean
 
 PYTHON ?= python3
 VENV   ?= .venv
@@ -39,7 +39,11 @@ h3:
 		--n-steps 500 \
 		--output-dir results/agent_simulation
 
-all: install lint test q1 h1 h2 h3
+homelab:
+	$(VPYTHON) -m harbor.homelab benchmarks/momentum_baseline.yaml
+	$(VPYTHON) -m harbor.homelab benchmarks/mixed_population.yaml
+
+all: install lint test q1 h1 h2 h3 homelab
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
