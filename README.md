@@ -58,6 +58,8 @@ Core research questions (full specification in [`docs/abf-prd.md`](docs/abf-prd.
 
 The ABF track uses a simulation-first methodology: synthetic multi-agent markets with controlled populations enable causal identification of agent-driven effects, producing research-quality output with the aim of faculty review and potential collaboration.
 
+**The retail investor angle is two-sided.** On one hand, autonomous agents operating in markets may create dynamics — crowding, manufactured regimes, adversarial arms races — that retail investors can't detect or respond to, concentrating risk on those least equipped to handle it. On the other hand, autonomous agents *as tools* may expand retail access to strategies previously gated behind institutional infrastructure: regime-aware allocation, dynamic risk sizing, and systematic rebalancing that individual investors couldn't implement manually. Whether this democratization offsets the structural disadvantage is an open empirical question — and one HARBOR is positioned to test, as HARBOR-as-agent wraps its own portfolio logic and competes directly against autonomous agents in simulation.
+
 ---
 
 ## Repository Structure
