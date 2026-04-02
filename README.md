@@ -26,6 +26,34 @@ The full development history is documented in [`docs/journal.md`](docs/journal.m
 
 ---
 
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  Layer 5: Exploitation (deferred)                       │
+│  Crowding/fading, cross-market arb, prediction markets  │
+├─────────────────────────────────────────────────────────┤
+│  Layer 4: Experiment / Evaluation  [harbor.homelab]     │
+│  YAML config → ExperimentRunner → traces + metrics      │
+│  Batch, ablation, recording (JSONL/Flight), ResultStore │
+├─────────────────────────────────────────────────────────┤
+│  Layer 3: Portfolio / Risk  [harbor.risk, .portfolio]   │
+│  Covariance, HRP, VaR/CVaR, regime detection, MVO      │
+├─────────────────────────────────────────────────────────┤
+│  Layer 2: Agent  [harbor.homelab.agent, harbor.agents]  │
+│  Observable/Configurable/ToolUser/BudgetAware protocols │
+│  LegacyAgentAdapter bridges existing rule agents        │
+├─────────────────────────────────────────────────────────┤
+│  Layer 1: Market / Venue  [harbor.homelab.venue]        │
+│  VenueSnapshot ← EquityVenue ← MarketEnvironment       │
+│  Pluggable: any venue emitting VenueSnapshot works      │
+└─────────────────────────────────────────────────────────┘
+```
+
+Each layer wraps or builds on the one below. The homelab wraps existing modules via adapters — no existing code is absorbed or moved.
+
+---
+
 ## What HARBOR Does
 
 HARBOR is a modular Python framework for **risk-first portfolio construction and research**. Its modules are the infrastructure layer of the ABF research platform:
@@ -84,6 +112,7 @@ harbor/            Core Python package
     runner.py          ExperimentRunner: YAML → run → traces + metrics
     __main__.py        CLI entry point
   abf/               ABF research experiment utilities (legacy Q1 pipeline)
+benchmarks/        Reproducible benchmark YAML configs
 notebooks/         Research and experimentation notebooks
 experiments/       End-to-end scripts and prototypes
 configs/           YAML experiment configs
@@ -111,7 +140,7 @@ research/          Research notes and references
 | ML Extensions | `harbor.ml` — vol forecasters, RL agents | Experimental scaffolding |
 | ABF Q1 Pipeline | `harbor.abf` | Legacy/deprecated |
 
-278 tests passing. See [`docs/plan.md`](docs/plan.md) for architecture details.
+287 tests passing (234 core + 53 homelab). See [`docs/plan.md`](docs/plan.md) for architecture details.
 
 ---
 
@@ -130,6 +159,10 @@ python -m pip install -e .
 **Run an experiment via the homelab CLI:**
 
 ```bash
+# Run a built-in benchmark
+python -m harbor.homelab benchmarks/momentum_baseline.yaml
+
+# Run any custom experiment config
 python -m harbor.homelab configs/your_experiment.yaml
 ```
 
@@ -156,7 +189,8 @@ make lint       # Run ruff
 make q1         # Run ABF Q1 pipeline end-to-end
 make h1         # Run H1 HRP backtest pipeline
 make h3         # Run H3 agent simulation demo → results/agent_simulation/
-make all        # install + lint + test + run pipelines
+make homelab    # Run homelab benchmarks (momentum_baseline + mixed_population)
+make all        # install + lint + test + run all pipelines
 ```
 
 ---

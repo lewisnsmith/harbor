@@ -139,6 +139,15 @@ Deferred. Intended for: cross-market arbitrage, prediction-market sum-of-probabi
 
 Full Layer 4 implementation. See Section 1 above.
 
+### Benchmark Suite (`benchmarks/`) ✅
+
+Reproducible benchmark configs for regression testing and baseline comparisons:
+
+- `momentum_baseline.yaml` — 10 homogeneous momentum agents, 500 steps, 10 assets
+- `mixed_population.yaml` — 5 momentum + 3 mean-reversion + 2 vol-target, 500 steps, 10 assets
+
+Integration tests (`tests/homelab/test_benchmark.py`) verify shapes, metrics, determinism, trace output, and cross-benchmark divergence.
+
 ### ABF A1 + A2 ✅ (Deprecated)
 
 - PRD written, SP500 universe and data pipeline built
@@ -156,7 +165,7 @@ Full Layer 4 implementation. See Section 1 above.
 
 ## 3. Current State
 
-**Test suite:** 278 tests passing
+**Test suite:** 287 tests passing (234 core + 53 homelab)
 
 **Runnable today:**
 ```bash
