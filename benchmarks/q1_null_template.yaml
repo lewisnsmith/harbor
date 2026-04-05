@@ -1,0 +1,36 @@
+# Q1 Emergent Coordination — Null condition template
+# NOTE: Not used directly. The batch runner (experiments/q1_batch_runner.py)
+# generates configs programmatically with 25 random agents.
+# This file documents the structure for reference.
+
+experiment:
+  name: q1_null
+  description: 25 random agents (null model for coordination test)
+  seed: 42
+
+venue:
+  type: equity
+  params:
+    n_steps: 500
+    n_assets: 10
+    base_volatility: 0.01
+    temporary_impact: 0.1
+    permanent_impact: 0.01
+
+agents:
+  # In practice, 25 entries with unique seeds
+  - type: random
+    name: rand_0
+    params:
+      seed: 4200
+  - type: random
+    name: rand_1
+    params:
+      seed: 4201
+  # ... (23 more with unique seeds)
+
+recording:
+  type: noop
+
+evaluation:
+  metrics: []

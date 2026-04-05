@@ -1,0 +1,38 @@
+# Q1 Emergent Coordination — Treatment condition template
+# NOTE: Not used directly. The batch runner (experiments/q1_batch_runner.py)
+# generates configs programmatically with 25 unique personalities via LHS.
+# This file documents the structure for reference.
+
+experiment:
+  name: q1_treatment
+  description: 25 autonomous agents with LHS-sampled personalities
+  seed: 42
+
+venue:
+  type: equity
+  params:
+    n_steps: 500
+    n_assets: 10
+    base_volatility: 0.01
+    temporary_impact: 0.1
+    permanent_impact: 0.01
+
+agents:
+  # In practice, 25 entries with unique risk_appetite/reactivity from LHS
+  - type: autonomous
+    name: auto_0
+    params:
+      risk_appetite: 0.55
+      reactivity: 0.73
+  - type: autonomous
+    name: auto_1
+    params:
+      risk_appetite: 0.23
+      reactivity: 0.41
+  # ... (23 more with unique personalities)
+
+recording:
+  type: noop
+
+evaluation:
+  metrics: []
