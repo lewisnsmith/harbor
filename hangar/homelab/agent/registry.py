@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Type
 
+from hangar.agents.autonomous_agent import AutonomousAgent, RandomAgent
 from hangar.agents.base_agent import AgentConfig, BaseAgent
 from hangar.agents.rule_agents import MeanReversionAgent, MomentumAgent, VolTargetAgent
 from hangar.homelab.agent.adapters import LegacyAgentAdapter
@@ -14,6 +15,8 @@ AGENT_REGISTRY: Dict[str, Type[BaseAgent]] = {
     "momentum": MomentumAgent,
     "mean_reversion": MeanReversionAgent,
     "vol_target": VolTargetAgent,
+    "autonomous": AutonomousAgent,
+    "random": RandomAgent,
 }
 
 
