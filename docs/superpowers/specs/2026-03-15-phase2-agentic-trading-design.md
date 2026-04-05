@@ -1,8 +1,10 @@
 # Phase 2: Agentic Trading & AI Impact — Design Spec
 
+> **SUPERSEDED** — See `2026-03-16-autonomous-agent-pivot-design.md` for the current design.
+
 **Date:** 2026-03-15
 **Author:** Lewis Smith
-**Status:** Draft
+**Status:** Superseded
 **Scope:** H3-H5 + A3-A4 (ML validation through agent simulation)
 
 ---

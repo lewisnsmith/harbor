@@ -5,7 +5,7 @@ Provides LSTM/GRU-based volatility forecasting with walk-forward training,
 classical baselines (GARCH(1,1), EWMA, rolling historical) for benchmarking,
 and integration into vol-targeting and risk-parity strategies.
 
-Status: NN models are experimental scaffolding pending H3 validation.
+Status: NN models are experimental scaffolding (Layer 3 — Portfolio/Risk).
 Classical baselines (GARCH, EWMA) are implemented and ready for comparison.
 """
 

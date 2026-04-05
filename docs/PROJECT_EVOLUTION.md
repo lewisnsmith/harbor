@@ -147,7 +147,7 @@ These questions can't be answered by looking at historical market data from the 
 
 ### What Changed
 
-- **Old Q1 deprecated.** The vol-shock persistence/reversal research becomes a footnote — the investigation that revealed where to look. Code stays in `harbor/abf/q1/` as historical work.
+- **Old Q1 deprecated.** The vol-shock persistence/reversal research becomes a footnote — the investigation that revealed where to look. Code has been removed (see `docs/abf-q1-research-summary.md` for results).
 - **Simulation moved to center stage.** The agent simulation framework went from late-stage addition (old H5) to immediate priority (new H3). It's the primary research instrument, not a supporting tool.
 - **LLM agents moved from stub to focus.** In the old plan, LLM agents were "Phase 3 scope" with a `NotImplementedError`. Now they're the centerpiece of H4.
 - **HARBOR became a participant.** HARBOR-as-agent wraps the existing portfolio logic and competes against autonomous agents. This answers the natural question: "does the system you built actually work when autonomous agents are in the market?"

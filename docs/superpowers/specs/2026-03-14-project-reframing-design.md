@@ -1,8 +1,10 @@
 # HARBOR Project Reframing — Design Spec
 
+> **PRE-PIVOT** — Superseded by `2026-03-16-autonomous-agent-pivot-design.md`.
+
 **Date:** 2026-03-14
 **Author:** Lewis Smith
-**Status:** Draft
+**Status:** Superseded
 
 ---
 

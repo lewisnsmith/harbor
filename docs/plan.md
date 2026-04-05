@@ -153,7 +153,7 @@ Integration tests (`tests/homelab/test_benchmark.py`) verify shapes, metrics, de
 - PRD written, SP500 universe and data pipeline built
 - Q1 pipeline: local projections, Newey-West HAC errors, CAR computation, robustness sweep
 - Results: ~1.3bps effects, economically insignificant, time-dependent (post-2020 only)
-- Deprecated — code preserved in `harbor/abf/q1/` as historical baseline. This investigation revealed where to look: autonomous agents, not simple algorithms.
+- Deprecated — code removed. This investigation revealed where to look: autonomous agents, not simple algorithms.
 
 ### ML Extensions (Experimental)
 

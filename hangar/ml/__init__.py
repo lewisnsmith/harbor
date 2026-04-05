@@ -1,8 +1,7 @@
 """
 harbor.ml — Machine learning and deep learning extensions.
 
-Status: Experimental scaffolding. These modules are implemented ahead of the
-H3/H4 roadmap as exploratory work. They have unit tests but have not been
+Status: Experimental scaffolding (Layers 2–3). These modules have unit tests but have not been
 validated against classical baselines or integrated into the production
 pipeline. Formal validation (NN vol vs GARCH/EWMA, DRL vs buy-and-hold) is
 required before promotion to production status.

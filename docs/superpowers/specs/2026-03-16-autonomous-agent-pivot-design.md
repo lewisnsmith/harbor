@@ -45,7 +45,7 @@ Do autonomous agents learn to exploit each other? When agents detect other agent
 
 - **H1** (Core Quant Stack): Complete, untouched
 - **H2** (Advanced Risk & Simulation): Complete, untouched
-- **Old Q1 code** (`harbor/abf/q1/`): Stays in repo as historical work, marked deprecated
+- **Old Q1 code**: Removed — results documented in `docs/abf-q1-research-summary.md`
 - **ML baselines** (`harbor/ml/volatility/baselines.py`): Infrastructure, still useful
 - **All existing tests**: Continue passing
 

@@ -392,7 +392,7 @@ class TestCoerceMarketReturns:
 class TestCorrelationStub:
     def test_detect_correlation_spikes_not_implemented(self, synthetic_multi_returns):
         from harbor.risk.correlation import detect_correlation_spikes
-        with pytest.raises(NotImplementedError, match="Phase A3"):
+        with pytest.raises(NotImplementedError, match="Layer 4 roadmap"):
             detect_correlation_spikes(synthetic_multi_returns)
 
 

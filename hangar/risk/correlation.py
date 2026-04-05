@@ -1,7 +1,7 @@
 """
 harbor.risk.correlation — Correlation modeling and spike detection.
 
-ABF mapping: correlation spike detection (ABF Q2 core).
+ABF mapping: correlation spike detection (Q2 — Regime Manufacturing, Layer 4 roadmap).
 
 Planned functionality:
 - Rolling cross-asset correlation estimation.
@@ -9,7 +9,7 @@ Planned functionality:
 - Correlation regime classification for regime-aware portfolio construction.
 
 Used by:
-- harbor.abf.q2 for crowding/correlation spike analysis.
+- ABF Q2 experiments for crowding/correlation spike analysis.
 - harbor.portfolio.construction for diversification assumptions.
 """
 
@@ -31,4 +31,4 @@ def detect_correlation_spikes(returns, window=252, spike_pct=0.75):
     pd.Series[bool]
         Boolean mask of correlation spike periods.
     """
-    raise NotImplementedError("Phase A3 — implement in harbor.abf.q2 pipeline")
+    raise NotImplementedError("Layer 4 roadmap — implement in ABF Q2 experiment pipeline")

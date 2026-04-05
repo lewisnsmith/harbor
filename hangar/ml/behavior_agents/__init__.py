@@ -1,9 +1,9 @@
 """
 harbor.ml.behavior_agents — Deep RL behavioral portfolio agents.
 
-Status: Experimental scaffolding. Implemented ahead of the H4 roadmap as
-exploratory work. Unit tests pass but agents have not been validated against
-classical baselines or integrated into the production backtest pipeline.
+Status: Experimental scaffolding (Layer 2 — Agent). Not yet integrated into
+the homelab pipeline. Unit tests pass but agents have not been validated
+against classical baselines or integrated into the production backtest pipeline.
 
 Provides a Gymnasium portfolio environment, PPO-based agent training via
 RLlib, behavioral reward shaping (loss aversion, overconfidence, return

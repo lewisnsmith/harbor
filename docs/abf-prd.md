@@ -228,7 +228,7 @@ harbor/agents/
 
 **Deprecated: Old Q1 (Vol-Shock Persistence)**
 
-The original Q1 tested whether vol-targeting algorithms create momentum persistence and reversal patterns. Results: weak, time-dependent evidence (post-2020 only, ~1.3bps, economically insignificant). This investigation was valuable as a learning experience and motivated the pivot to agent-specific research. Code remains in `harbor/abf/q1/` as historical work. See `docs/abf-q1-research-summary.md` for the full write-up.
+The original Q1 tested whether vol-targeting algorithms create momentum persistence and reversal patterns. Results: weak, time-dependent evidence (post-2020 only, ~1.3bps, economically insignificant). This investigation was valuable as a learning experience and motivated the pivot to agent-specific research. Code has been removed. See `docs/abf-q1-research-summary.md` for the full write-up.
 
 **References**
 

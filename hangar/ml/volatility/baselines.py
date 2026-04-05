@@ -1,7 +1,7 @@
 """harbor.ml.volatility.baselines — Classical volatility forecasting baselines.
 
 Implements GARCH(1,1), EWMA, and rolling historical volatility as baselines
-for benchmarking the LSTM/GRU forecasters (H3 validation Gate 1).
+for benchmarking the LSTM/GRU forecasters (Layer 3 — Portfolio/Risk validation).
 
 These use only numpy/pandas (no arch package required) to keep dependencies
 minimal. The GARCH implementation uses maximum likelihood via scipy.optimize.

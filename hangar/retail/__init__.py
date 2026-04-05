@@ -10,5 +10,5 @@ Planned capabilities:
 - Regime-aware vs naive strategy comparison
 - Retail-accessible risk reporting
 
-Status: Stub — implementation planned for Phase H6.
+Status: Stub — implementation planned for Layer 5 (Exploitation).
 """
