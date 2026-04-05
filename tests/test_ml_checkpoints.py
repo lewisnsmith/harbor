@@ -1,11 +1,11 @@
-"""Tests for harbor.ml.checkpoints."""
+"""Tests for hangar.ml.checkpoints."""
 
 from __future__ import annotations
 
 import torch
 import torch.nn as nn
 
-from harbor.ml.checkpoints import (
+from hangar.ml.checkpoints import (
     CheckpointMeta,
     latest_checkpoint,
     list_checkpoints,

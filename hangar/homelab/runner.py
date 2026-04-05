@@ -1,4 +1,4 @@
-"""harbor.homelab.runner — ExperimentRunner: YAML config → run → traces + metrics."""
+"""hangar.homelab.runner — ExperimentRunner: YAML config → run → traces + metrics."""
 
 from __future__ import annotations
 
@@ -9,15 +9,15 @@ from typing import Any, Dict, List
 import numpy as np
 import pandas as pd
 
-from harbor.homelab.agent.protocols import Observable
-from harbor.homelab.agent.registry import build_agents
-from harbor.homelab.config import ExperimentConfig
-from harbor.homelab.evaluation.registry import MetricsRegistry
-from harbor.homelab.recording.jsonl import JsonlRecorder
-from harbor.homelab.recording.noop import NoopRecorder
-from harbor.homelab.recording.protocol import Recorder
-from harbor.homelab.venue.equity import EquityVenue
-from harbor.homelab.venue.protocol import Venue, VenueSnapshot
+from hangar.homelab.agent.protocols import Observable
+from hangar.homelab.agent.registry import build_agents
+from hangar.homelab.config import ExperimentConfig
+from hangar.homelab.evaluation.registry import MetricsRegistry
+from hangar.homelab.recording.jsonl import JsonlRecorder
+from hangar.homelab.recording.noop import NoopRecorder
+from hangar.homelab.recording.protocol import Recorder
+from hangar.homelab.venue.equity import EquityVenue
+from hangar.homelab.venue.protocol import Venue, VenueSnapshot
 
 
 @dataclass

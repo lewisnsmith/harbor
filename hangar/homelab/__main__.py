@@ -1,4 +1,4 @@
-"""harbor.homelab.__main__ — CLI entry point: python -m harbor.homelab experiment.yaml"""
+"""hangar.homelab.__main__ — CLI entry point: python -m hangar.homelab experiment.yaml"""
 
 from __future__ import annotations
 
@@ -6,15 +6,15 @@ import argparse
 import sys
 from pathlib import Path
 
-from harbor.homelab.config import ExperimentConfig
-from harbor.homelab.runner import ExperimentRunner
-from harbor.homelab.results.store import ResultStore
+from hangar.homelab.config import ExperimentConfig
+from hangar.homelab.runner import ExperimentRunner
+from hangar.homelab.results.store import ResultStore
 
 
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
-        prog="harbor.homelab",
-        description="Run a Harbor homelab experiment from a YAML config.",
+        prog="hangar.homelab",
+        description="Run a Hangar homelab experiment from a YAML config.",
     )
     parser.add_argument(
         "config",

@@ -1,4 +1,4 @@
-"""harbor.ml.volatility.integration — Bridge vol forecasts into harbor allocation."""
+"""hangar.ml.volatility.integration — Bridge vol forecasts into hangar allocation."""
 
 from __future__ import annotations
 
@@ -79,7 +79,7 @@ def sigma_hat_to_regime_proxy(
 
     Values above the ``percentile_threshold`` of the trailing distribution
     are mapped to elevated shock levels.  Compatible with
-    ``harbor.portfolio.regime_aware_position_size``.
+    ``hangar.portfolio.regime_aware_position_size``.
 
     Parameters
     ----------

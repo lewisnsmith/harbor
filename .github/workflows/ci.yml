@@ -24,10 +24,10 @@ jobs:
           python -m pip install -e .
 
       - name: Lint (ruff)
-        run: ruff check harbor tests
+        run: ruff check hangar tests
 
       - name: Compile package
-        run: python -m compileall harbor experiments tests
+        run: python -m compileall hangar experiments tests
 
       - name: Test (pytest) with coverage
-        run: pytest -q --cov=harbor --cov-report=term-missing --cov-report=xml
+        run: pytest -q --cov=hangar --cov-report=term-missing --cov-report=xml

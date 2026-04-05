@@ -1,4 +1,4 @@
-"""harbor.homelab.recording.jsonl — JSONL trace recorder."""
+"""hangar.homelab.recording.jsonl — JSONL trace recorder."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from typing import Any, Dict
 
 import numpy as np
 
-from harbor.homelab.venue.protocol import VenueSnapshot
+from hangar.homelab.venue.protocol import VenueSnapshot
 
 
 class _NumpyEncoder(json.JSONEncoder):

@@ -1,4 +1,4 @@
-"""harbor.homelab.ablation — AblationRunner for parameter sweeps."""
+"""hangar.homelab.ablation — AblationRunner for parameter sweeps."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import copy
 import itertools
 from typing import Any, Dict, List, Tuple
 
-from harbor.homelab.config import ExperimentConfig
-from harbor.homelab.runner import ExperimentResult, ExperimentRunner
+from hangar.homelab.config import ExperimentConfig
+from hangar.homelab.runner import ExperimentResult, ExperimentRunner
 
 
 class AblationRunner:

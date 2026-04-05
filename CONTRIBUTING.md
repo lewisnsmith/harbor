@@ -5,7 +5,7 @@ Thanks for your interest in contributing.
 ## Development
 - Create and activate a virtual environment.
 - Keep experimental work in `notebooks/` or `experiments/`.
-- Promote stable modules into `harbor/`.
+- Promote stable modules into `hangar/`.
 
 ## Notebooks
 - Prefer clear, descriptive filenames.

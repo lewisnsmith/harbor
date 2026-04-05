@@ -1,4 +1,4 @@
-"""harbor.homelab.venue.equity — EquityVenue adapter wrapping MarketEnvironment."""
+"""hangar.homelab.venue.equity — EquityVenue adapter wrapping MarketEnvironment."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from typing import Any, Dict, Optional
 
 import numpy as np
 
-from harbor.agents.environment import MarketConfig, MarketEnvironment, MarketState
-from harbor.homelab.venue.protocol import VenueSnapshot
+from hangar.agents.environment import MarketConfig, MarketEnvironment, MarketState
+from hangar.homelab.venue.protocol import VenueSnapshot
 
 
 class EquityVenue:

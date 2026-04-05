@@ -1,4 +1,4 @@
-"""Tests for harbor.homelab.recording — Recorder protocol, NoopRecorder, JsonlRecorder."""
+"""Tests for hangar.homelab.recording — Recorder protocol, NoopRecorder, JsonlRecorder."""
 
 from __future__ import annotations
 
@@ -9,10 +9,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from harbor.homelab.recording.protocol import Recorder
-from harbor.homelab.recording.noop import NoopRecorder
-from harbor.homelab.recording.jsonl import JsonlRecorder
-from harbor.homelab.venue.protocol import VenueSnapshot
+from hangar.homelab.recording.protocol import Recorder
+from hangar.homelab.recording.noop import NoopRecorder
+from hangar.homelab.recording.jsonl import JsonlRecorder
+from hangar.homelab.venue.protocol import VenueSnapshot
 
 
 def _make_snapshot(step: int = 0) -> VenueSnapshot:

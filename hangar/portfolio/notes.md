@@ -1,10 +1,10 @@
-# `harbor.portfolio` Notes
+# `hangar.portfolio` Notes
 
 Files: `construction.py`
 
 ## Overview
 
-`harbor.portfolio` translates risk and return estimates into weight vectors that can be backtested. It implements mean-variance optimization, risk parity, an HRP wrapper, and regime-aware gross-exposure scaling.
+`hangar.portfolio` translates risk and return estimates into weight vectors that can be backtested. It implements mean-variance optimization, risk parity, an HRP wrapper, and regime-aware gross-exposure scaling.
 
 ## Mean-Variance Optimization
 
@@ -16,7 +16,7 @@ The goal is to equalize each asset's contribution to total portfolio variance. P
 
 ## HRP Weights
 
-A thin wrapper around `harbor.risk.hrp_allocation` for API consistency.
+A thin wrapper around `hangar.risk.hrp_allocation` for API consistency.
 
 ## Regime-Aware Position Sizing
 

@@ -1,11 +1,11 @@
-# `harbor.ml` Notes
+# `hangar.ml` Notes
 
 Subpackages:
 - `volatility/`
 - `behavior_agents/`
 
 ## Explanation
-`harbor.ml` is the extension layer for machine learning and reinforcement learning components.
+`hangar.ml` is the extension layer for machine learning and reinforcement learning components.
 
 Current status:
 - Mostly scaffolded in this repository snapshot.

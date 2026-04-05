@@ -1,1 +1,1 @@
-"""harbor.homelab — Reproducible experimental environment for agent-market research."""
+"""hangar.homelab — Reproducible experimental environment for agent-market research."""

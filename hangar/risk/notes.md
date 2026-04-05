@@ -1,4 +1,4 @@
-# `harbor.risk` Notes
+# `hangar.risk` Notes
 
 Files:
 - `covariance.py`
@@ -8,7 +8,7 @@ Files:
 - `correlation.py` (Q2 stub)
 
 ## Explanation
-`harbor.risk` converts raw return series into structured risk objects used by portfolio construction and ABF analysis.
+`hangar.risk` converts raw return series into structured risk objects used by portfolio construction and ABF analysis.
 
 Implemented components in Phase 1:
 1. Covariance estimation (sample + shrinkage).

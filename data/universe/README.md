@@ -1,6 +1,6 @@
 # Universe Data
 
-`sp500_membership.csv` is the local point-in-time constituent file used by `harbor.data.load_sp500_tickers`.
+`sp500_membership.csv` is the local point-in-time constituent file used by `hangar.data.load_sp500_tickers`.
 
 Expected columns:
 - `ticker`

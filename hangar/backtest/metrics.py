@@ -1,5 +1,5 @@
 """
-harbor.backtest.metrics — Performance and risk metrics for backtests.
+hangar.backtest.metrics — Performance and risk metrics for backtests.
 
 Provides guarded implementations of standard risk-adjusted return metrics.
 All functions require a minimum number of observations and return NaN

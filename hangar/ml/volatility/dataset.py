@@ -1,4 +1,4 @@
-"""harbor.ml.volatility.dataset — Dataset construction for volatility forecasting."""
+"""hangar.ml.volatility.dataset — Dataset construction for volatility forecasting."""
 
 from __future__ import annotations
 

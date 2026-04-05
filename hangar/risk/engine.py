@@ -1,4 +1,4 @@
-"""Pluggable risk engine for HARBOR H2.
+"""Pluggable risk engine for HANGAR H2.
 
 Provides a unified interface for configuring and running risk analysis
 with selectable covariance, simulation, and scenario methods.
@@ -13,8 +13,8 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-from harbor.risk.covariance import estimate_covariance
-from harbor.risk.monte_carlo import (
+from hangar.risk.covariance import estimate_covariance
+from hangar.risk.monte_carlo import (
     VarCvarResult,
     portfolio_var_cvar,
     simulate_multivariate_returns,
@@ -155,12 +155,12 @@ class RiskEngine:
     ) -> list[dict]:
         """Run a suite of stress scenarios.
 
-        Delegates to :func:`harbor.risk.scenarios.run_scenario_suite` when
+        Delegates to :func:`hangar.risk.scenarios.run_scenario_suite` when
         the module is available.  A minimal built-in implementation is used
         as a fallback so that the engine remains usable before the full
         scenarios plug-in is integrated.
         """
-        from harbor.risk.scenarios import run_scenario_suite, scenario_report_to_dict
+        from hangar.risk.scenarios import run_scenario_suite, scenario_report_to_dict
 
         results = run_scenario_suite(
             weights=weights,

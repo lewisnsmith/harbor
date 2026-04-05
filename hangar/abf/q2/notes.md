@@ -1,10 +1,10 @@
-# `harbor.abf.q2` Notes
+# `hangar.abf.q2` Notes
 
 ## Overview
 
 Q2 studies whether similarity and crowding among systematic strategies predict correlation spikes and drawdown amplification.
 
-The namespace is currently scaffolded. Supporting stubs and building blocks are in `harbor/features/crowding.py`, `harbor/risk/correlation.py`, and `configs/abf/q2_regime_definitions.json`.
+The namespace is currently scaffolded. Supporting stubs and building blocks are in `hangar/features/crowding.py`, `hangar/risk/correlation.py`, and `configs/abf/q2_regime_definitions.json`.
 
 ## Target Pipeline
 

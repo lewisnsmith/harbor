@@ -1,4 +1,4 @@
-# `harbor.ml.behavior_agents` Notes
+# `hangar.ml.behavior_agents` Notes
 
 ## Overview
 

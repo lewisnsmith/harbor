@@ -9,7 +9,7 @@
 | Label | Old meaning | New meaning |
 |-------|------------|-------------|
 | H3 | ML Validation (GARCH/EWMA benchmarking) | Agent Simulation Core |
-| H4 | Behavioral Agent Validation (DRL tests) | Autonomous Agent Types (LLM, RL, HARBOR) |
+| H4 | Behavioral Agent Validation (DRL tests) | Autonomous Agent Types (LLM, RL, HANGAR) |
 | H5 | Agent Simulation Framework | Population Dynamics & Experiments |
 | A3 | Q2 Crowding/Correlation (empirical) | Q1 Emergent Coordination (simulation + empirical) |
 
@@ -17,9 +17,9 @@
 
 ## 1. Summary
 
-HARBOR pivots from studying "AI-driven trading broadly" to focusing specifically on **autonomous and agentic trading**. The thesis: autonomous agents (LLM-powered, RL-based, tool-using) create qualitatively different market dynamics than traditional systematic algos because they reason, adapt, and interact strategically.
+HANGAR pivots from studying "AI-driven trading broadly" to focusing specifically on **autonomous and agentic trading**. The thesis: autonomous agents (LLM-powered, RL-based, tool-using) create qualitatively different market dynamics than traditional systematic algos because they reason, adapt, and interact strategically.
 
-ABF (Artificial Behavioral Finance) remains the research track. "A" still stands for "Artificial." The old Q1 (vol-shock persistence/reversal) is deprecated — its weak results (1.3bps) motivated the pivot. HARBOR core (data, risk, portfolio, backtest) stays as infrastructure and becomes a test participant: "how does a HARBOR-style portfolio perform when autonomous agents dominate the market?"
+ABF (Artificial Behavioral Finance) remains the research track. "A" still stands for "Artificial." The old Q1 (vol-shock persistence/reversal) is deprecated — its weak results (1.3bps) motivated the pivot. HANGAR core (data, risk, portfolio, backtest) stays as infrastructure and becomes a test participant: "how does a HANGAR-style portfolio perform when autonomous agents dominate the market?"
 
 ## 2. New Research Questions
 
@@ -46,7 +46,7 @@ Do autonomous agents learn to exploit each other? When agents detect other agent
 - **H1** (Core Quant Stack): Complete, untouched
 - **H2** (Advanced Risk & Simulation): Complete, untouched
 - **Old Q1 code**: Removed — results documented in `docs/abf-q1-research-summary.md`
-- **ML baselines** (`harbor/ml/volatility/baselines.py`): Infrastructure, still useful
+- **ML baselines** (`hangar/ml/volatility/baselines.py`): Infrastructure, still useful
 - **All existing tests**: Continue passing
 
 ## 5. What's Deprecated
@@ -58,17 +58,17 @@ Do autonomous agents learn to exploit each other? When agents detect other agent
 
 ## 6. New Phase Structure
 
-### HARBOR Phases (Framework)
+### HANGAR Phases (Framework)
 
 #### H3 — Agent Simulation Core
 **Goal:** Build the market simulation environment and agent interface.
 
 **Depends on:** H2
 
-**Module:** `harbor/agents/`
+**Module:** `hangar/agents/`
 
 ```
-harbor/agents/
+hangar/agents/
     environment.py      # Market sim: price-impact model, order matching, state
     base_agent.py       # Abstract interface: observe() → decide() → act()
     rule_agents.py      # Momentum, vol-targeting, mean-reversion (simple baselines)
@@ -91,10 +91,10 @@ The environment uses a price-impact model (linear temporary + square-root perman
 **Depends on:** H3
 
 ```
-harbor/agents/
+hangar/agents/
     llm_agents.py       # LLM-based agents (Claude/GPT via API, prompted with market data)
-    rl_agents.py        # RL agents (wraps harbor.ml.behavior_agents, trains in environment)
-    harbor_agent.py     # HARBOR-as-agent: uses harbor.risk + harbor.portfolio to trade
+    rl_agents.py        # RL agents (wraps hangar.ml.behavior_agents, trains in environment)
+    hangar_agent.py     # HANGAR-as-agent: uses hangar.risk + hangar.portfolio to trade
     adaptation.py       # Agent learning/adaptation between rounds
 ```
 
@@ -102,14 +102,14 @@ Key design decisions:
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
 | LLM agent interface | API-based (Claude/GPT) | Real autonomous agents use LLMs; mocking loses the point. Development uses 5-10 agents with cached responses; final runs scale to 50 agents. |
-| RL agents | Wrap existing harbor.ml.behavior_agents | Reuses existing code; treated as experimental baselines (not validated against classical benchmarks — old H3 Gate 2 was skipped in this pivot) |
-| HARBOR-as-agent | Wraps harbor.risk + harbor.portfolio | Tests the system against itself |
+| RL agents | Wrap existing hangar.ml.behavior_agents | Reuses existing code; treated as experimental baselines (not validated against classical benchmarks — old H3 Gate 2 was skipped in this pivot) |
+| HANGAR-as-agent | Wraps hangar.risk + hangar.portfolio | Tests the system against itself |
 | Adaptation | Between-round learning | Agents update strategy based on past performance |
 
 **Exit criteria:**
 - LLM agents receive market state, output trading decisions
 - RL agents train within the simulation environment
-- HARBOR agent uses existing portfolio logic to trade
+- HANGAR agent uses existing portfolio logic to trade
 - Adaptation mechanism allows strategy updates between rounds
 - Unit tests for each agent type
 
@@ -119,7 +119,7 @@ Key design decisions:
 **Depends on:** H4
 
 ```
-harbor/agents/
+hangar/agents/
     population.py       # Population manager: spawn, configure, mix agent types
     experiments.py      # Predefined experiment configs
     analysis.py         # Bridge: convert sim output → ABF-compatible DataFrames
@@ -127,10 +127,10 @@ harbor/agents/
 
 Experiment configurations:
 1. Homogeneous LLM: 50 LLM agents, same base prompt → do they converge?
-2. Mixed autonomous: 20 LLM + 20 RL + 10 HARBOR → interaction dynamics
+2. Mixed autonomous: 20 LLM + 20 RL + 10 HANGAR → interaction dynamics
 3. Stress injection: External vol shock + mixed population → cascading behavior?
 4. Adaptation test: Agents learn between rounds → convergence or divergence?
-5. HARBOR resilience: HARBOR agent in autonomous-agent-dominated market
+5. HANGAR resilience: HANGAR agent in autonomous-agent-dominated market
 
 **Exit criteria:**
 - Population manager configures and runs multi-agent simulations
@@ -146,7 +146,7 @@ Experiment configurations:
 **Depends on:** H4
 
 Method:
-- Run agent populations with diverse initial configs (different LLM prompts, different RL seeds, different HARBOR configs)
+- Run agent populations with diverse initial configs (different LLM prompts, different RL seeds, different HANGAR configs)
 - Measure: position correlation across agents over time, strategy similarity, herding intensity
 - Key test: do agents that start different become more similar?
 - Empirical complement: post-2023 signatures in real market data
@@ -188,16 +188,16 @@ Method:
 **Exit criteria:**
 - Adaptation dynamics classified as one of: arms race (volatility increases >20% over rounds), equilibrium (volatility stabilizes within 10%), or cycles (significant autocorrelation in volatility at lag 3-10 rounds)
 - Retail portfolio max drawdown quantified: at least 2 experiment configs compared
-- HARBOR-as-agent outperformance (or not) vs naive buy-and-hold documented with Sharpe ratio comparison
+- HANGAR-as-agent outperformance (or not) vs naive buy-and-hold documented with Sharpe ratio comparison
 - Draft text for paper section
 
 #### A6 — Retail Impact & Write-up
-**Goal:** Full paper draft with HARBOR-as-participant results.
+**Goal:** Full paper draft with HANGAR-as-participant results.
 
 **Depends on:** A5
 
 Deliverables:
-- HARBOR-as-agent performance across all experiment configs
+- HANGAR-as-agent performance across all experiment configs
 - Quantified regime-awareness benefit for retail portfolios
 - Paper-quality draft: Q1 + Q2 + Q3 + retail impact
 - Reproducible pipeline via `make` targets
@@ -241,7 +241,7 @@ The simulation framework is the primary research instrument, but a lightweight e
 
 ## 10. Milestone Table
 
-| Timeframe | HARBOR Focus | ABF Focus | Status |
+| Timeframe | HANGAR Focus | ABF Focus | Status |
 |-----------|-------------|-----------|--------|
 | 0–3 months | H1: Core quant stack | A1: Spec + data | ✅ Complete |
 | 3–6 months | H2: Advanced risk | A2: Old Q1 (deprecated) | ✅ Complete |
@@ -265,8 +265,8 @@ The simulation framework is the primary research instrument, but a lightweight e
 | `CHANGELOG.md` | v0.4.0-dev entry |
 | `MEMORY.md` | Update project state |
 
-## 12. HARBOR's Triple Role
+## 12. HANGAR's Triple Role
 
-1. **Infrastructure:** Agents use HARBOR's risk models, portfolio construction, and data pipeline
-2. **Participant:** HARBOR-as-agent competes against autonomous agents, testing regime-awareness
+1. **Infrastructure:** Agents use HANGAR's risk models, portfolio construction, and data pipeline
+2. **Participant:** HANGAR-as-agent competes against autonomous agents, testing regime-awareness
 3. **Origin story:** The asset management system that sparked the research question

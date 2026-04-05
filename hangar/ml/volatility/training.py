@@ -1,4 +1,4 @@
-"""harbor.ml.volatility.training — Training loop and evaluation for vol forecasters."""
+"""hangar.ml.volatility.training — Training loop and evaluation for vol forecasters."""
 
 from __future__ import annotations
 
@@ -12,8 +12,8 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Subset
 
-from harbor.ml.checkpoints import CheckpointMeta, save_checkpoint
-from harbor.ml.volatility.dataset import VolatilityDataset, create_walk_forward_splits
+from hangar.ml.checkpoints import CheckpointMeta, save_checkpoint
+from hangar.ml.volatility.dataset import VolatilityDataset, create_walk_forward_splits
 
 
 @dataclass

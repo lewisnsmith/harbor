@@ -1,4 +1,4 @@
-"""harbor.ml.checkpoints — Simple file-based model registry for ML experiments."""
+"""hangar.ml.checkpoints — Simple file-based model registry for ML experiments."""
 
 from __future__ import annotations
 

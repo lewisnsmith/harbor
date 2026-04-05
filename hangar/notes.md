@@ -1,12 +1,12 @@
-# `harbor/` Package Notes
+# `hangar/` Package Notes
 
 ## Explanation
-`harbor/` is the core Python package. It is intentionally split by responsibility so each stage of the quant workflow has a narrow interface.
+`hangar/` is the core Python package. It is intentionally split by responsibility so each stage of the quant workflow has a narrow interface.
 
 Conceptually the package behaves like a directed graph:
-- `harbor.data` -> `harbor.risk` -> `harbor.portfolio` -> `harbor.backtest`
-- `harbor.abf` and `harbor.features` sit across this path for research questions.
-- `harbor.ml` is an extension path for later phases (not fully implemented yet).
+- `hangar.data` -> `hangar.risk` -> `hangar.portfolio` -> `hangar.backtest`
+- `hangar.abf` and `hangar.features` sit across this path for research questions.
+- `hangar.ml` is an extension path for later phases (not fully implemented yet).
 
 Current implemented Phase 1 core modules:
 - `data`: production of clean input time series.
@@ -27,10 +27,10 @@ This decomposition reduces coupling:
 5. Simulate trading and evaluate output metrics.
 
 ## Interfaces To Learn First
-- `harbor.data.load_sp500_prices`
-- `harbor.risk.estimate_covariance`
-- `harbor.portfolio.hrp_weights`
-- `harbor.backtest.run_cross_sectional_backtest`
+- `hangar.data.load_sp500_prices`
+- `hangar.risk.estimate_covariance`
+- `hangar.portfolio.hrp_weights`
+- `hangar.backtest.run_cross_sectional_backtest`
 
 ## Your Notes
 - 

@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
 
-from harbor.risk.hrp import hrp_allocation
+from hangar.risk.hrp import hrp_allocation
 
 
 def mean_variance_weights(

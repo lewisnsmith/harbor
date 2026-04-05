@@ -1,4 +1,4 @@
-"""Tests for harbor.ml.volatility."""
+"""Tests for hangar.ml.volatility."""
 
 from __future__ import annotations
 
@@ -7,19 +7,19 @@ import pandas as pd
 import pytest
 import torch
 
-from harbor.ml.volatility.dataset import (
+from hangar.ml.volatility.dataset import (
     VolatilityDataset,
     VolDatasetConfig,
     build_features,
     build_target,
     create_walk_forward_splits,
 )
-from harbor.ml.volatility.integration import (
+from hangar.ml.volatility.integration import (
     sigma_hat_to_regime_proxy,
     vol_scaled_weight_func,
 )
-from harbor.ml.volatility.models import GRUVolModel, LSTMVolModel, create_model
-from harbor.ml.volatility.training import (
+from hangar.ml.volatility.models import GRUVolModel, LSTMVolModel, create_model
+from hangar.ml.volatility.training import (
     TrainConfig,
     predict_series,
     train_model,

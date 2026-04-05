@@ -7,8 +7,8 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from harbor.homelab.config import ExperimentConfig
-from harbor.homelab.runner import ExperimentRunner
+from hangar.homelab.config import ExperimentConfig
+from hangar.homelab.runner import ExperimentRunner
 
 
 BENCHMARKS_DIR = Path(__file__).resolve().parents[2] / "benchmarks"

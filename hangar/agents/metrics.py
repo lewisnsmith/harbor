@@ -1,4 +1,4 @@
-"""harbor.agents.metrics — Simulation analysis metrics."""
+"""hangar.agents.metrics — Simulation analysis metrics."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from typing import Any, Dict
 import numpy as np
 import pandas as pd
 
-from harbor.ml.behavior_agents.multi_agent import compute_weight_similarity
-from harbor.risk.regime_detection import detect_vol_shocks
+from hangar.ml.behavior_agents.multi_agent import compute_weight_similarity
+from hangar.risk.regime_detection import detect_vol_shocks
 
 
 def compute_crowding_index(
@@ -18,7 +18,7 @@ def compute_crowding_index(
 ) -> pd.Series:
     """Average pairwise weight similarity over time.
 
-    Delegates to ``harbor.ml.behavior_agents.multi_agent.compute_weight_similarity``.
+    Delegates to ``hangar.ml.behavior_agents.multi_agent.compute_weight_similarity``.
     """
     return compute_weight_similarity(agent_weights, method=method)
 
@@ -39,7 +39,7 @@ def compute_regime_labels(
 ) -> pd.Series:
     """Regime labels using volatility shock detection.
 
-    Delegates to ``harbor.risk.regime_detection.detect_vol_shocks``.
+    Delegates to ``hangar.risk.regime_detection.detect_vol_shocks``.
     """
     market_returns = returns.mean(axis=1)
     return detect_vol_shocks(

@@ -1,5 +1,5 @@
 """
-harbor.data.load_prices — Fetch and cache adjusted price data at scale.
+hangar.data.load_prices — Fetch and cache adjusted price data at scale.
 
 Planned functionality (Phase H1):
 - Download adjusted daily close prices for arbitrarily large ticker universes.
@@ -22,7 +22,7 @@ Design notes for massive-API usage:
   adjusted) so partial-universe re-runs only download the delta.
 
 Dependencies: yfinance, pandas, pathlib (stdlib), concurrent.futures (stdlib)
-Consumed by: harbor.risk, harbor.backtest, harbor.abf.q1
+Consumed by: hangar.risk, hangar.backtest, hangar.abf.q1
 """
 
 from __future__ import annotations
@@ -43,7 +43,7 @@ import pandas as pd
 try:
     import yfinance as yf
 except ImportError as exc:  # pragma: no cover
-    raise ImportError("yfinance is required for harbor.data loaders.") from exc
+    raise ImportError("yfinance is required for hangar.data loaders.") from exc
 
 
 # ---------------------------------------------------------------------------

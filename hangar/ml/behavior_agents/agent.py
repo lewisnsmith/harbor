@@ -1,4 +1,4 @@
-"""harbor.ml.behavior_agents.agent — RLlib agent configuration and training."""
+"""hangar.ml.behavior_agents.agent — RLlib agent configuration and training."""
 
 from __future__ import annotations
 
@@ -55,7 +55,7 @@ def build_rllib_config(
     """
     from ray.rllib.algorithms.ppo import PPOConfig
 
-    from harbor.ml.behavior_agents.environment import EnvConfig, PortfolioEnv
+    from hangar.ml.behavior_agents.environment import EnvConfig, PortfolioEnv
 
     if agent_config is None:
         agent_config = AgentConfig()
@@ -200,7 +200,7 @@ def agent_as_weight_func(
     """Load a trained RL agent and return a WeightFunction for backtesting.
 
     The returned function is compatible with
-    ``harbor.backtest.run_cross_sectional_backtest``.
+    ``hangar.backtest.run_cross_sectional_backtest``.
 
     Parameters
     ----------
@@ -219,7 +219,7 @@ def agent_as_weight_func(
     """
     import ray
 
-    from harbor.ml.behavior_agents.environment import EnvConfig, PortfolioEnv
+    from hangar.ml.behavior_agents.environment import EnvConfig, PortfolioEnv
 
     if not ray.is_initialized():
         ray.init(ignore_reinit_error=True, log_to_driver=False)

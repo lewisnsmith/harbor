@@ -1,8 +1,8 @@
-"""Tests for harbor.ml.behavior_agents.agent (lightweight, no full training)."""
+"""Tests for hangar.ml.behavior_agents.agent (lightweight, no full training)."""
 
 from __future__ import annotations
 
-from harbor.ml.behavior_agents.agent import AgentConfig
+from hangar.ml.behavior_agents.agent import AgentConfig
 
 
 def test_agent_config_defaults():

@@ -1,13 +1,13 @@
-"""harbor.homelab.agent.adapters — Bridge existing BaseAgent to homelab protocols."""
+"""hangar.homelab.agent.adapters — Bridge existing BaseAgent to homelab protocols."""
 
 from __future__ import annotations
 
 import numpy as np
 import pandas as pd
 
-from harbor.agents.base_agent import BaseAgent
-from harbor.agents.environment import MarketState
-from harbor.homelab.venue.protocol import VenueSnapshot
+from hangar.agents.base_agent import BaseAgent
+from hangar.agents.environment import MarketState
+from hangar.homelab.venue.protocol import VenueSnapshot
 
 
 class LegacyAgentAdapter:

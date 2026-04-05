@@ -1,6 +1,6 @@
 # Risk Configuration
 
-This directory contains JSON configuration files for the HARBOR H2 pluggable risk engine.
+This directory contains JSON configuration files for the HANGAR H2 pluggable risk engine.
 
 ## scenarios.json
 
@@ -33,7 +33,7 @@ Defines stress scenarios used by `RiskEngine.run_stress_test()`.
 ### Loading configs in Python
 
 ```python
-from harbor.risk.engine import load_risk_config, load_scenarios_config
+from hangar.risk.engine import load_risk_config, load_scenarios_config
 
 risk_cfg = load_risk_config("configs/risk/scenarios.json")  # reads default_risk_config
 scenarios = load_scenarios_config("configs/risk/scenarios.json")

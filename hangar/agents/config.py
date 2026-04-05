@@ -1,4 +1,4 @@
-"""harbor.agents.config — Population configuration and factory."""
+"""hangar.agents.config — Population configuration and factory."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from harbor.agents.base_agent import AgentConfig, BaseAgent
-from harbor.agents.environment import MarketConfig, MarketEnvironment
-from harbor.agents.rule_agents import MeanReversionAgent, MomentumAgent, VolTargetAgent
+from hangar.agents.base_agent import AgentConfig, BaseAgent
+from hangar.agents.environment import MarketConfig, MarketEnvironment
+from hangar.agents.rule_agents import MeanReversionAgent, MomentumAgent, VolTargetAgent
 
 AGENT_REGISTRY = {
     "momentum": MomentumAgent,

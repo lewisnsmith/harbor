@@ -1,4 +1,4 @@
-"""harbor.ml.behavior_agents.multi_agent — Multi-agent portfolio simulation."""
+"""hangar.ml.behavior_agents.multi_agent — Multi-agent portfolio simulation."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional
 import numpy as np
 import pandas as pd
 
-from harbor.ml.behavior_agents.agent import agent_as_weight_func
+from hangar.ml.behavior_agents.agent import agent_as_weight_func
 
 
 @dataclass

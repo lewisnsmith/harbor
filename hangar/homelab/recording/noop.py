@@ -1,4 +1,4 @@
-"""harbor.homelab.recording.noop — No-op recorder (default when tracing disabled)."""
+"""hangar.homelab.recording.noop — No-op recorder (default when tracing disabled)."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from typing import Any, Dict
 
 import numpy as np
 
-from harbor.homelab.venue.protocol import VenueSnapshot
+from hangar.homelab.venue.protocol import VenueSnapshot
 
 
 class NoopRecorder:

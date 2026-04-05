@@ -1,4 +1,4 @@
-"""Tests for harbor.homelab.runner — ExperimentRunner end-to-end."""
+"""Tests for hangar.homelab.runner — ExperimentRunner end-to-end."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from harbor.homelab.config import ExperimentConfig
-from harbor.homelab.runner import ExperimentRunner, ExperimentResult
+from hangar.homelab.config import ExperimentConfig
+from hangar.homelab.runner import ExperimentRunner, ExperimentResult
 
 
 def _make_config(**overrides) -> ExperimentConfig:

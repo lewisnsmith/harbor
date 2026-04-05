@@ -1,5 +1,5 @@
 """
-harbor.risk.correlation — Correlation modeling and spike detection.
+hangar.risk.correlation — Correlation modeling and spike detection.
 
 ABF mapping: correlation spike detection (Q2 — Regime Manufacturing, Layer 4 roadmap).
 
@@ -10,7 +10,7 @@ Planned functionality:
 
 Used by:
 - ABF Q2 experiments for crowding/correlation spike analysis.
-- harbor.portfolio.construction for diversification assumptions.
+- hangar.portfolio.construction for diversification assumptions.
 """
 
 

@@ -1,6 +1,6 @@
 **Artificial Behavior in Financial Markets: Research PRD**
 
-**Project:** HARBOR Asset Management
+**Project:** HANGAR Asset Management
 **Research Track:** Artificial Behavioral Finance (ABF)
 **Version:** 3.0
 **Date:** March 16, 2026 (originally February 13, 2026)
@@ -10,7 +10,7 @@
 
 This PRD defines the research agenda for investigating how autonomous trading agents — LLM-powered, RL-based, and tool-using systems that reason, adapt, and interact strategically — create novel market dynamics that traditional behavioral finance and algorithmic trading research cannot explain. The core thesis: autonomous agents are qualitatively different from traditional systematic algorithms because they have agency (goal-setting, reasoning, adaptation), and when deployed at scale, they produce emergent coordination, manufactured regimes, and adversarial dynamics that reshape market structure.
 
-HARBOR is the asset management algorithm that sparked this research. It serves three roles: infrastructure that agents run on, a test participant (HARBOR-as-agent competing against autonomous agents), and the origin story that motivated the questions.
+HANGAR is the asset management algorithm that sparked this research. It serves three roles: infrastructure that agents run on, a test participant (HANGAR-as-agent competing against autonomous agents), and the origin story that motivated the questions.
 
 **Narrative: From Builder to Agent Researcher**
 
@@ -43,7 +43,7 @@ This is not a pivot away from the original work — it is a deepening. The initi
 
 | Component | Specification |
 | :---- | :---- |
-| Agent Setup | Diverse autonomous agents: varied LLM prompts, RL training seeds, HARBOR configs |
+| Agent Setup | Diverse autonomous agents: varied LLM prompts, RL training seeds, HANGAR configs |
 | Convergence Metrics | Position correlation across agents, strategy similarity index, herding intensity |
 | Key Test | Do agents that start different become more similar over time? |
 | Empirical Complement | Post-2023 real-market signatures (correlation changes coinciding with LLM agent adoption) |
@@ -66,7 +66,7 @@ This is not a pivot away from the original work — it is a deepening. The initi
 
 1. Ablation experiments: run simulation with and without agent populations, compare regime structure using H2's regime detection tools
 2. Dose-response: vary agent concentration from 10% to 80% of market volume, measure regime intensity
-3. Regime detection: apply existing `harbor.risk` regime tools to synthetic data
+3. Regime detection: apply existing `hangar.risk` regime tools to synthetic data
 4. Empirical complement: compare regime frequency and intensity pre-2020 vs post-2023
 
 **Success Criteria:**
@@ -92,7 +92,7 @@ This is not a pivot away from the original work — it is a deepening. The initi
 
 1. Clear characterization of adaptation dynamics (one of: arms race, equilibrium, or cycles)
 2. Quantified retail portfolio impact during adversarial periods
-3. Evidence of whether HARBOR's regime-awareness mitigates the damage
+3. Evidence of whether HANGAR's regime-awareness mitigates the damage
 
 **The Three-Question Arc**
 
@@ -131,18 +131,18 @@ Each builds on the previous finding. A null result at any stage redirects the re
 
 **Agent Simulation Framework**
 
-The simulation framework (`harbor.agents`) is the primary research instrument. It enables causal experiments impossible with real market data.
+The simulation framework (`hangar.agents`) is the primary research instrument. It enables causal experiments impossible with real market data.
 
 **Architecture:**
 
 ```
-harbor/agents/
+hangar/agents/
     environment.py      # Market sim: price-impact model, order matching, state
     base_agent.py       # Abstract interface: observe() → decide() → act()
     rule_agents.py      # Momentum, vol-targeting, mean-reversion (baselines)
     llm_agents.py       # LLM-based agents (Claude/GPT via API)
-    rl_agents.py        # RL agents (wraps harbor.ml.behavior_agents)
-    harbor_agent.py     # HARBOR-as-agent: uses harbor.risk + harbor.portfolio
+    rl_agents.py        # RL agents (wraps hangar.ml.behavior_agents)
+    hangar_agent.py     # HANGAR-as-agent: uses hangar.risk + hangar.portfolio
     adaptation.py       # Agent learning/adaptation between rounds
     population.py       # Population manager: spawn, configure, mix
     experiments.py      # Predefined experiment configs
@@ -158,7 +158,7 @@ harbor/agents/
 | Rule-based | `rule_agents.py` | Simple, deterministic — the "traditional algo" baseline |
 | LLM-based | `llm_agents.py` | Reasons about market state, adapts via prompting |
 | RL-based | `rl_agents.py` | Learns optimal policy through environment interaction |
-| HARBOR | `harbor_agent.py` | Uses HARBOR's own risk/portfolio logic — the system tests itself |
+| HANGAR | `hangar_agent.py` | Uses HANGAR's own risk/portfolio logic — the system tests itself |
 
 **Key Design Decisions:**
 
@@ -166,27 +166,27 @@ harbor/agents/
 |----------|--------|-----------|
 | Price formation | Impact model (not order book) | Captures dynamics we care about; standard in agent-based finance lit |
 | LLM agents | Real API calls (Claude/GPT) | Mocking loses the point — real reasoning is what makes agents different |
-| HARBOR-as-agent | Wraps existing code | Tests whether the system's mitigations work against autonomous agents |
+| HANGAR-as-agent | Wraps existing code | Tests whether the system's mitigations work against autonomous agents |
 | Output format | Same DataFrame structure as real data | Reuses entire ABF analysis pipeline |
 
 **Experiment Configurations:**
 
 1. **Homogeneous LLM:** 50 LLM agents, same base prompt → emergent coordination test
-2. **Mixed autonomous:** 20 LLM + 20 RL + 10 HARBOR → interaction dynamics
+2. **Mixed autonomous:** 20 LLM + 20 RL + 10 HANGAR → interaction dynamics
 3. **Stress injection:** External vol shock + mixed population → cascading behavior
 4. **Adaptation test:** Agents learn between rounds → convergence or divergence
-5. **HARBOR resilience:** HARBOR agent in autonomous-agent-dominated market
+5. **HANGAR resilience:** HANGAR agent in autonomous-agent-dominated market
 
-**HARBOR's Triple Role**
+**HANGAR's Triple Role**
 
-1. **Infrastructure:** Agents use HARBOR's risk models, data pipeline, and portfolio construction
-2. **Participant:** HARBOR-as-agent competes against autonomous agents, testing whether regime-awareness provides edge
+1. **Infrastructure:** Agents use HANGAR's risk models, data pipeline, and portfolio construction
+2. **Participant:** HANGAR-as-agent competes against autonomous agents, testing whether regime-awareness provides edge
 3. **Origin story:** The asset management algorithm that sparked the research — "I built the system, then asked what happens when many autonomous systems like it exist"
 
 **Non-Goals (Explicit Scope Boundaries)**
 
 1. Study traditional algorithmic trading in depth (traditional algos are baseline context, not the focus)
-2. Build a production trading system (HARBOR is research infrastructure, not a hedge fund)
+2. Build a production trading system (HANGAR is research infrastructure, not a hedge fund)
 3. Model every possible agent architecture (focus on LLM + RL as representative autonomous agent types)
 4. Prove causality beyond doubt in version 1 (simulation evidence is strong but not RCT-level)
 
@@ -195,7 +195,7 @@ harbor/agents/
 1. **Data access:** WRDS institutional subscription (via UCLA or personal), or equivalent survivorship-bias-free source
 2. **LLM API access:** Claude and/or GPT API for LLM agent experiments
 3. **Compute:** Moderate for simulation; LLM API costs scale with experiment size
-4. **Existing HARBOR stack:** H1 + H2 complete and tested
+4. **Existing HANGAR stack:** H1 + H2 complete and tested
 
 **Success Metrics and Acceptance Criteria**
 
@@ -206,24 +206,24 @@ harbor/agents/
 3. **Reproducibility:** Complete pipeline runnable end-to-end with <5 commands
 4. **Peer credibility:** Draft quality sufficient for faculty review
 
-**For HARBOR Integration**
+**For HANGAR Integration**
 
-1. HARBOR-as-agent results quantify whether regime-awareness helps against autonomous agents
-2. Backtest module can compare HARBOR performance in "agent-dominated" vs "traditional" market environments
+1. HANGAR-as-agent results quantify whether regime-awareness helps against autonomous agents
+2. Backtest module can compare HANGAR performance in "agent-dominated" vs "traditional" market environments
 3. Results inform practical risk rules for retail investors
 
-**Integration with HARBOR System**
+**Integration with HANGAR System**
 
 **Module Mapping:**
 
-| ABF Research Component | HARBOR Module |
+| ABF Research Component | HANGAR Module |
 | :---- | :---- |
 | Market simulation environment | agents/environment.py |
-| Agent types + adaptation | agents/llm_agents.py, rl_agents.py, harbor_agent.py |
+| Agent types + adaptation | agents/llm_agents.py, rl_agents.py, hangar_agent.py |
 | Population experiments | agents/population.py, experiments.py |
 | Convergence/crowding metrics | agents/metrics.py |
 | Regime detection on synthetic data | risk/regime_detection.py |
-| HARBOR-as-agent performance | agents/harbor_agent.py + backtest/ |
+| HANGAR-as-agent performance | agents/hangar_agent.py + backtest/ |
 | Retail impact analysis | retail/ |
 
 **Deprecated: Old Q1 (Vol-Shock Persistence)**

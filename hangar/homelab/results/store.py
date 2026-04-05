@@ -1,4 +1,4 @@
-"""harbor.homelab.results.store — Disk-based result storage."""
+"""hangar.homelab.results.store — Disk-based result storage."""
 
 from __future__ import annotations
 

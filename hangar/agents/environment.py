@@ -1,4 +1,4 @@
-"""harbor.agents.environment — Stepped market simulation with price impact."""
+"""hangar.agents.environment — Stepped market simulation with price impact."""
 
 from __future__ import annotations
 

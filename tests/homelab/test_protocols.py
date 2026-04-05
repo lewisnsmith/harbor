@@ -1,4 +1,4 @@
-"""Tests for harbor.homelab.agent — protocols, adapters, registry."""
+"""Tests for hangar.homelab.agent — protocols, adapters, registry."""
 
 from __future__ import annotations
 
@@ -6,12 +6,12 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from harbor.agents.base_agent import AgentConfig
-from harbor.agents.rule_agents import MomentumAgent, MeanReversionAgent, VolTargetAgent
-from harbor.homelab.agent.protocols import Observable, Configurable
-from harbor.homelab.agent.adapters import LegacyAgentAdapter
-from harbor.homelab.agent.registry import AGENT_REGISTRY, build_agents
-from harbor.homelab.venue.protocol import VenueSnapshot
+from hangar.agents.base_agent import AgentConfig
+from hangar.agents.rule_agents import MomentumAgent, MeanReversionAgent, VolTargetAgent
+from hangar.homelab.agent.protocols import Observable, Configurable
+from hangar.homelab.agent.adapters import LegacyAgentAdapter
+from hangar.homelab.agent.registry import AGENT_REGISTRY, build_agents
+from hangar.homelab.venue.protocol import VenueSnapshot
 
 
 def _make_snapshot(n_assets: int = 5, step: int = 0, lookback: int = 30) -> VenueSnapshot:

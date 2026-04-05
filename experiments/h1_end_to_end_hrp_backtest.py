@@ -21,10 +21,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from harbor.backtest import run_cross_sectional_backtest  # noqa: E402
-from harbor.data import load_sp500_prices, load_sp500_tickers  # noqa: E402
-from harbor.portfolio import hrp_weights  # noqa: E402
-from harbor.risk import estimate_covariance, monte_carlo_var_cvar_from_history  # noqa: E402
+from hangar.backtest import run_cross_sectional_backtest  # noqa: E402
+from hangar.data import load_sp500_prices, load_sp500_tickers  # noqa: E402
+from hangar.portfolio import hrp_weights  # noqa: E402
+from hangar.risk import estimate_covariance, monte_carlo_var_cvar_from_history  # noqa: E402
 
 
 def parse_args() -> argparse.Namespace:

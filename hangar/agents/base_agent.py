@@ -1,4 +1,4 @@
-"""harbor.agents.base_agent — Abstract agent interface."""
+"""hangar.agents.base_agent — Abstract agent interface."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from harbor.agents.environment import MarketState
+from hangar.agents.environment import MarketState
 
 
 @dataclass

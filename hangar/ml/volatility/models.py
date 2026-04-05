@@ -1,4 +1,4 @@
-"""harbor.ml.volatility.models — LSTM/GRU volatility forecasting architectures."""
+"""hangar.ml.volatility.models — LSTM/GRU volatility forecasting architectures."""
 
 from __future__ import annotations
 

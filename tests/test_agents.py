@@ -1,4 +1,4 @@
-"""Tests for harbor.agents — H3 Agent Simulation Core."""
+"""Tests for hangar.agents — H3 Agent Simulation Core."""
 
 from __future__ import annotations
 
@@ -6,18 +6,18 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from harbor.agents.base_agent import AgentConfig, BaseAgent
-from harbor.agents.config import PopulationConfig, build_population
-from harbor.agents.environment import MarketConfig, MarketEnvironment, MarketState
-from harbor.agents.metrics import (
+from hangar.agents.base_agent import AgentConfig, BaseAgent
+from hangar.agents.config import PopulationConfig, build_population
+from hangar.agents.environment import MarketConfig, MarketEnvironment, MarketState
+from hangar.agents.metrics import (
     compute_crowding_index,
     compute_flow_imbalance,
     compute_regime_labels,
     compute_return_autocorrelation,
     compute_simulation_summary,
 )
-from harbor.agents.rule_agents import MeanReversionAgent, MomentumAgent, VolTargetAgent
-from harbor.agents.simulation import SimulationResult, run_simulation
+from hangar.agents.rule_agents import MeanReversionAgent, MomentumAgent, VolTargetAgent
+from hangar.agents.simulation import SimulationResult, run_simulation
 
 
 # ---------------------------------------------------------------------------

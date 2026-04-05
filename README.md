@@ -1,6 +1,6 @@
-# HARBOR
+# HANGAR
 
-[![CI](https://github.com/lewis-smith/harbor/actions/workflows/ci.yml/badge.svg)](https://github.com/lewis-smith/harbor/actions/workflows/ci.yml)
+[![CI](https://github.com/lewis-smith/hangar/actions/workflows/ci.yml/badge.svg)](https://github.com/lewis-smith/hangar/actions/workflows/ci.yml)
 
 A research platform for studying how autonomous trading agents reshape market dynamics.
 
@@ -10,13 +10,13 @@ A research platform for studying how autonomous trading agents reshape market dy
 
 ## Research Contribution
 
-HARBOR serves as the empirical platform for an original research agenda in **Artificial Behavioral Finance (ABF)**: investigating whether autonomous trading agents — LLM-powered, RL-based, and tool-using — reshape market dynamics in ways traditional behavioral finance cannot explain. Unlike conventional algorithmic trading, these agents reason, adapt, and interact strategically, creating emergent coordination, manufactured regimes, and adversarial dynamics. The framework combines risk modeling (HRP, Monte Carlo VaR/CVaR, regime detection) with a multi-agent market simulation for causal testing. See the [full research specification](docs/abf-prd.md) and [simulation results](results/agent_simulation/) for details.
+HANGAR serves as the empirical platform for an original research agenda in **Artificial Behavioral Finance (ABF)**: investigating whether autonomous trading agents — LLM-powered, RL-based, and tool-using — reshape market dynamics in ways traditional behavioral finance cannot explain. Unlike conventional algorithmic trading, these agents reason, adapt, and interact strategically, creating emergent coordination, manufactured regimes, and adversarial dynamics. The framework combines risk modeling (HRP, Monte Carlo VaR/CVaR, regime detection) with a multi-agent market simulation for causal testing. See the [full research specification](docs/abf-prd.md) and [simulation results](results/agent_simulation/) for details.
 
 ---
 
 ## The Story
 
-HARBOR didn't start as a grand plan. It started as a Monte Carlo simulation I pieced together for the Wharton Global High School Investment Competition because I wanted something more rigorous than gut-feel stock picks for my report. That first script was naive, but it planted a seed. I realized this quantitative rigor was something necessary for the money my grandma had given me to invest for her. I wanted to build it right — rigorous enough to trust, simple enough to verify. 
+HANGAR didn't start as a grand plan. It started as a Monte Carlo simulation I pieced together for the Wharton Global High School Investment Competition because I wanted something more rigorous than gut-feel stock picks for my report. That first script was naive, but it planted a seed. I realized this quantitative rigor was something necessary for the money my grandma had given me to invest for her. I wanted to build it right — rigorous enough to trust, simple enough to verify. 
 
 Over eight iterations, the project grew — sometimes deliberately, sometimes because I encountered a fascinating piece of quantitative theory and couldn't resist implementing it. Factor screening inspired by AQR. Mean-variance optimization. Black-Litterman. Hierarchical Risk Parity. Hidden Markov Models for regime detection. Reinforcement learning for adaptive weighting. Each layer addressed a failure I observed in the previous version. Each layer sounded so intriguing I couldn't resist implementing it.
 
@@ -33,18 +33,18 @@ The full development history is documented in [`docs/journal.md`](docs/journal.m
 │  Layer 5: Exploitation (deferred)                       │
 │  Crowding/fading, cross-market arb, prediction markets  │
 ├─────────────────────────────────────────────────────────┤
-│  Layer 4: Experiment / Evaluation  [harbor.homelab]     │
+│  Layer 4: Experiment / Evaluation  [hangar.homelab]     │
 │  YAML config → ExperimentRunner → traces + metrics      │
 │  Batch, ablation, recording (JSONL/Flight), ResultStore │
 ├─────────────────────────────────────────────────────────┤
-│  Layer 3: Portfolio / Risk  [harbor.risk, .portfolio]   │
+│  Layer 3: Portfolio / Risk  [hangar.risk, .portfolio]   │
 │  Covariance, HRP, VaR/CVaR, regime detection, MVO      │
 ├─────────────────────────────────────────────────────────┤
-│  Layer 2: Agent  [harbor.homelab.agent, harbor.agents]  │
+│  Layer 2: Agent  [hangar.homelab.agent, hangar.agents]  │
 │  Observable/Configurable/ToolUser/BudgetAware protocols │
 │  LegacyAgentAdapter bridges existing rule agents        │
 ├─────────────────────────────────────────────────────────┤
-│  Layer 1: Market / Venue  [harbor.homelab.venue]        │
+│  Layer 1: Market / Venue  [hangar.homelab.venue]        │
 │  VenueSnapshot ← EquityVenue ← MarketEnvironment       │
 │  Pluggable: any venue emitting VenueSnapshot works      │
 └─────────────────────────────────────────────────────────┘
@@ -54,9 +54,9 @@ Each layer wraps or builds on the one below. The homelab wraps existing modules 
 
 ---
 
-## What HARBOR Does
+## What HANGAR Does
 
-HARBOR is a modular Python framework for **risk-first portfolio construction and research**. Its modules are the infrastructure layer of the ABF research platform:
+HANGAR is a modular Python framework for **risk-first portfolio construction and research**. Its modules are the infrastructure layer of the ABF research platform:
 
 - **Data** — S&P 500 universe with survivorship-bias-aware loaders and local caching
 - **Risk** — Covariance estimation (sample + shrinkage), Hierarchical Risk Parity, Monte Carlo VaR/CVaR, regime detection
@@ -64,13 +64,13 @@ HARBOR is a modular Python framework for **risk-first portfolio construction and
 - **Backtest** — Cross-sectional backtesting engine with transaction costs and standard performance/risk metrics
 - **ML Extensions** — Neural volatility forecasting (LSTM/GRU) and deep RL behavioral agents
 - **Agent Simulation** — Multi-agent market environment where autonomous agents interact, generating synthetic price impact and crowding dynamics for causal testing
-- **Homelab** — Reproducible experiment infrastructure: YAML configs, ExperimentRunner, batch/ablation runners, JSONL trace recording, metrics registry, results store. Run any experiment with `python -m harbor.homelab experiment.yaml`
+- **Homelab** — Reproducible experiment infrastructure: YAML configs, ExperimentRunner, batch/ablation runners, JSONL trace recording, metrics registry, results store. Run any experiment with `python -m hangar.homelab experiment.yaml`
 
 ---
 
 ## Observability: Flight
 
-Agent traces recorded by Harbor's `JsonlRecorder` are designed for consumption by [Flight](link-tbd) — a purpose-built trace capture tool. Flight enables step-level replay, trace inspection, and debugging outside the experiment loop. The `Recorder` protocol is intentionally minimal so Flight can be swapped in without changing the runner.
+Agent traces recorded by Hangar's `JsonlRecorder` are designed for consumption by [Flight](link-tbd) — a purpose-built trace capture tool. Flight enables step-level replay, trace inspection, and debugging outside the experiment loop. The `Recorder` protocol is intentionally minimal so Flight can be swapped in without changing the runner.
 
 ---
 
@@ -86,14 +86,14 @@ Core research questions (full specification in [`docs/abf-prd.md`](docs/abf-prd.
 
 The ABF track uses a simulation-first methodology: synthetic multi-agent markets with controlled populations enable causal identification of agent-driven effects, producing research-quality output with the aim of faculty review and potential collaboration.
 
-**The retail investor angle is two-sided.** On one hand, autonomous agents operating in markets may create dynamics — crowding, manufactured regimes, adversarial arms races — that retail investors can't detect or respond to, concentrating risk on those least equipped to handle it. On the other hand, autonomous agents *as tools* may expand retail access to strategies previously gated behind institutional infrastructure: regime-aware allocation, dynamic risk sizing, and systematic rebalancing that individual investors couldn't implement manually. Whether this democratization offsets the structural disadvantage is an open empirical question — and one HARBOR is positioned to test, as HARBOR-as-agent wraps its own portfolio logic and competes directly against autonomous agents in simulation.
+**The retail investor angle is two-sided.** On one hand, autonomous agents operating in markets may create dynamics — crowding, manufactured regimes, adversarial arms races — that retail investors can't detect or respond to, concentrating risk on those least equipped to handle it. On the other hand, autonomous agents *as tools* may expand retail access to strategies previously gated behind institutional infrastructure: regime-aware allocation, dynamic risk sizing, and systematic rebalancing that individual investors couldn't implement manually. Whether this democratization offsets the structural disadvantage is an open empirical question — and one HANGAR is positioned to test, as HANGAR-as-agent wraps its own portfolio logic and competes directly against autonomous agents in simulation.
 
 ---
 
 ## Repository Structure
 
 ```
-harbor/            Core Python package
+hangar/            Core Python package
   data/              Universe, price loaders, caching
   risk/              Covariance, HRP, Monte Carlo, regime detection
   portfolio/         Optimization and allocation interfaces
@@ -133,12 +133,12 @@ research/          Research notes and references
 
 | Layer | Module | Status |
 |-------|--------|--------|
-| Core Quant Stack | `harbor.data`, `harbor.risk`, `harbor.portfolio`, `harbor.backtest` | Complete |
-| Advanced Risk | `harbor.risk` — regime detection, scenarios, decomposition | Complete |
-| Agent Simulation | `harbor.agents` — environment, rule agents, metrics | Complete |
-| Experiment Infrastructure | `harbor.homelab` — YAML runner, batch, ablation, recording, metrics | Complete |
-| ML Extensions | `harbor.ml` — vol forecasters, RL agents | Experimental scaffolding |
-| ABF Q1 Pipeline | `harbor.abf` | Legacy/deprecated |
+| Core Quant Stack | `hangar.data`, `hangar.risk`, `hangar.portfolio`, `hangar.backtest` | Complete |
+| Advanced Risk | `hangar.risk` — regime detection, scenarios, decomposition | Complete |
+| Agent Simulation | `hangar.agents` — environment, rule agents, metrics | Complete |
+| Experiment Infrastructure | `hangar.homelab` — YAML runner, batch, ablation, recording, metrics | Complete |
+| ML Extensions | `hangar.ml` — vol forecasters, RL agents | Experimental scaffolding |
+| ABF Q1 Pipeline | `hangar.abf` | Legacy/deprecated |
 
 287 tests passing (234 core + 53 homelab). See [`docs/plan.md`](docs/plan.md) for architecture details.
 
@@ -160,10 +160,10 @@ python -m pip install -e .
 
 ```bash
 # Run a built-in benchmark
-python -m harbor.homelab benchmarks/momentum_baseline.yaml
+python -m hangar.homelab benchmarks/momentum_baseline.yaml
 
 # Run any custom experiment config
-python -m harbor.homelab configs/your_experiment.yaml
+python -m hangar.homelab configs/your_experiment.yaml
 ```
 
 **Run the H1 end-to-end baseline:**
@@ -199,7 +199,7 @@ make all        # install + lint + test + run all pipelines
 
 - **Development proxy:** V1 uses [yfinance](https://pypi.org/project/yfinance/) (Yahoo Finance) for price data. This is adequate for pipeline development and method validation but not for publication-quality inference.
 - **Survivorship bias:** The default universe loader scrapes current S&P 500 constituents from Wikipedia when historical membership data is unavailable. This introduces survivorship bias; a warning is emitted at runtime.
-- **Production target:** I hope to get CRSP/WRDS for survivorship-bias-free historical constituents. The `load_crsp_prices()` stub in `harbor.data` defines the interface; integration requires institutional access.
+- **Production target:** I hope to get CRSP/WRDS for survivorship-bias-free historical constituents. The `load_crsp_prices()` stub in `hangar.data` defines the interface; integration requires institutional access.
 - **Risk-free rate:** Proxied via 13-week T-bill yield (`^IRX`), converted and forward-filled to daily frequency.
 
 ---
@@ -217,4 +217,4 @@ make all        # install + lint + test + run all pipelines
 
 ## Disclaimer
 
-This project is for **research and educational purposes only** and does not constitute financial advice. HARBOR is a personal learning project documenting one person's journey through quantitative finance, portfolio theory, and machine learning — not a production trading system.
+This project is for **research and educational purposes only** and does not constitute financial advice. HANGAR is a personal learning project documenting one person's journey through quantitative finance, portfolio theory, and machine learning — not a production trading system.

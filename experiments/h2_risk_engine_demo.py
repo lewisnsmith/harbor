@@ -21,23 +21,23 @@ import sys
 import numpy as np
 import pandas as pd
 
-# Ensure harbor is importable when running from repo root.
+# Ensure hangar is importable when running from repo root.
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from harbor.data import load_sp500_tickers, load_prices
-from harbor.risk.covariance import estimate_covariance, expanding_regime_covariance
-from harbor.risk.decomposition import (
+from hangar.data import load_sp500_tickers, load_prices
+from hangar.risk.covariance import estimate_covariance, expanding_regime_covariance
+from hangar.risk.decomposition import (
     cluster_risk_attribution,
     component_risk,
     concentration_metrics,
     percent_risk_contribution,
 )
-from harbor.risk.engine import RiskConfig, RiskEngine, load_scenarios_config
-from harbor.risk.monte_carlo import (
+from hangar.risk.engine import RiskConfig, RiskEngine, load_scenarios_config
+from hangar.risk.monte_carlo import (
     monte_carlo_var_cvar_from_history,
     simulate_student_t_returns,
 )
-from harbor.risk.scenarios import run_scenario_suite, scenario_report_to_dict
+from hangar.risk.scenarios import run_scenario_suite, scenario_report_to_dict
 
 
 def parse_args() -> argparse.Namespace:

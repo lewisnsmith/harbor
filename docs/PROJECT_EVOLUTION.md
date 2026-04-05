@@ -1,10 +1,10 @@
-# HARBOR — Project Evolution
+# HANGAR — Project Evolution
 
 **Author:** Lewis Smith
 **Started:** October 2025
 **Last updated:** March 15, 2026
 
-This document tells the story of how HARBOR evolved from a competition entry into an empirical research system studying how AI agents reshape financial markets. Each chapter captures what was built, what was learned, and how that learning changed the project's direction.
+This document tells the story of how HANGAR evolved from a competition entry into an empirical research system studying how AI agents reshape financial markets. Each chapter captures what was built, what was learned, and how that learning changed the project's direction.
 
 ---
 
@@ -12,15 +12,15 @@ This document tells the story of how HARBOR evolved from a competition entry int
 
 ### Origin
 
-HARBOR began as a portfolio management system built for the Wharton Global Investment Competition. The initial goal was straightforward: build a system that could construct, backtest, and manage a multi-asset portfolio with real risk controls.
+HANGAR began as a portfolio management system built for the Wharton Global Investment Competition. The initial goal was straightforward: build a system that could construct, backtest, and manage a multi-asset portfolio with real risk controls.
 
 ### What Was Built
 
 - **v0.1.0-dev** (February 2026 release, but reflecting work from Oct 2025 onward)
-- `harbor.data`: S&P 500 universe loaders with survivorship-bias-aware fallbacks, chunked concurrent price fetching, risk-free rate proxy, local Parquet/pickle cache
-- `harbor.risk`: Sample and Ledoit-Wolf shrinkage covariance estimators, Hierarchical Risk Parity (HRP) allocation, Monte Carlo VaR/CVaR simulation, regime detection (vol shocks, correlation spikes)
-- `harbor.portfolio`: Mean-variance, risk parity, and HRP weight interfaces with regime-aware position sizing
-- `harbor.backtest`: Sharpe, Sortino, Calmar, max drawdown, and win rate metrics
+- `hangar.data`: S&P 500 universe loaders with survivorship-bias-aware fallbacks, chunked concurrent price fetching, risk-free rate proxy, local Parquet/pickle cache
+- `hangar.risk`: Sample and Ledoit-Wolf shrinkage covariance estimators, Hierarchical Risk Parity (HRP) allocation, Monte Carlo VaR/CVaR simulation, regime detection (vol shocks, correlation spikes)
+- `hangar.portfolio`: Mean-variance, risk parity, and HRP weight interfaces with regime-aware position sizing
+- `hangar.backtest`: Sharpe, Sortino, Calmar, max drawdown, and win rate metrics
 - CI pipeline with ruff linting and pytest
 
 ### Key Technical Decisions
@@ -48,7 +48,7 @@ The core thesis: when institutional participants deploy similar trend-following 
 ### What Was Built
 
 - **v0.2.0-dev** (February 27, 2026)
-- **ABF Q1 pipeline** (`harbor.abf.q1`): Complete analysis pipeline for testing whether vol-targeting behavior creates momentum persistence and reversal patterns
+- **ABF Q1 pipeline** (`hangar.abf.q1`): Complete analysis pipeline for testing whether vol-targeting behavior creates momentum persistence and reversal patterns
   - Shock detection and event window construction
   - Local projection regressions with Newey-West HAC standard errors
   - Cumulative abnormal return computation
@@ -98,7 +98,7 @@ Three developments converged:
   - Q1: "Do AI-driven trading agents create measurable momentum and reversal patterns?"
   - Q2: "Does behavioral convergence among autonomous agents amplify drawdowns and destabilize correlations?"
   - Q3: "Does the proliferation of AI-driven strategies erode the effectiveness of established trading signals?"
-- **New modules planned:** `harbor.agents` (agent simulation framework), `harbor.retail` (retail impact analysis)
+- **New modules planned:** `hangar.agents` (agent simulation framework), `hangar.retail` (retail impact analysis)
 
 ### The Design Decision
 
@@ -150,7 +150,7 @@ These questions can't be answered by looking at historical market data from the 
 - **Old Q1 deprecated.** The vol-shock persistence/reversal research becomes a footnote — the investigation that revealed where to look. Code has been removed (see `docs/abf-q1-research-summary.md` for results).
 - **Simulation moved to center stage.** The agent simulation framework went from late-stage addition (old H5) to immediate priority (new H3). It's the primary research instrument, not a supporting tool.
 - **LLM agents moved from stub to focus.** In the old plan, LLM agents were "Phase 3 scope" with a `NotImplementedError`. Now they're the centerpiece of H4.
-- **HARBOR became a participant.** HARBOR-as-agent wraps the existing portfolio logic and competes against autonomous agents. This answers the natural question: "does the system you built actually work when autonomous agents are in the market?"
+- **HANGAR became a participant.** HANGAR-as-agent wraps the existing portfolio logic and competes against autonomous agents. This answers the natural question: "does the system you built actually work when autonomous agents are in the market?"
 - **New three-question research arc:**
   - Q1: **Emergent Coordination** — do independent agents converge?
   - Q2: **Regime Manufacturing** — do agent populations create regimes?
@@ -186,18 +186,18 @@ After the pivot to autonomous agents in Chapter 5, the old phase plan (H3 → H4
 
 The decision: replace the phase roadmap entirely with a five-layer architecture, build the experiment infrastructure (Layer 4) in one pass, and make it functional before running any experiments. This is the "homelab" — a personal research cluster for empirical multi-agent finance.
 
-A second motivation: the existing `harbor/agents/` code was not yet wired to a reproducible experiment loop. The market environment, rule agents, and metrics all existed, but they were called from ad-hoc scripts. The restructure gave them a proper home inside a normalized, config-driven experiment system.
+A second motivation: the existing `hangar/agents/` code was not yet wired to a reproducible experiment loop. The market environment, rule agents, and metrics all existed, but they were called from ad-hoc scripts. The restructure gave them a proper home inside a normalized, config-driven experiment system.
 
 ### What Was Built
 
-**`harbor/agents/` — completed:**
+**`hangar/agents/` — completed:**
 - `MarketEnvironment` with price-impact model (linear temporary + square-root permanent), multi-asset state, order matching
 - `BaseAgent` abstract interface: `observe() → decide() → act()`
 - `MomentumAgent`, `MeanReversionAgent`, `VolTargetAgent` — rule-based baselines
 - `PopulationMetrics` — crowding index, flow imbalance, regime labels
 - `Simulation` — multi-agent simulation runner
 
-**`harbor/homelab/` — built from scratch:**
+**`hangar/homelab/` — built from scratch:**
 
 *Venue layer:* `VenueSnapshot` (normalized state schema), `EquityVenue` (adapter wrapping `MarketEnvironment`). The venue produces a clean, consistent observation for any consumer — agent or runner — regardless of what's underneath.
 
@@ -215,11 +215,11 @@ A second motivation: the existing `harbor/agents/` code was not yet wired to a r
 
 *Results store:* `ResultsStore` — persists results with metadata.
 
-*CLI:* `python -m harbor.homelab experiment.yaml` runs any experiment from a YAML config.
+*CLI:* `python -m hangar.homelab experiment.yaml` runs any experiment from a YAML config.
 
 ### Key Design Decisions
 
-**Homelab orchestrates, doesn't absorb.** `harbor/agents/`, `harbor/risk/`, and `harbor/portfolio/` keep their module paths. The homelab wraps them via adapters and protocols rather than pulling their code in. This means the existing 205 tests kept passing during the build — no rewrite-driven breakage.
+**Homelab orchestrates, doesn't absorb.** `hangar/agents/`, `hangar/risk/`, and `hangar/portfolio/` keep their module paths. The homelab wraps them via adapters and protocols rather than pulling their code in. This means the existing 205 tests kept passing during the build — no rewrite-driven breakage.
 
 **Protocol composition over inheritance.** Agents compose only the protocols they implement. An agent that doesn't use tools doesn't implement `ToolUser`. This makes the agent API extensible without forcing every agent type to satisfy a large abstract base class. LLM agents (future) will add `ToolUser` and `BudgetAware` without changing anything else.
 
@@ -233,7 +233,7 @@ A second motivation: the existing `harbor/agents/` code was not yet wired to a r
 
 Building the experiment infrastructure before running experiments is the right order. Every research decision — what to measure, how to compare, how to reproduce — is cleaner when the scaffolding already exists. The temptation is to start running simulations immediately and wire up infrastructure later. That path leads to ad-hoc scripts that can't be reproduced or compared.
 
-The `LegacyAgentAdapter` pattern was worth the extra indirection. It let the new system inherit all the work done on `harbor/agents/` without a rewrite, and it's reusable: any future "bring your own agent" implementation follows the same pattern.
+The `LegacyAgentAdapter` pattern was worth the extra indirection. It let the new system inherit all the work done on `hangar/agents/` without a rewrite, and it's reusable: any future "bring your own agent" implementation follows the same pattern.
 
 Protocol-based composition is significantly cleaner than a deep inheritance hierarchy for agents. The existing `BaseAgent` class had a fixed interface. The new protocol approach lets different agent types (heuristic, LLM, RL) share only the interfaces they actually need.
 
@@ -252,13 +252,13 @@ Protocol-based composition is significantly cleaner than a deep inheritance hier
 | Mar 14, 2026 | — | First reframing: broadened to all AI agents, added retail focus |
 | Mar 15, 2026 | v0.3.0-dev | Classical baselines (GARCH/EWMA), multicollinearity fix, 205 tests |
 | Mar 16, 2026 | — | **Pivot to autonomous agents: new Q1/Q2/Q3, simulation-first research** |
-| Apr 1, 2026 | — | **5-layer restructure: `harbor/agents/` complete, `harbor/homelab/` built** |
-| Apr 1, 2026 | — | 278 tests, CLI working: `python -m harbor.homelab experiment.yaml` |
+| Apr 1, 2026 | — | **5-layer restructure: `hangar/agents/` complete, `hangar/homelab/` built** |
+| Apr 1, 2026 | — | 278 tests, CLI working: `python -m hangar.homelab experiment.yaml` |
 
 ## Architecture at a Glance
 
 ```
-harbor/
+hangar/
   data/              Universe, price loaders, caching
   risk/              Covariance, HRP, Monte Carlo, regime detection, scenarios, decomposition
   portfolio/         Optimization, constraints, allocation

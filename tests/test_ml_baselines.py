@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from harbor.ml.volatility.baselines import (
+from hangar.ml.volatility.baselines import (
     evaluate_forecast,
     ewma_volatility,
     fit_garch11,

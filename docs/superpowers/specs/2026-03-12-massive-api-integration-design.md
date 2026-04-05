@@ -8,7 +8,7 @@
 
 ## Context
 
-Harbor currently uses yfinance with a 23-stock seed universe. A `load_crsp_prices()` stub exists but raises `NotImplementedError` (requires WRDS institutional access). The Massive REST API provides comprehensive historical OHLC bars, dividends, splits, and ticker metadata — sufficient to replace CRSP for development and research purposes.
+Hangar currently uses yfinance with a 23-stock seed universe. A `load_crsp_prices()` stub exists but raises `NotImplementedError` (requires WRDS institutional access). The Massive REST API provides comprehensive historical OHLC bars, dividends, splits, and ticker metadata — sufficient to replace CRSP for development and research purposes.
 
 ### Key Decisions
 
@@ -21,7 +21,7 @@ Harbor currently uses yfinance with a 23-stock seed universe. A `load_crsp_price
 
 ---
 
-## 1. `harbor/data/massive.py` — Massive API Client
+## 1. `hangar/data/massive.py` — Massive API Client
 
 ### Class: `MassiveClient`
 
@@ -88,7 +88,7 @@ MassiveClient(
 
 ---
 
-## 2. `harbor/data/universe.py` — S&P 500 Historical Membership Builder
+## 2. `hangar/data/universe.py` — S&P 500 Historical Membership Builder
 
 ### Function: `build_sp500_membership() -> pd.DataFrame`
 
@@ -130,7 +130,7 @@ Internal helper. Fetches both Wikipedia tables with error handling. Raises `Runt
 self._massive_client: MassiveClient | None = None
 api_key = os.environ.get("MASSIVE_API_KEY")
 if api_key:
-    from harbor.data.massive import MassiveClient
+    from hangar.data.massive import MassiveClient
     self._massive_client = MassiveClient(api_key=api_key)
 
 # In PriceLoader._fetch_chunk:
@@ -179,8 +179,8 @@ def _cache_paths(self, tickers, start, end, adjusted):
 Export `MassiveClient` and `build_sp500_membership`:
 
 ```python
-from harbor.data.massive import MassiveClient
-from harbor.data.universe import build_sp500_membership, save_sp500_membership
+from hangar.data.massive import MassiveClient
+from hangar.data.universe import build_sp500_membership, save_sp500_membership
 ```
 
 ---
@@ -238,8 +238,8 @@ All tests mock `pd.read_html`.
 
 | File | Purpose | Est. Lines |
 |------|---------|-----------|
-| `harbor/data/massive.py` | Massive API client | ~200-250 |
-| `harbor/data/universe.py` | S&P 500 membership builder | ~150-200 |
+| `hangar/data/massive.py` | Massive API client | ~200-250 |
+| `hangar/data/universe.py` | S&P 500 membership builder | ~150-200 |
 | `tests/test_massive.py` | Client unit tests | ~200 |
 | `tests/test_universe.py` | Universe builder tests | ~100 |
 
@@ -247,8 +247,8 @@ All tests mock `pd.read_html`.
 
 | File | Change | Est. Lines Changed |
 |------|--------|-------------------|
-| `harbor/data/load_prices.py` | Provider routing in `_fetch_chunk`, fallback in `_fetch_with_retry`, provider in cache key | ~25 |
-| `harbor/data/__init__.py` | Export new symbols | ~6 |
+| `hangar/data/load_prices.py` | Provider routing in `_fetch_chunk`, fallback in `_fetch_with_retry`, provider in cache key | ~25 |
+| `hangar/data/__init__.py` | Export new symbols | ~6 |
 | `requirements.txt` / `setup.py` | Add `requests` if missing | ~1 |
 
 ### Unchanged

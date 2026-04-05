@@ -1,6 +1,6 @@
 # Experiments
 
-Temporary or exploratory scripts and prototypes live here. Promote stable work into `harbor/` or `notebooks/`.
+Temporary or exploratory scripts and prototypes live here. Promote stable work into `hangar/` or `notebooks/`.
 
 > **Note on phase labels:** Scripts below use the old H1/H2/H3 phase naming from before the April 2026 restructure. These map to the 5-layer architecture as follows: H1 → Layer 3 (Portfolio/Risk), H2 → Layer 3, H3 → Layer 2 (Agent). The ABF Q1 pipeline has been removed; see `docs/abf-q1-research-summary.md` for historical results.
 

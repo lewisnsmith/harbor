@@ -1,4 +1,4 @@
-"""harbor.homelab.agent.protocols — Composable agent protocols.
+"""hangar.homelab.agent.protocols — Composable agent protocols.
 
 Agents implement only the protocols they need:
 - Observable: core interface (observe + decide + act)
@@ -13,7 +13,7 @@ from typing import Any, Dict, List, Protocol, runtime_checkable
 
 import numpy as np
 
-from harbor.homelab.venue.protocol import VenueSnapshot
+from hangar.homelab.venue.protocol import VenueSnapshot
 
 
 @runtime_checkable

@@ -1,5 +1,5 @@
 """
-harbor.ml.volatility — Volatility forecasters (neural network + classical baselines).
+hangar.ml.volatility — Volatility forecasters (neural network + classical baselines).
 
 Provides LSTM/GRU-based volatility forecasting with walk-forward training,
 classical baselines (GARCH(1,1), EWMA, rolling historical) for benchmarking,
@@ -9,7 +9,7 @@ Status: NN models are experimental scaffolding (Layer 3 — Portfolio/Risk).
 Classical baselines (GARCH, EWMA) are implemented and ready for comparison.
 """
 
-from harbor.ml.volatility.baselines import (
+from hangar.ml.volatility.baselines import (
     BaselineResult,
     evaluate_forecast,
     ewma_volatility,
@@ -18,23 +18,23 @@ from harbor.ml.volatility.baselines import (
     rolling_volatility,
     run_baseline_comparison,
 )
-from harbor.ml.volatility.dataset import (
+from hangar.ml.volatility.dataset import (
     VolatilityDataset,
     VolDatasetConfig,
     build_features,
     build_target,
     create_walk_forward_splits,
 )
-from harbor.ml.volatility.integration import (
+from hangar.ml.volatility.integration import (
     sigma_hat_to_regime_proxy,
     vol_scaled_weight_func,
 )
-from harbor.ml.volatility.models import (
+from hangar.ml.volatility.models import (
     GRUVolModel,
     LSTMVolModel,
     create_model,
 )
-from harbor.ml.volatility.training import (
+from hangar.ml.volatility.training import (
     TrainConfig,
     TrainResult,
     evaluate_model,

@@ -1,7 +1,7 @@
 """Risk models, covariance estimators, and simulation utilities."""
 
-from harbor.risk.correlation import detect_correlation_spikes
-from harbor.risk.covariance import (
+from hangar.risk.correlation import detect_correlation_spikes
+from hangar.risk.covariance import (
     CovarianceMethod,
     estimate_covariance,
     expanding_regime_covariance,
@@ -9,7 +9,7 @@ from harbor.risk.covariance import (
     sample_covariance,
     shrinkage_covariance,
 )
-from harbor.risk.decomposition import (
+from hangar.risk.decomposition import (
     cluster_risk_attribution,
     component_risk,
     concentration_metrics,
@@ -17,9 +17,9 @@ from harbor.risk.decomposition import (
     marginal_contribution_to_risk,
     percent_risk_contribution,
 )
-from harbor.risk.engine import RiskConfig, RiskEngine, load_risk_config, load_scenarios_config
-from harbor.risk.hrp import hrp_allocation
-from harbor.risk.monte_carlo import (
+from hangar.risk.engine import RiskConfig, RiskEngine, load_risk_config, load_scenarios_config
+from hangar.risk.hrp import hrp_allocation
+from hangar.risk.monte_carlo import (
     SimulationMethod,
     VarCvarResult,
     monte_carlo_var_cvar_from_history,
@@ -29,8 +29,8 @@ from harbor.risk.monte_carlo import (
     simulate_returns,
     simulate_student_t_returns,
 )
-from harbor.risk.regime_detection import detect_vol_shocks, vol_control_pressure_proxy
-from harbor.risk.scenarios import (
+from hangar.risk.regime_detection import detect_vol_shocks, vol_control_pressure_proxy
+from hangar.risk.scenarios import (
     ScenarioResult,
     apply_correlation_spike,
     apply_sector_crash,

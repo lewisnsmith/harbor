@@ -1,4 +1,4 @@
-"""harbor.ml.behavior_agents.environment — Gymnasium portfolio environment."""
+"""hangar.ml.behavior_agents.environment — Gymnasium portfolio environment."""
 
 from __future__ import annotations
 

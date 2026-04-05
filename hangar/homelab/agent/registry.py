@@ -1,13 +1,13 @@
-"""harbor.homelab.agent.registry — Agent type registry and factory."""
+"""hangar.homelab.agent.registry — Agent type registry and factory."""
 
 from __future__ import annotations
 
 from typing import Any, Dict, List, Type
 
-from harbor.agents.base_agent import AgentConfig, BaseAgent
-from harbor.agents.rule_agents import MeanReversionAgent, MomentumAgent, VolTargetAgent
-from harbor.homelab.agent.adapters import LegacyAgentAdapter
-from harbor.homelab.agent.protocols import Observable
+from hangar.agents.base_agent import AgentConfig, BaseAgent
+from hangar.agents.rule_agents import MeanReversionAgent, MomentumAgent, VolTargetAgent
+from hangar.homelab.agent.adapters import LegacyAgentAdapter
+from hangar.homelab.agent.protocols import Observable
 
 # Registry of known agent types → BaseAgent subclasses
 AGENT_REGISTRY: Dict[str, Type[BaseAgent]] = {

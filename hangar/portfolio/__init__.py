@@ -1,6 +1,6 @@
 """Portfolio construction interfaces."""
 
-from harbor.portfolio.construction import (
+from hangar.portfolio.construction import (
     hrp_weights,
     mean_variance_weights,
     regime_aware_position_size,

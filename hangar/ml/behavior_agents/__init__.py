@@ -1,5 +1,5 @@
 """
-harbor.ml.behavior_agents — Deep RL behavioral portfolio agents.
+hangar.ml.behavior_agents — Deep RL behavioral portfolio agents.
 
 Status: Experimental scaffolding (Layer 2 — Agent). Not yet integrated into
 the homelab pipeline. Unit tests pass but agents have not been validated
@@ -10,23 +10,23 @@ RLlib, behavioral reward shaping (loss aversion, overconfidence, return
 chasing, disposition effect), and multi-agent simulation for ABF experiments.
 """
 
-from harbor.ml.behavior_agents.agent import (
+from hangar.ml.behavior_agents.agent import (
     AgentConfig,
     agent_as_weight_func,
     build_rllib_config,
     train_agent,
 )
-from harbor.ml.behavior_agents.environment import (
+from hangar.ml.behavior_agents.environment import (
     EnvConfig,
     PortfolioEnv,
 )
-from harbor.ml.behavior_agents.multi_agent import (
+from hangar.ml.behavior_agents.multi_agent import (
     AgentSpec,
     MultiAgentResult,
     compute_weight_similarity,
     run_multi_agent_simulation,
 )
-from harbor.ml.behavior_agents.rewards import (
+from hangar.ml.behavior_agents.rewards import (
     CompositeRewardShaper,
     DispositionEffectShaper,
     LossAversionShaper,

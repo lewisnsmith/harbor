@@ -1,4 +1,4 @@
-"""Tests for harbor.homelab.evaluation — MetricsRegistry and evaluate pipeline."""
+"""Tests for hangar.homelab.evaluation — MetricsRegistry and evaluate pipeline."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from harbor.homelab.evaluation.registry import MetricsRegistry
-from harbor.homelab.evaluation.summary import evaluate
+from hangar.homelab.evaluation.registry import MetricsRegistry
+from hangar.homelab.evaluation.summary import evaluate
 
 
 def _make_sim_outputs(n_steps: int = 100, n_assets: int = 3, n_agents: int = 2):

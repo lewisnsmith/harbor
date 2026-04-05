@@ -1,4 +1,4 @@
-"""Tests for harbor.homelab.venue — VenueSnapshot, Venue protocol, EquityVenue."""
+"""Tests for hangar.homelab.venue — VenueSnapshot, Venue protocol, EquityVenue."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from harbor.homelab.venue.protocol import Venue, VenueSnapshot
-from harbor.homelab.venue.equity import EquityVenue
+from hangar.homelab.venue.protocol import Venue, VenueSnapshot
+from hangar.homelab.venue.equity import EquityVenue
 
 
 class TestVenueSnapshot:

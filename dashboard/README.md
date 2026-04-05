@@ -1,6 +1,6 @@
-# HARBOR Dashboard
+# HANGAR Dashboard
 
-React-based frontend dashboard for HARBOR portfolio monitoring.
+React-based frontend dashboard for HANGAR portfolio monitoring.
 
 ## Files
 
@@ -9,5 +9,5 @@ React-based frontend dashboard for HARBOR portfolio monitoring.
 
 ## Notes
 
-This directory is intentionally separate from the `harbor/` Python package.
+This directory is intentionally separate from the `hangar/` Python package.
 The dashboard is a standalone React component; it does not require Python to run.

@@ -1,4 +1,4 @@
-# HARBOR Project Reframing — Design Spec
+# HANGAR Project Reframing — Design Spec
 
 > **PRE-PIVOT** — Superseded by `2026-03-16-autonomous-agent-pivot-design.md`.
 
@@ -15,11 +15,11 @@
 **Core architecture — the feedback loop:**
 
 1. **Research arm** (ABF) discovers how AI agents create market patterns (momentum, crowding, instability)
-2. **Asset management arm** (HARBOR core) operationalizes those findings into risk rules and portfolio construction that mitigate those effects for retail investors
+2. **Asset management arm** (HANGAR core) operationalizes those findings into risk rules and portfolio construction that mitigate those effects for retail investors
 3. **Backtesting** validates that the mitigations protect retail portfolios
 4. Results feed back into research refinement
 
-This replaces the prior framing where HARBOR was "a portfolio tool" and ABF was "a research track." Instead: one system, two symbiotic arms, connected by a feedback loop.
+This replaces the prior framing where HANGAR was "a portfolio tool" and ABF was "a research track." Instead: one system, two symbiotic arms, connected by a feedback loop.
 
 ---
 
@@ -39,7 +39,7 @@ This is a deliberate broadening to reflect the evolving landscape where non-trad
 
 ### 2.3 ABF Branding
 
-ABF (Artificial Behavioral Finance) branding is retained in code identifiers (`harbor.abf`, configs, tests). The term "behavioral" encompasses agent behavior broadly. Documentation language is updated to reflect the broader scope.
+ABF (Artificial Behavioral Finance) branding is retained in code identifiers (`hangar.abf`, configs, tests). The term "behavioral" encompasses agent behavior broadly. Documentation language is updated to reflect the broader scope.
 
 ---
 
@@ -75,11 +75,11 @@ ABF (Artificial Behavioral Finance) branding is retained in code identifiers (`h
 
 ## 4. New Roadmap Phases
 
-### HARBOR Framework
+### HANGAR Framework
 
 #### H5 — Agent Simulation Framework
 
-**Module:** `harbor.agents`
+**Module:** `hangar.agents`
 
 **Depends on:** H3/H4 scaffolding validated (DRL agents working as baseline agent type)
 
@@ -96,7 +96,7 @@ The framework provides a market simulation environment where agent interactions 
 
 #### H6 — Retail Impact Analysis
 
-**Module:** `harbor.retail`
+**Module:** `hangar.retail`
 
 **Goal:** Retail-specific metrics and tooling that make the retail investor focus tangible and measurable:
 - Retail portfolio drawdown exposure during AI-driven regimes
@@ -104,7 +104,7 @@ The framework provides a market simulation environment where agent interactions 
 - Comparison of regime-aware vs naive retail strategies
 - Accessibility metrics (can a retail investor actually use this system's outputs?)
 
-**Exit criteria:** Dashboard or report showing how AI-driven market patterns specifically affect retail portfolio outcomes, with before/after comparison using HARBOR's regime-aware mitigations.
+**Exit criteria:** Dashboard or report showing how AI-driven market patterns specifically affect retail portfolio outcomes, with before/after comparison using HANGAR's regime-aware mitigations.
 
 ### ABF Research
 
@@ -131,7 +131,7 @@ The framework provides a market simulation environment where agent interactions 
 ## 5. Updated Architecture
 
 ```
-harbor/
+hangar/
   data/              Universe, price loaders, caching
   risk/              Covariance, HRP, Monte Carlo, regime detection, scenarios, decomposition
   portfolio/         Optimization, constraints, allocation
@@ -147,7 +147,7 @@ dashboard/           Portfolio monitoring dashboard
 results/             Committed research outputs
 ```
 
-Note: Only the `harbor/` package modules are shown in detail. Top-level directories (notebooks, experiments, configs, dashboard, results, docs, data, tests, research) are unchanged.
+Note: Only the `hangar/` package modules are shown in detail. Top-level directories (notebooks, experiments, configs, dashboard, results, docs, data, tests, research) are unchanged.
 
 ---
 
@@ -160,7 +160,7 @@ Note: Only the `harbor/` package modules are shown in detail. Top-level director
 2. **New tagline** (replace current "personal, research-driven..." quote with new description)
 3. **Research Contribution** — rewrite to emphasize feedback loop and broader agent scope
 4. **The Story** — keep existing narrative, add 1-2 paragraphs bridging to the AI agent vision
-5. **What HARBOR Does** — restructured around two arms:
+5. **What HANGAR Does** — restructured around two arms:
    - Asset Management (data, risk, portfolio, backtest)
    - Empirical Research (ABF Q1-Q3, agent simulation, retail impact)
 6. **Research Track: ABF** — reframed Q1-Q3 with agent-general language
@@ -170,7 +170,7 @@ Note: Only the `harbor/` package modules are shown in detail. Top-level director
 
 #### `docs/plan.md` — Target changes:
 1. **Section 0 (Vision)** — rewrite with unified identity and feedback loop
-2. **Section 1 (Architecture)** — add `harbor.agents` and `harbor.retail` to module list
+2. **Section 1 (Architecture)** — add `hangar.agents` and `hangar.retail` to module list
 3. **Sections 2.1-2.4** — keep existing H1-H4, mark H1/H2 as COMPLETE in headers
 4. **Add Section 2.5** — H5 (Agent Simulation Framework) per Section 4 of this spec
 5. **Add Section 2.6** — H6 (Retail Impact Analysis) per Section 4 of this spec
@@ -187,7 +187,7 @@ Note: Only the `harbor/` package modules are shown in detail. Top-level director
 4. **Q2 section** — reframe question, broaden from "ML agents" to "autonomous agents", keep testing approach
 5. **Q3 section** — reframe with AI proliferation language
 6. **Add section** — "Retail Impact Integration" describing how findings connect to retail investor outcomes
-7. **Connection to HARBOR section** — update to reference feedback loop and new modules
+7. **Connection to HANGAR section** — update to reference feedback loop and new modules
 
 #### `CHANGELOG.md` — add entry under new version `v0.3.0-dev`:
 ```
@@ -200,8 +200,8 @@ Note: Only the `harbor/` package modules are shown in detail. Top-level director
 - Added explicit retail investor focus as measurable project goal
 
 ### Added
-- `harbor.agents` module stub (Phase H5 — Agent Simulation Framework)
-- `harbor.retail` module stub (Phase H6 — Retail Impact Analysis)
+- `hangar.agents` module stub (Phase H5 — Agent Simulation Framework)
+- `hangar.retail` module stub (Phase H6 — Retail Impact Analysis)
 - New roadmap phases: H5, H6, A4 (agent-general extensions), A5 (retail impact)
 ```
 
@@ -209,14 +209,14 @@ Note: Only the `harbor/` package modules are shown in detail. Top-level director
 
 | File | Purpose |
 |------|---------|
-| `harbor/agents/__init__.py` | Agent simulation framework stub |
-| `harbor/retail/__init__.py` | Retail impact analysis stub |
+| `hangar/agents/__init__.py` | Agent simulation framework stub |
+| `hangar/retail/__init__.py` | Retail impact analysis stub |
 
 **Stub content specification:**
 
-`harbor/agents/__init__.py`:
+`hangar/agents/__init__.py`:
 ```python
-"""harbor.agents — Agent Simulation Framework
+"""hangar.agents — Agent Simulation Framework
 
 Defines, configures, and runs heterogeneous AI agent populations in a
 market simulation environment. Agents interact to generate synthetic
@@ -224,16 +224,16 @@ order flow and price impact data for causal testing of ABF hypotheses.
 
 Agent types (planned):
 - Rule-based: vol-targeting, momentum, mean-reversion
-- ML-based: DRL behavioral agents (from harbor.ml.behavior_agents)
+- ML-based: DRL behavioral agents (from hangar.ml.behavior_agents)
 - LLM-based: autonomous agents making allocation decisions
 
 Status: Stub — implementation planned for Phase H5.
 """
 ```
 
-`harbor/retail/__init__.py`:
+`hangar/retail/__init__.py`:
 ```python
-"""harbor.retail — Retail Impact Analysis
+"""hangar.retail — Retail Impact Analysis
 
 Metrics and tooling for measuring how AI-driven market patterns
 affect retail investor portfolios. Operationalizes ABF research
@@ -266,7 +266,7 @@ Status: Stub — implementation planned for Phase H6.
 
 ## 8. Updated Milestone Table
 
-| Timeframe | HARBOR Focus | ABF Focus | Status |
+| Timeframe | HANGAR Focus | ABF Focus | Status |
 |-----------|-------------|-----------|--------|
 | 0–3 months | H1: Data, HRP, Monte Carlo, backtest | A1: Spec + data, Q1 prep | ✅ Complete |
 | 3–6 months | H2: Advanced risk, scenarios | A2: Q1 full execution + draft figures | ✅ Complete |

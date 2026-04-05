@@ -1,7 +1,7 @@
-"""harbor.homelab.recording — Pluggable trace recording (Flight-ready)."""
+"""hangar.homelab.recording — Pluggable trace recording (Flight-ready)."""
 
-from harbor.homelab.recording.protocol import Recorder
-from harbor.homelab.recording.noop import NoopRecorder
-from harbor.homelab.recording.jsonl import JsonlRecorder
+from hangar.homelab.recording.protocol import Recorder
+from hangar.homelab.recording.noop import NoopRecorder
+from hangar.homelab.recording.jsonl import JsonlRecorder
 
 __all__ = ["Recorder", "NoopRecorder", "JsonlRecorder"]

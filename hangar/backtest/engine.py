@@ -1,5 +1,5 @@
 """
-harbor.backtest.engine — Cross-sectional backtest engine.
+hangar.backtest.engine — Cross-sectional backtest engine.
 
 Provides a rolling-window backtest loop that applies a user-supplied weight
 function on each rebalance date, computes portfolio returns net of
@@ -14,7 +14,7 @@ from typing import Callable, Dict
 import numpy as np
 import pandas as pd
 
-from harbor.backtest.metrics import calmar_ratio, max_drawdown, sharpe_ratio, sortino_ratio
+from hangar.backtest.metrics import calmar_ratio, max_drawdown, sharpe_ratio, sortino_ratio
 
 
 @dataclass

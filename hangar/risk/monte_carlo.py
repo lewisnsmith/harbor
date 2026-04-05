@@ -10,7 +10,7 @@ SimulationMethod = Literal["normal", "student_t", "factor"]
 import numpy as np
 import pandas as pd
 
-from harbor.risk.covariance import estimate_covariance
+from hangar.risk.covariance import estimate_covariance
 
 
 @dataclass(frozen=True)

@@ -11,7 +11,7 @@
 
 ## 1. Overview
 
-Phase 2 covers the next major execution block of HARBOR: validating the ML scaffolding, building an agent simulation framework, and running both empirical and simulation-based research on how AI agents affect market behavior.
+Phase 2 covers the next major execution block of HANGAR: validating the ML scaffolding, building an agent simulation framework, and running both empirical and simulation-based research on how AI agents affect market behavior.
 
 **Approach:** Two-Track Parallel with Convergence
 
@@ -48,7 +48,7 @@ A3: Q2 Crowding/             H3: Validate ML models
 
 **Goal:** Empirically test whether behavioral convergence among trading agents amplifies drawdowns and destabilizes correlations — using real market data only.
 
-**Module:** `harbor.abf.q2`
+**Module:** `hangar.abf.q2`
 
 ### 2.1 Proxy Construction
 
@@ -102,7 +102,7 @@ A3: Q2 Crowding/             H3: Validate ML models
 
 **Goal:** Promote existing experimental ML scaffolding to validated status by benchmarking against classical baselines.
 
-**Modules:** `harbor.ml.volatility`, `harbor.ml.behavior_agents`
+**Modules:** `hangar.ml.volatility`, `hangar.ml.behavior_agents`
 
 ### 3.1 Gate 1: NN Volatility Forecasters
 
@@ -131,7 +131,7 @@ A3: Q2 Crowding/             H3: Validate ML models
 ### 3.4 Exit Criteria
 
 - Gate 1 and Gate 2 evaluated with documented results (pass or fail)
-- Validated models integrated into `harbor.risk` vol forecasting pipeline
+- Validated models integrated into `hangar.risk` vol forecasting pipeline
 - Results notebook committed with reproducible commands
 
 ---
@@ -157,7 +157,7 @@ A3: Q2 Crowding/             H3: Validate ML models
 ### 4.3 Backtest Integration
 
 - Agents used as "strategy generators" in the backtest engine
-- Agent-generated portfolios evaluated with standard HARBOR metrics
+- Agent-generated portfolios evaluated with standard HANGAR metrics
 
 ### 4.4 Sprint Breakdown
 
@@ -178,19 +178,19 @@ A3: Q2 Crowding/             H3: Validate ML models
 
 **Goal:** Build a market simulation environment where heterogeneous agent populations interact, generating synthetic order flow and price impact data analyzable with the same ABF pipelines used on real data.
 
-**Module:** `harbor.agents`
+**Module:** `hangar.agents`
 
 **Depends on:** H4 (validated behavioral agents as one agent type)
 
 ### 5.1 Architecture
 
 ```
-harbor/agents/
+hangar/agents/
     __init__.py
     environment.py      # Market simulation environment
     base_agent.py       # Abstract agent interface
     rule_agents.py      # Vol-targeting, momentum, mean-reversion
-    ml_agents.py        # Wrapper around harbor.ml.behavior_agents
+    ml_agents.py        # Wrapper around hangar.ml.behavior_agents
     llm_agents.py       # LLM-based agent (stub for future)
     population.py       # Agent population manager + config loader
     metrics.py          # Aggregate metrics: crowding, flow, price impact
@@ -272,7 +272,7 @@ class BaseAgent(ABC):
 
 **Goal:** Compare synthetic agent simulation data (H5) against real market patterns (A3) to test whether agent populations reproduce the crowding, momentum, and instability patterns found empirically.
 
-**Module:** `harbor.abf.q2` (extended) + `harbor.abf.agent_validation`
+**Module:** `hangar.abf.q2` (extended) + `hangar.abf.agent_validation`
 
 **Depends on:** A3 and H5 both complete
 
@@ -349,18 +349,18 @@ These are experiments you *cannot* run on real markets — the simulation framew
 
 | File | Purpose |
 |------|---------|
-| `harbor/abf/q2/proxies.py` | Crowding proxy construction |
-| `harbor/abf/q2/detection.py` | Correlation spike + drawdown severity detection |
-| `harbor/abf/q2/regressions.py` | Predictive regressions + Granger causality |
-| `harbor/abf/q2/figures.py` | Q2 figure generation |
-| `harbor/abf/agent_validation/` | A4 pattern matching and causal experiments |
-| `harbor/agents/environment.py` | Market simulation environment |
-| `harbor/agents/base_agent.py` | Abstract agent interface |
-| `harbor/agents/rule_agents.py` | Rule-based agents |
-| `harbor/agents/ml_agents.py` | ML agent wrapper |
-| `harbor/agents/llm_agents.py` | LLM agent stub |
-| `harbor/agents/population.py` | Population manager |
-| `harbor/agents/metrics.py` | Simulation metrics |
+| `hangar/abf/q2/proxies.py` | Crowding proxy construction |
+| `hangar/abf/q2/detection.py` | Correlation spike + drawdown severity detection |
+| `hangar/abf/q2/regressions.py` | Predictive regressions + Granger causality |
+| `hangar/abf/q2/figures.py` | Q2 figure generation |
+| `hangar/abf/agent_validation/` | A4 pattern matching and causal experiments |
+| `hangar/agents/environment.py` | Market simulation environment |
+| `hangar/agents/base_agent.py` | Abstract agent interface |
+| `hangar/agents/rule_agents.py` | Rule-based agents |
+| `hangar/agents/ml_agents.py` | ML agent wrapper |
+| `hangar/agents/llm_agents.py` | LLM agent stub |
+| `hangar/agents/population.py` | Population manager |
+| `hangar/agents/metrics.py` | Simulation metrics |
 | `configs/agents/` | Agent population configuration files |
 | `experiments/abf_q2_main.py` | Q2 experiment orchestrator |
 | `experiments/agent_sim_demo.py` | Agent simulation demo script |
@@ -372,8 +372,8 @@ These are experiments you *cannot* run on real markets — the simulation framew
 | `docs/plan.md` | Add H3-H5, A3-A4 detail; update vision, architecture, milestones |
 | `docs/abf-prd.md` | Broaden language, add agent simulation section, retail integration |
 | `CHANGELOG.md` | Add v0.3.0-dev entries |
-| `harbor/agents/__init__.py` | Replace stub with real exports |
-| `harbor/abf/q2/__init__.py` | Replace stub with real exports |
+| `hangar/agents/__init__.py` | Replace stub with real exports |
+| `hangar/abf/q2/__init__.py` | Replace stub with real exports |
 
 ### Unchanged
 
@@ -385,7 +385,7 @@ These are experiments you *cannot* run on real markets — the simulation framew
 
 ## 9. Updated Milestone Table
 
-| Timeframe | HARBOR Focus | ABF Focus | Status |
+| Timeframe | HANGAR Focus | ABF Focus | Status |
 |-----------|-------------|-----------|--------|
 | 0-3 months | H1: Data, HRP, Monte Carlo, backtest | A1: Spec + data, Q1 prep | Complete |
 | 3-6 months | H2: Advanced risk, scenarios | A2: Q1 full execution + draft figures | Complete |

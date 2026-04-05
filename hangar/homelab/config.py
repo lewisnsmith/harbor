@@ -1,4 +1,4 @@
-"""harbor.homelab.config — Experiment configuration and YAML parsing."""
+"""hangar.homelab.config — Experiment configuration and YAML parsing."""
 
 from __future__ import annotations
 

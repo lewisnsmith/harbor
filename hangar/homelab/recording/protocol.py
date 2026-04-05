@@ -1,4 +1,4 @@
-"""harbor.homelab.recording.protocol — Recorder protocol for trace recording.
+"""hangar.homelab.recording.protocol — Recorder protocol for trace recording.
 
 Flight integration: when Flight is ready, implement a FlightRecorder
 that satisfies this protocol. The runner doesn't need to change.
@@ -10,7 +10,7 @@ from typing import Any, Dict, Protocol, runtime_checkable
 
 import numpy as np
 
-from harbor.homelab.venue.protocol import VenueSnapshot
+from hangar.homelab.venue.protocol import VenueSnapshot
 
 
 @runtime_checkable

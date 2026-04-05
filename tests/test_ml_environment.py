@@ -1,4 +1,4 @@
-"""Tests for harbor.ml.behavior_agents.environment."""
+"""Tests for hangar.ml.behavior_agents.environment."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from harbor.ml.behavior_agents.environment import EnvConfig, PortfolioEnv
+from hangar.ml.behavior_agents.environment import EnvConfig, PortfolioEnv
 
 
 @pytest.fixture

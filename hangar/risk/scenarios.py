@@ -1,4 +1,4 @@
-"""Stress scenario runner for HARBOR H2.
+"""Stress scenario runner for HANGAR H2.
 
 Provides config-driven stress testing with vol spike, correlation spike,
 and sector crash scenarios. Produces machine-readable report dicts.
@@ -12,7 +12,7 @@ from typing import Any, Optional
 import numpy as np
 import pandas as pd
 
-from harbor.risk.monte_carlo import portfolio_var_cvar, simulate_multivariate_returns
+from hangar.risk.monte_carlo import portfolio_var_cvar, simulate_multivariate_returns
 
 
 @dataclass

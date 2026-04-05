@@ -1,4 +1,4 @@
-# HARBOR & ABF — Architecture and Status
+# HANGAR & ABF — Architecture and Status
 
 Project Owner: Lewis Smith
 Last Updated: 2026-04-01
@@ -7,41 +7,41 @@ Last Updated: 2026-04-01
 
 ## 0. Vision
 
-HARBOR is a math-first platform for studying whether autonomous agents create statistically exploitable structure in markets. The core thesis: autonomous agents (LLM-powered, RL-based, tool-using) are qualitatively different from traditional systematic algorithms — they reason, adapt, and interact strategically — and when deployed at scale, they create emergent coordination, manufactured regimes, and adversarial dynamics that traditional finance cannot explain.
+HANGAR is a math-first platform for studying whether autonomous agents create statistically exploitable structure in markets. The core thesis: autonomous agents (LLM-powered, RL-based, tool-using) are qualitatively different from traditional systematic algorithms — they reason, adapt, and interact strategically — and when deployed at scale, they create emergent coordination, manufactured regimes, and adversarial dynamics that traditional finance cannot explain.
 
-**HARBOR's triple role:**
+**HANGAR's triple role:**
 
-1. **Infrastructure** — agents use HARBOR's risk models, portfolio construction, and data pipeline
-2. **Participant** — HARBOR-as-agent competes against autonomous agents, testing whether regime-awareness provides edge
+1. **Infrastructure** — agents use HANGAR's risk models, portfolio construction, and data pipeline
+2. **Participant** — HANGAR-as-agent competes against autonomous agents, testing whether regime-awareness provides edge
 3. **Origin story** — the asset management algorithm that sparked the research question
 
-ABF (Artificial Behavioral Finance) is the research track that uses HARBOR's infrastructure and the agent simulation framework to test whether autonomous trading agents create novel market dynamics.
+ABF (Artificial Behavioral Finance) is the research track that uses HANGAR's infrastructure and the agent simulation framework to test whether autonomous trading agents create novel market dynamics.
 
 ---
 
 ## 1. Architecture: Five Layers
 
-HARBOR is organized as five layers. Each layer wraps or builds on the one below it.
+HANGAR is organized as five layers. Each layer wraps or builds on the one below it.
 
 ### Layer 1 — Market / Venue
 
-**Module:** `harbor/homelab/venue/`
+**Module:** `hangar/homelab/venue/`
 
 Normalizes different market types into a unified interface. Currently implemented:
 
 - `VenueSnapshot` — standardized state schema: timestamp, assets, prices, returns, volume, spread, returns_history, market_type, metadata
-- `EquityVenue` — adapter wrapping `harbor.agents.MarketEnvironment` as a venue, synthesizing volume and spread from order flow and volatility
+- `EquityVenue` — adapter wrapping `hangar.agents.MarketEnvironment` as a venue, synthesizing volume and spread from order flow and volatility
 - `Venue` protocol — `reset(seed) → VenueSnapshot`, `step(orders) → VenueSnapshot`
 
 All venues emit `VenueSnapshot`. The runner consumes only the protocol — venues are pluggable.
 
 ### Layer 2 — Agent
 
-**Modules:** `harbor/homelab/agent/`, `harbor/agents/`
+**Modules:** `hangar/homelab/agent/`, `hangar/agents/`
 
 Agents are pluggable policies. The homelab agent layer is protocol-based: agents compose only the interfaces they need.
 
-**Protocols (`harbor/homelab/agent/protocols.py`):**
+**Protocols (`hangar/homelab/agent/protocols.py`):**
 - `Observable` — core interface: `observe()`, `decide()`, `act()` → orders
 - `Configurable` — `get_params()` / `set_params()` for ablation sweeps
 - `ToolUser` — `available_tools()` / `use_tool()` for agents that call external services
@@ -51,14 +51,14 @@ Agents are pluggable policies. The homelab agent layer is protocol-based: agents
 
 **Registry:** `build_agents(config, n_assets)` constructs agents from YAML config entries.
 
-**Rule agents (`harbor/agents/rule_agents.py`):**
+**Rule agents (`hangar/agents/rule_agents.py`):**
 - `MomentumAgent` — trend-following with lookback window
 - `MeanReversionAgent` — mean-reversion with lookback window
 - `VolTargetAgent` — volatility-targeting weight scaler
 
 ### Layer 3 — Portfolio / Risk
 
-**Modules:** `harbor/risk/`, `harbor/portfolio/`
+**Modules:** `hangar/risk/`, `hangar/portfolio/`
 
 The existing math-heavy core. Unchanged by the restructure. Callable by agents as tool-using services.
 
@@ -67,7 +67,7 @@ The existing math-heavy core. Unchanged by the restructure. Callable by agents a
 
 ### Layer 4 — Experiment / Evaluation
 
-**Module:** `harbor/homelab/`
+**Module:** `hangar/homelab/`
 
 The reproducible experiment infrastructure — the "homelab heart."
 
@@ -98,7 +98,7 @@ The reproducible experiment infrastructure — the "homelab heart."
 
 **CLI (`__main__.py`):**
 ```bash
-python -m harbor.homelab experiment.yaml
+python -m hangar.homelab experiment.yaml
 ```
 
 ### Layer 5 — Exploitation
@@ -111,10 +111,10 @@ Deferred. Intended for: cross-market arbitrage, prediction-market sum-of-probabi
 
 ### H1 — Core Quant Stack ✅
 
-- `harbor.data` — S&P 500 universe loaders (survivorship-bias-aware fallback), price loader, risk-free rate proxy, local Parquet/pickle cache
-- `harbor.risk` — sample/shrinkage covariance, HRP, Monte Carlo VaR/CVaR
-- `harbor.portfolio` — mean-variance, risk parity, HRP allocation interfaces
-- `harbor.backtest` — cross-sectional engine with transaction costs and core metrics
+- `hangar.data` — S&P 500 universe loaders (survivorship-bias-aware fallback), price loader, risk-free rate proxy, local Parquet/pickle cache
+- `hangar.risk` — sample/shrinkage covariance, HRP, Monte Carlo VaR/CVaR
+- `hangar.portfolio` — mean-variance, risk parity, HRP allocation interfaces
+- `hangar.backtest` — cross-sectional engine with transaction costs and core metrics
 - End-to-end script: `experiments/h1_end_to_end_hrp_backtest.py`
 
 ### H2 — Advanced Risk & Simulation ✅
@@ -126,7 +126,7 @@ Deferred. Intended for: cross-market arbitrage, prediction-market sum-of-probabi
 - Pluggable risk engine interface
 - Demo: `experiments/h2_risk_engine_demo.py`
 
-### Agent Simulation Core (`harbor/agents/`) ✅
+### Agent Simulation Core (`hangar/agents/`) ✅
 
 - `MarketEnvironment` — price-impact model (linear temporary + square-root permanent), order matching, state management
 - `BaseAgent` — abstract interface: `observe() → decide() → act()`
@@ -135,7 +135,7 @@ Deferred. Intended for: cross-market arbitrage, prediction-market sum-of-probabi
 - `PopulationMetrics` — crowding index, flow imbalance, regime labels
 - `Simulation` — multi-agent simulation runner (pre-homelab, now wrapped by EquityVenue)
 
-### Homelab / Experiment Infrastructure (`harbor/homelab/`) ✅
+### Homelab / Experiment Infrastructure (`hangar/homelab/`) ✅
 
 Full Layer 4 implementation. See Section 1 above.
 
@@ -170,7 +170,7 @@ Integration tests (`tests/homelab/test_benchmark.py`) verify shapes, metrics, de
 **Runnable today:**
 ```bash
 # Homelab experiment
-python -m harbor.homelab configs/your_experiment.yaml
+python -m hangar.homelab configs/your_experiment.yaml
 
 # H1 end-to-end baseline
 python3 experiments/h1_end_to_end_hrp_backtest.py --start 2020-01-01 --max-assets 50
@@ -183,14 +183,14 @@ make h3
 
 | Module | Purpose | Status |
 |--------|---------|--------|
-| `harbor.data` | Data loaders and caching | Complete |
-| `harbor.risk` | Risk models and scenario analysis | Complete |
-| `harbor.portfolio` | Portfolio construction | Complete |
-| `harbor.backtest` | Backtesting engine | Complete |
-| `harbor.agents` | Agent simulation environment | Complete |
-| `harbor.homelab` | Experiment infrastructure (Layer 4) | Complete |
-| `harbor.ml` | Vol forecasters, RL agents | Experimental |
-| `harbor.abf` | ABF research utilities | Legacy (Q1 deprecated) |
+| `hangar.data` | Data loaders and caching | Complete |
+| `hangar.risk` | Risk models and scenario analysis | Complete |
+| `hangar.portfolio` | Portfolio construction | Complete |
+| `hangar.backtest` | Backtesting engine | Complete |
+| `hangar.agents` | Agent simulation environment | Complete |
+| `hangar.homelab` | Experiment infrastructure (Layer 4) | Complete |
+| `hangar.ml` | Vol forecasters, RL agents | Experimental |
+| `hangar.abf` | ABF research utilities | Legacy (Q1 deprecated) |
 
 ---
 

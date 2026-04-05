@@ -1,7 +1,7 @@
 """
-harbor.abf — Artificial Behavior in Finance research layer.
+hangar.abf — Artificial Behavior in Finance research layer.
 
-Sits on top of the HARBOR framework to run clean, reproducible experiments
+Sits on top of the HANGAR framework to run clean, reproducible experiments
 studying whether autonomous agents create exploitable structure in markets.
 
 Three research questions (see docs/abf-prd.md):

@@ -1,4 +1,4 @@
-"""Tests for harbor.homelab.config — ExperimentConfig and YAML parsing."""
+"""Tests for hangar.homelab.config — ExperimentConfig and YAML parsing."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from harbor.homelab.config import ExperimentConfig
+from hangar.homelab.config import ExperimentConfig
 
 
 SAMPLE_YAML = """\

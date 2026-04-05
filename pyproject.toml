@@ -3,9 +3,9 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "harbor-asset-management"
+name = "hangar-asset-management"
 version = "0.2.0-dev"
-description = "Research-focused risk and portfolio framework (HARBOR) with ABF research layer."
+description = "Research-focused risk and portfolio framework (HANGAR) with ABF research layer."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
@@ -21,8 +21,8 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["harbor*"]
-exclude = ["harbor.signals", "harbor.research"]
+include = ["hangar*"]
+exclude = ["hangar.signals", "hangar.research"]
 
 [project.optional-dependencies]
 ml = [
@@ -41,11 +41,11 @@ target-version = ["py39"]
 [tool.ruff]
 line-length = 100
 target-version = "py39"
-extend-exclude = ["harbor/v1_paper_trading.py"]
+extend-exclude = ["hangar/v1_paper_trading.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
 ignore = ["UP006", "UP007", "UP035", "UP045"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["harbor"]
+known-first-party = ["hangar"]

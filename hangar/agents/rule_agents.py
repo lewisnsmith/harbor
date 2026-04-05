@@ -1,11 +1,11 @@
-"""harbor.agents.rule_agents — Rule-based trading agents."""
+"""hangar.agents.rule_agents — Rule-based trading agents."""
 
 from __future__ import annotations
 
 import numpy as np
 
-from harbor.agents.base_agent import AgentConfig, BaseAgent
-from harbor.agents.environment import MarketState
+from hangar.agents.base_agent import AgentConfig, BaseAgent
+from hangar.agents.environment import MarketState
 
 
 class MomentumAgent(BaseAgent):

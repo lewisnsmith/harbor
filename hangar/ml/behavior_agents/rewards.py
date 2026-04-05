@@ -1,4 +1,4 @@
-"""harbor.ml.behavior_agents.rewards — Reward shaping for behavioral biases."""
+"""hangar.ml.behavior_agents.rewards — Reward shaping for behavioral biases."""
 
 from __future__ import annotations
 

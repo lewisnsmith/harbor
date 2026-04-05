@@ -1,6 +1,6 @@
-# HARBOR — Project Journal
+# HANGAR — Project Journal
 
-> How HARBOR (Hierarchical Agentic Risk Based Optimization Routine) grew from a high-school competition project into a semi-autonomous portfolio management system — and the lessons learned along the way.
+> How HANGAR (Hierarchical Agentic Risk Based Optimization Routine) grew from a high-school competition project into a semi-autonomous portfolio management system — and the lessons learned along the way.
 
 **Main Goal:** Produce a semi-autonomous Asset and Risk Management Algorithm for Retail-Level / Individual Investors.
 
@@ -52,7 +52,7 @@ The beginning of more formal portfolio construction. Discovered Mean-Variance Op
 
 ## Iteration 4 — Thesis-Aligned Constraints & Clustering
 
-*Bridge to HARBOR*
+*Bridge to HANGAR*
 
 Introduced behavioral constraints (caps, defensive minimums), multiple risk-level outputs, and early clustering concepts to detect hidden correlations — ensuring the optimizer served the investment thesis rather than overriding it.
 
@@ -62,7 +62,7 @@ Introduced behavioral constraints (caps, defensive minimums), multiple risk-leve
 
 ---
 
-## Iteration 5 — HARBOR v0
+## Iteration 5 — HANGAR v0
 
 The algorithm got its name. Layered in Black-Litterman expected-return adjustment, hierarchical clustering for behavioral diversification, macro-event stress testing, and an early reinforcement-learning module for adaptive weighting. Each layer existed to fix a specific failure observed in earlier iterations.
 
@@ -72,7 +72,7 @@ The algorithm got its name. Layered in Black-Litterman expected-return adjustmen
 
 ---
 
-## Iteration 6 — HARBOR v1 / Phase 1
+## Iteration 6 — HANGAR v1 / Phase 1
 
 *First paper-trading system — slightly autonomous*
 
@@ -84,7 +84,7 @@ Transitioned from Colab notebooks to a deployable system using Alpaca's API for 
 
 ---
 
-## Iteration 7 — HARBOR v2 / Phase 2
+## Iteration 7 — HANGAR v2 / Phase 2
 
 *Backtesting engine, performance analytics, transaction-cost model*
 
@@ -96,7 +96,7 @@ Built a historical backtesting framework, Sharpe/drawdown metrics, transaction-c
 
 ---
 
-## Iteration 8 — HARBOR v2.5
+## Iteration 8 — HANGAR v2.5
 
 *Regime detection, dynamic factor weighting, improved clustering*
 
@@ -108,7 +108,7 @@ Added a Hidden Markov Model for regime classification, dynamic factor weights, H
 
 ---
 
-## HARBOR v3 — Simplifying for Clarity
+## HANGAR v3 — Simplifying for Clarity
 
 After eight iterations of relentless layering — Monte Carlo, MVO, Black-Litterman, HMM regime detection, Hierarchical Risk Parity, reinforcement learning — it became clear that the system had grown too complex for its own good.
 
@@ -150,6 +150,6 @@ This project spans roughly 18 months, from competition-driven toy models to some
 
 **Where I'm headed:**
 
-A system I can trust with real capital — one that prioritizes transparency, validation, and graceful failure. But the more interesting question has shifted: as autonomous trading agents (LLM-powered, RL-based, tool-using) become market participants, do they reshape the dynamics that every investor — retail and institutional — depends on? HARBOR's multi-agent simulation now lets me test this directly: what happens to volatility, crowding, and regime structure when 30 momentum agents trade the same market? The early results are striking — agent-influenced markets show 2.6x higher volatility and near-perfect crowding — and the research agenda has evolved from "does my algorithm work?" to "what happens to markets when everyone's algorithm works?"
+A system I can trust with real capital — one that prioritizes transparency, validation, and graceful failure. But the more interesting question has shifted: as autonomous trading agents (LLM-powered, RL-based, tool-using) become market participants, do they reshape the dynamics that every investor — retail and institutional — depends on? HANGAR's multi-agent simulation now lets me test this directly: what happens to volatility, crowding, and regime structure when 30 momentum agents trade the same market? The early results are striking — agent-influenced markets show 2.6x higher volatility and near-perfect crowding — and the research agenda has evolved from "does my algorithm work?" to "what happens to markets when everyone's algorithm works?"
 
 This project taught me to respect the gap between theory and practice, to be skeptical of my own metrics, and to value simplicity and reliability over sophistication. It also taught me that the most interesting questions aren't about optimizing returns — they're about understanding what autonomous systems do to the markets we all share.

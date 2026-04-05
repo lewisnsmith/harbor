@@ -1,4 +1,4 @@
-"""harbor.agents.simulation — Simulation runner for multi-agent market."""
+"""hangar.agents.simulation — Simulation runner for multi-agent market."""
 
 from __future__ import annotations
 
@@ -8,8 +8,8 @@ from typing import Any, Dict, List
 import numpy as np
 import pandas as pd
 
-from harbor.agents.base_agent import BaseAgent
-from harbor.agents.environment import MarketEnvironment
+from hangar.agents.base_agent import BaseAgent
+from hangar.agents.environment import MarketEnvironment
 
 
 @dataclass

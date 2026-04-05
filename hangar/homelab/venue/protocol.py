@@ -1,4 +1,4 @@
-"""harbor.homelab.venue.protocol — Venue protocol and VenueSnapshot dataclass."""
+"""hangar.homelab.venue.protocol — Venue protocol and VenueSnapshot dataclass."""
 
 from __future__ import annotations
 

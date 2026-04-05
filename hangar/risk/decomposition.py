@@ -1,4 +1,4 @@
-"""Risk decomposition and attribution for HARBOR H2.
+"""Risk decomposition and attribution for HANGAR H2.
 
 Provides marginal/component risk decomposition by asset, factor, and cluster.
 """

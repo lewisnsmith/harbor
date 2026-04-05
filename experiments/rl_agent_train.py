@@ -21,8 +21,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from harbor.data import load_sp500_prices, load_sp500_tickers  # noqa: E402
-from harbor.ml.behavior_agents import (  # noqa: E402
+from hangar.data import load_sp500_prices, load_sp500_tickers  # noqa: E402
+from hangar.ml.behavior_agents import (  # noqa: E402
     AgentConfig,
     default_behavioral_shaper,
     train_agent,

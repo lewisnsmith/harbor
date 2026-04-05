@@ -1,4 +1,4 @@
-"""harbor.homelab.evaluation.registry — Metrics registry wrapping existing metric functions."""
+"""hangar.homelab.evaluation.registry — Metrics registry wrapping existing metric functions."""
 
 from __future__ import annotations
 
@@ -7,20 +7,20 @@ from typing import Any, Callable, Dict
 import numpy as np
 import pandas as pd
 
-from harbor.agents.metrics import (
+from hangar.agents.metrics import (
     compute_crowding_index,
     compute_flow_imbalance,
     compute_regime_labels,
     compute_return_autocorrelation,
 )
-from harbor.backtest.metrics import calmar_ratio, max_drawdown, sharpe_ratio, sortino_ratio
+from hangar.backtest.metrics import calmar_ratio, max_drawdown, sharpe_ratio, sortino_ratio
 
 
 class MetricsRegistry:
     """Registry of named metric functions.
 
-    Wraps existing metric functions from harbor.agents.metrics and
-    harbor.backtest.metrics into a unified interface. Custom metrics
+    Wraps existing metric functions from hangar.agents.metrics and
+    hangar.backtest.metrics into a unified interface. Custom metrics
     can be registered at runtime.
     """
 

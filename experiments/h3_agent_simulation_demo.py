@@ -21,7 +21,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from harbor.agents import (
+from hangar.agents import (
     AgentConfig,
     MarketConfig,
     MarketEnvironment,
@@ -142,7 +142,7 @@ def main(output_dir: str = "results/agent_simulation", n_steps: int = 500) -> No
     print(f"\n  Figure saved: {fig_path}")
 
     # --- Print summary ---
-    from harbor.agents import compute_simulation_summary
+    from hangar.agents import compute_simulation_summary
 
     baseline_summary = compute_simulation_summary(
         baseline_result.prices, baseline_result.returns, {}, baseline_result.orders

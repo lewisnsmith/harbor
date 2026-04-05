@@ -1,4 +1,4 @@
-"""harbor.ml.volatility.baselines — Classical volatility forecasting baselines.
+"""hangar.ml.volatility.baselines — Classical volatility forecasting baselines.
 
 Implements GARCH(1,1), EWMA, and rolling historical volatility as baselines
 for benchmarking the LSTM/GRU forecasters (Layer 3 — Portfolio/Risk validation).

@@ -1,4 +1,4 @@
-"""harbor.homelab.evaluation.summary — Evaluation pipeline."""
+"""hangar.homelab.evaluation.summary — Evaluation pipeline."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 
 import pandas as pd
 
-from harbor.homelab.evaluation.registry import MetricsRegistry
+from hangar.homelab.evaluation.registry import MetricsRegistry
 
 
 def evaluate(

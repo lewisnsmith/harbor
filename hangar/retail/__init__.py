@@ -1,4 +1,4 @@
-"""harbor.retail — Retail Impact Analysis
+"""hangar.retail — Retail Impact Analysis
 
 Metrics and tooling for measuring how AI-driven market patterns
 affect retail investor portfolios. Operationalizes ABF research

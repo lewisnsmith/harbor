@@ -1,4 +1,4 @@
-"""Tests for harbor.backtest.metrics — Sharpe, Sortino, Calmar, max_drawdown, win_rate."""
+"""Tests for hangar.backtest.metrics — Sharpe, Sortino, Calmar, max_drawdown, win_rate."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from harbor.backtest.metrics import (
+from hangar.backtest.metrics import (
     calmar_ratio,
     max_drawdown,
     sharpe_ratio,

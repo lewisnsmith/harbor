@@ -14,7 +14,7 @@ test:
 	$(VPYTHON) -m pytest -q
 
 lint:
-	$(VPYTHON) -m ruff check harbor tests
+	$(VPYTHON) -m ruff check hangar tests
 
 q1:
 	$(VPYTHON) experiments/abf_q1_main.py \
@@ -40,8 +40,8 @@ h3:
 		--output-dir results/agent_simulation
 
 homelab:
-	$(VPYTHON) -m harbor.homelab benchmarks/momentum_baseline.yaml
-	$(VPYTHON) -m harbor.homelab benchmarks/mixed_population.yaml
+	$(VPYTHON) -m hangar.homelab benchmarks/momentum_baseline.yaml
+	$(VPYTHON) -m hangar.homelab benchmarks/mixed_population.yaml
 
 all: install lint test q1 h1 h2 h3 homelab
 

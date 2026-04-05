@@ -1,12 +1,12 @@
-"""harbor.homelab.batch — BatchRunner for running multiple experiments."""
+"""hangar.homelab.batch — BatchRunner for running multiple experiments."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from typing import List
 
-from harbor.homelab.config import ExperimentConfig
-from harbor.homelab.runner import ExperimentResult, ExperimentRunner
+from hangar.homelab.config import ExperimentConfig
+from hangar.homelab.runner import ExperimentResult, ExperimentRunner
 
 
 class BatchRunner:

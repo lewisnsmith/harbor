@@ -1,10 +1,10 @@
-"""Tests for harbor.ml.behavior_agents.rewards."""
+"""Tests for hangar.ml.behavior_agents.rewards."""
 
 from __future__ import annotations
 
 import numpy as np
 
-from harbor.ml.behavior_agents.rewards import (
+from hangar.ml.behavior_agents.rewards import (
     DispositionEffectShaper,
     LossAversionShaper,
     OverconfidenceShaper,
