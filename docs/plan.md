@@ -7,7 +7,7 @@ Last Updated: 2026-04-01
 
 ## 0. Vision
 
-HANGAR is a math-first platform for studying whether autonomous agents create statistically exploitable structure in markets. The core thesis: autonomous agents (LLM-powered, RL-based, tool-using) are qualitatively different from traditional systematic algorithms — they reason, adapt, and interact strategically — and when deployed at scale, they create emergent coordination, manufactured regimes, and adversarial dynamics that traditional finance cannot explain.
+HANGAR is a math-first platform for studying whether autonomous agents create statistically exploitable structure in markets. Autonomous agents (LLM-powered, RL-based, tool-using) are qualitatively different from traditional systematic algorithms — they reason, adapt, and interact strategically — and when deployed at scale, they may create emergent coordination, manufactured regimes, and adversarial dynamics that traditional finance cannot explain. 
 
 **HANGAR's triple role:**
 
